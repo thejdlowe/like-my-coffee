@@ -5,4 +5,4 @@ export enum scoreboardStates {
 	FINAL_ROUND,
 }
 
-export const PORT_NUM = 3001;
+export const SERVER_PORT_NUM = 3001;
