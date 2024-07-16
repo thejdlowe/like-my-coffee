@@ -7,7 +7,11 @@ const server = http.createServer((req, res) => {
 });
 
 import { Server } from "socket.io";
-const io = new Server(server);
+const io = new Server(server, {
+	cors: {
+		origin: "http://localhost:3000",
+	},
+});
 
 startGameLogic(io);
 

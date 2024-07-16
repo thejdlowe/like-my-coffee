@@ -1,6 +1,6 @@
 import { webusb } from "usb";
 import { show } from "./shows";
-import { ShowType } from "./shows/show.type";
+import { ShowType } from "../../shared/types";
 import { scoreboardStates } from "../../shared";
 
 const DEVICE_INFO = {
@@ -33,14 +33,16 @@ export const startGameLogic = (io: any) => {
 		rounds: show,
 	};
 
-	const handleBuzzer = ({ buttonData }: any) => {
+	const handleBuzzer = (buttonData: any) => {
 		if (currentState.currentPlayerBuzzedIn === -1) {
+			console.log(buttonData);
 			currentState.currentPlayerBuzzedIn = buttonData.whichController;
 			io.emit("state", currentState);
 		}
 	};
 
 	io.on("connection", (socket: any) => {
+		console.log("Connected");
 		socket.emit("state", currentState);
 		socket.on("resetActive", () => {
 			currentState.currentPlayerBuzzedIn = -1;
@@ -74,6 +76,7 @@ export const startGameLogic = (io: any) => {
 
 			while (true) {
 				let result = await device.transferIn(1, 5);
+				console.log({ result });
 				if (result.data && result.data.byteLength === 5) {
 					const dataView = new Uint8Array(result.data.buffer);
 					const whichControllerReal = dataView[2];
