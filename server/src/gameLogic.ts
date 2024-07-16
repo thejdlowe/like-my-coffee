@@ -16,22 +16,23 @@ const whichControllerIsWhich = {
 	HOST: 2,
 };
 
+const currentState: {
+	currentTimerValue: number;
+	currentState: scoreboardStates;
+	currentPlayerBuzzedIn: number;
+	currentRoundIndex: number;
+	rounds: ShowType;
+} = {
+	currentTimerValue: -1,
+	currentState: scoreboardStates.SCREEN_SAVER,
+	currentPlayerBuzzedIn: -1,
+	currentRoundIndex: -1,
+	rounds: show,
+};
+
 export const startGameLogic = (io: any) => {
 	const maxTimeRemaining = 60 * 6; //10; //Ten minutes
 	let timerRef: any = undefined;
-	const currentState: {
-		currentTimerValue: number;
-		currentState: scoreboardStates;
-		currentPlayerBuzzedIn: number;
-		currentRoundIndex: number;
-		rounds: ShowType;
-	} = {
-		currentTimerValue: -1,
-		currentState: scoreboardStates.SCREEN_SAVER,
-		currentPlayerBuzzedIn: -1,
-		currentRoundIndex: -1,
-		rounds: show,
-	};
 
 	const handleBuzzer = (buttonData: any) => {
 		if (currentState.currentPlayerBuzzedIn === -1) {
@@ -64,11 +65,17 @@ export const startGameLogic = (io: any) => {
 	});
 
 	const initiateIRReceiver = async () => {
-		const device = await webusb.requestDevice({
-			filters: [
-				{ vendorId: DEVICE_INFO.vendorId, productId: DEVICE_INFO.productId },
-			],
-		});
+		let device;
+		try {
+			device = await webusb.requestDevice({
+				filters: [
+					{ vendorId: DEVICE_INFO.vendorId, productId: DEVICE_INFO.productId },
+				],
+			});
+		} catch (e) {
+			console.log("Unable to find USB; trying again");
+			setTimeout(initiateIRReceiver, 1000);
+		}
 		if (device) {
 			await device.open();
 			await device.selectConfiguration(1);
@@ -76,7 +83,6 @@ export const startGameLogic = (io: any) => {
 
 			while (true) {
 				let result = await device.transferIn(1, 5);
-				console.log({ result });
 				if (result.data && result.data.byteLength === 5) {
 					const dataView = new Uint8Array(result.data.buffer);
 					const whichControllerReal = dataView[2];
@@ -115,5 +121,6 @@ export const startGameLogic = (io: any) => {
 			}
 		}
 	};
+
 	initiateIRReceiver();
 };
