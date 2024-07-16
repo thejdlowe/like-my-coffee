@@ -19,7 +19,6 @@ export type OldShowType = {
 export type PlayerType = {
 	displayName: string;
 	pronouns: string;
-	imagePath: string | null;
 	soundIndex: number;
 	score: number;
 };
@@ -29,4 +28,10 @@ export type RoundType = {
 	minigame: string;
 };
 
-export type ShowType = [RoundType, RoundType, RoundType];
+export type ShowType = {
+	rounds: [RoundType, RoundType, RoundType];
+	images: string[];
+	logo: string;
+	apply: string;
+	social: string;
+};

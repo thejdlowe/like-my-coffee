@@ -1,9 +1,6 @@
-// server/server.js
-
-//const http = require("http");
 import * as http from "http";
-//import { startGameLogic } from "./gameLogic.ts";
 import { startGameLogic } from "./gameLogic";
+import { PORT_NUM } from "../../shared";
 
 const server = http.createServer((req, res) => {
 	// Handle HTTP requests if needed
@@ -14,6 +11,6 @@ const io = new Server(server);
 
 startGameLogic(io);
 
-server.listen(3001, () => {
-	console.log("WebSocket server listening on port 3001");
+server.listen(PORT_NUM, () => {
+	console.log(`WebSocket server listening on port ${PORT_NUM}`);
 });
