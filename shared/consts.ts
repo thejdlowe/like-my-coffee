@@ -1,8 +1,8 @@
 export enum scoreboardStates {
-	SCREEN_SAVER,
-	IN_ROUND,
-	MINI_GAME,
-	FINAL_ROUND,
+	SCREEN_SAVER = "screensaver",
+	IN_ROUND = "inround",
+	MINI_GAME = "minigame",
+	FINAL_ROUND = "finalround",
 }
 
 export const SERVER_PORT_NUM = 3001;

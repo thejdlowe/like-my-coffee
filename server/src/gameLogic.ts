@@ -1,6 +1,6 @@
 import { webusb } from "usb";
 import { show } from "./shows";
-import { ShowType } from "../../shared/types";
+import { ShowType, FullStateType } from "../../shared/types";
 import { scoreboardStates } from "../../shared";
 
 const DEVICE_INFO = {
@@ -16,13 +16,7 @@ const whichControllerIsWhich = {
 	HOST: 2,
 };
 
-const currentState: {
-	currentTimerValue: number;
-	currentState: scoreboardStates;
-	currentPlayerBuzzedIn: number;
-	currentRoundIndex: number;
-	rounds: ShowType;
-} = {
+const currentState: FullStateType = {
 	currentTimerValue: -1,
 	currentState: scoreboardStates.SCREEN_SAVER,
 	currentPlayerBuzzedIn: -1,

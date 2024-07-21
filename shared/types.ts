@@ -1,3 +1,5 @@
+import { scoreboardStates } from "./consts";
+
 export type OldPlayerType = {
 	displayName: string;
 	fullName: string;
@@ -34,4 +36,12 @@ export type ShowType = {
 	logo: string;
 	apply: string;
 	social: string;
+};
+
+export type FullStateType = {
+	currentTimerValue: number;
+	currentState: scoreboardStates;
+	currentPlayerBuzzedIn: number;
+	currentRoundIndex: number;
+	rounds: ShowType;
 };
