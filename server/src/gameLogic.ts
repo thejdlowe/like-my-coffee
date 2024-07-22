@@ -1,7 +1,6 @@
 import { webusb } from "usb";
 import { show } from "./shows";
-import { ShowType, FullStateType } from "../../shared/types";
-import { scoreboardStates } from "../../shared";
+import { ShowType, FullStateType, scoreboardStates } from "../sharedCopy";
 
 const DEVICE_INFO = {
 	vendorId: 1118,
@@ -55,7 +54,10 @@ export const startGameLogic = (io: any) => {
 				io.emit("state", currentState);
 			}, 1000);
 		});
-		socket.on("setOverallStatus", (status: any) => {});
+		socket.on("newShowState", (status: any) => {
+			currentState.currentState = status;
+			io.emit("state", currentState)
+		});
 	});
 
 	const initiateIRReceiver = async () => {

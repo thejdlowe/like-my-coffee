@@ -1,6 +1,6 @@
 import * as http from "http";
 import { startGameLogic } from "./gameLogic";
-import { SERVER_PORT_NUM } from "../../shared";
+import { SERVER_PORT_NUM } from "../sharedCopy";
 
 const server = http.createServer((req, res) => {
 	// Handle HTTP requests if needed
@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
 import { Server } from "socket.io";
 const io = new Server(server, {
 	cors: {
-		origin: "http://localhost:3000",
+		origin: "*",
 	},
 });
 

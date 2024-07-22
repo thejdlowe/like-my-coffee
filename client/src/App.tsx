@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { AppContextProvider } from "./helpers/context";
 import { ControlPanel } from "./pages/ControlPanel";
 import { Scoreboard } from "./pages/Scoreboard";
@@ -8,7 +8,7 @@ import { CssBaseline } from "@mui/material";
 
 function App() {
 	return (
-		<Router>
+		<>
 			<CssBaseline />
 			<AppContextProvider>
 				<Routes>
@@ -16,7 +16,7 @@ function App() {
 					<Route path="/controlpanel" element={<ControlPanel />} />
 				</Routes>
 			</AppContextProvider>
-		</Router>
+		</>
 	);
 }
 

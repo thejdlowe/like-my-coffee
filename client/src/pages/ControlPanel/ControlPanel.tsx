@@ -1,6 +1,5 @@
-import { useAppContext } from "../../helpers/context";
-import { scoreboardStates } from "../../../../shared/consts";
-import Grid from "@mui/material/Grid";
+import { Stack } from "@mui/material";
+import { TopBar } from "./components";
 import { useEffect } from "react";
 export const ControlPanel = () => {
 	/*const { gameState } = useAppContext();
@@ -8,5 +7,9 @@ export const ControlPanel = () => {
 		console.log(gameState);
 	}, [gameState]);*/
 	//return <div>Fart</div>;
-	return (<Grid container direction="row" ></Grid>)
+	return (
+		<Stack display="flex" justifyContent="space-between">
+			<TopBar />
+		</Stack>
+	);
 };

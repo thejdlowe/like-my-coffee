@@ -1,4 +1,4 @@
-import { ShowType } from "../../../shared/types";
+import { ShowType } from "../../sharedCopy";
 
 export const show: ShowType = {
 	rounds: [

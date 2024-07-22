@@ -5,8 +5,8 @@ import React, {
 	useEffect,
 	useCallback,
 } from "react";
-import { FullStateType } from "../../../shared/types";
-import { scoreboardStates } from "../../../shared/consts";
+// import { FullStateType } from "../../../shared/types";
+// import { scoreboardStates } from "../../../shared/consts";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import { socket } from "./socket";
@@ -14,11 +14,12 @@ import { socket } from "./socket";
 const AppContext = createContext({
 	gameState: {
 		currentTimerValue: -1,
-		currentState: 0,
+		currentState: "",
 		currentPlayerBuzzedIn: -1,
 		currentRoundIndex: -1,
 		rounds: [],
 	},
+	setCurrentShowState: (newState: string) => {},
 });
 
 interface AppContextProviderProps {
@@ -30,11 +31,15 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 }) => {
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
-		currentState: 0,
+		currentState: "",
 		currentPlayerBuzzedIn: -1,
 		currentRoundIndex: -1,
 		rounds: [],
 	});
+
+	const setCurrentShowState = useCallback((newState: string) => {
+		socket.emit("newShowState", newState);
+	}, []);
 	useEffect(() => {
 		function setFullState(newState: any) {
 			console.log(newState);
@@ -48,7 +53,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	// 	setGameState(value);
 	// });
 	return (
-		<AppContext.Provider value={{ gameState }}>{children}</AppContext.Provider>
+		<AppContext.Provider value={{ gameState, setCurrentShowState }}>
+			{children}
+		</AppContext.Provider>
 	);
 };
 
