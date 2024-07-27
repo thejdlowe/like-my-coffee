@@ -20,6 +20,7 @@ const AppContext = createContext({
 		rounds: [],
 	},
 	setCurrentShowState: (newState: string) => {},
+	setStartRound: () => {},
 });
 
 interface AppContextProviderProps {
@@ -40,6 +41,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	const setCurrentShowState = useCallback((newState: string) => {
 		socket.emit("newShowState", newState);
 	}, []);
+
+	const setStartRound = useCallback(() => {
+		socket.emit("startRound");
+	}, []);
 	useEffect(() => {
 		function setFullState(newState: any) {
 			console.log(newState);
@@ -53,7 +58,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	// 	setGameState(value);
 	// });
 	return (
-		<AppContext.Provider value={{ gameState, setCurrentShowState }}>
+		<AppContext.Provider value={{ gameState, setCurrentShowState, setStartRound }}>
 			{children}
 		</AppContext.Provider>
 	);

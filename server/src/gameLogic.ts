@@ -42,21 +42,25 @@ export const startGameLogic = (io: any) => {
 			currentState.currentPlayerBuzzedIn = -1;
 			io.emit("state", currentState);
 		});
-		socket.on("startRound", () => {
-			currentState.currentTimerValue = maxTimeRemaining;
-			io.emit("state", currentState);
-			timerRef = setInterval(() => {
-				currentState.currentTimerValue--;
-				if (currentState.currentTimerValue <= 0) {
-					currentState.currentTimerValue = 0;
-					clearInterval(timerRef);
-				}
+		socket.on("startRound", (roundIndex: number) => {
+			if (currentState.currentState !== scoreboardStates.IN_ROUND) {
+				currentState.currentTimerValue = maxTimeRemaining;
+				currentState.currentState = scoreboardStates.IN_ROUND;
 				io.emit("state", currentState);
-			}, 1000);
+				clearInterval(timerRef);
+				timerRef = setInterval(() => {
+					currentState.currentTimerValue--;
+					if (currentState.currentTimerValue <= 0) {
+						currentState.currentTimerValue = 0;
+						clearInterval(timerRef);
+					}
+					io.emit("state", currentState);
+				}, 1000);
+			}
 		});
 		socket.on("newShowState", (status: any) => {
 			currentState.currentState = status;
-			io.emit("state", currentState)
+			io.emit("state", currentState);
 		});
 	});
 
