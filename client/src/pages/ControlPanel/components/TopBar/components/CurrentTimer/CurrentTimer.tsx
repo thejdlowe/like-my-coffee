@@ -4,7 +4,7 @@ import { useAppContext } from "../../../../../../helpers/context";
 import { useEffect } from "react";
 
 export const CurrentTimer = () => {
-	const { gameState, setStartRound } = useAppContext();
+	const { gameState } = useAppContext();
 	const timeRemaining = gameState.currentTimerValue;
 
 	const minutesRemaining = Math.floor(timeRemaining / 60);
@@ -17,7 +17,7 @@ export const CurrentTimer = () => {
 	if (secondsRemaining <= 0) secondsRemainingStr = "0";
 	else secondsRemainingStr = secondsRemaining.toString();
 
-	if (gameState.currentState === scoreboardStates.IN_ROUND) return null;
+	if (gameState.currentState !== scoreboardStates.IN_ROUND) return null;
 
 	return (
 		<Typography variant="h2" gutterBottom>

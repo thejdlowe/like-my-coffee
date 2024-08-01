@@ -42,10 +42,15 @@ export const startGameLogic = (io: any) => {
 			currentState.currentPlayerBuzzedIn = -1;
 			io.emit("state", currentState);
 		});
-		socket.on("startRound", (roundIndex: number) => {
+		socket.on("newRoundState", (roundIndex: number) => {
+			currentState.currentRoundIndex = roundIndex;
+			io.emit("state", currentState);
+		})
+		socket.on("startRound", () => {
 			if (currentState.currentState !== scoreboardStates.IN_ROUND) {
 				currentState.currentTimerValue = maxTimeRemaining;
 				currentState.currentState = scoreboardStates.IN_ROUND;
+				//currentState.currentRoundIndex = roundIndex;
 				io.emit("state", currentState);
 				clearInterval(timerRef);
 				timerRef = setInterval(() => {
