@@ -52,7 +52,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	}, []);
 	useEffect(() => {
 		function setFullState(newState: any) {
-			console.log(newState);
 			setGameState(newState);
 		}
 
