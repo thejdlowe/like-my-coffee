@@ -45,7 +45,11 @@ export const startGameLogic = (io: any) => {
 		socket.on("newRoundState", (roundIndex: number) => {
 			currentState.currentRoundIndex = roundIndex;
 			io.emit("state", currentState);
-		})
+		});
+		socket.on("newShowState", (status: any) => {
+			currentState.currentState = status;
+			io.emit("state", currentState);
+		});
 		socket.on("startRound", () => {
 			if (currentState.currentState !== scoreboardStates.IN_ROUND) {
 				currentState.currentTimerValue = maxTimeRemaining;
@@ -62,10 +66,6 @@ export const startGameLogic = (io: any) => {
 					io.emit("state", currentState);
 				}, 1000);
 			}
-		});
-		socket.on("newShowState", (status: any) => {
-			currentState.currentState = status;
-			io.emit("state", currentState);
 		});
 	});
 

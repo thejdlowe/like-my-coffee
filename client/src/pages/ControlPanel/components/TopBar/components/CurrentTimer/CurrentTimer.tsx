@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, Box, FormControl, FormHelperText } from "@mui/material";
 import { scoreboardStates } from "../../../../../../sharedCopy";
 import { useAppContext } from "../../../../../../helpers/context";
 import { useEffect } from "react";
@@ -17,12 +17,17 @@ export const CurrentTimer = () => {
 	if (secondsRemaining <= 0) secondsRemainingStr = "0";
 	else secondsRemainingStr = secondsRemaining.toString();
 
-	if (gameState.currentState !== scoreboardStates.IN_ROUND) return null;
+	//if (gameState.currentState !== scoreboardStates.IN_ROUND) return null;
 
 	return (
-		<Typography variant="h2" gutterBottom>
-			{minutesRemainingStr.padStart(2, "0")}:
-			{secondsRemainingStr.padStart(2, "0")}
-		</Typography>
+		<Box>
+			<FormControl sx={{ m: 1, minWidth: 250 }}>
+				<Typography variant="h3">
+					{minutesRemainingStr.padStart(2, "0")}:
+					{secondsRemainingStr.padStart(2, "0")}
+				</Typography>
+				<FormHelperText>Current Time</FormHelperText>
+			</FormControl>
+		</Box>
 	);
 };
