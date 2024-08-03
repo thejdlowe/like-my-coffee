@@ -26,7 +26,7 @@ export const CurrentTimer = () => {
 					{minutesRemainingStr.padStart(2, "0")}:
 					{secondsRemainingStr.padStart(2, "0")}
 				</Typography>
-				<FormHelperText>Current Time</FormHelperText>
+				<FormHelperText>Current Timer</FormHelperText>
 			</FormControl>
 		</Box>
 	);

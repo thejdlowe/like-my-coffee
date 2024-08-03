@@ -3,6 +3,7 @@ import {
 	CurrentGameRoundDropdown,
 	CurrentGameStateDropdown,
 	CurrentTimer,
+	SetScoreboardStatusButton,
 } from "./components";
 import { Stack } from "@mui/material";
 
@@ -13,6 +14,7 @@ export const TopBar = () => {
 			<CurrentGameRoundDropdown />
 			<CurrentGameStateDropdown />
 			<CurrentTimer />
+			<SetScoreboardStatusButton />
 		</Stack>
 	);
 };

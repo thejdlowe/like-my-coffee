@@ -44,28 +44,30 @@ export const startGameLogic = (io: any) => {
 		});
 		socket.on("newRoundState", (roundIndex: number) => {
 			currentState.currentRoundIndex = roundIndex;
+			currentState.currentTimerValue = 0;
+			clearInterval(timerRef);
 			io.emit("state", currentState);
 		});
 		socket.on("newShowState", (status: any) => {
 			currentState.currentState = status;
+			currentState.currentTimerValue = 0;
+			clearInterval(timerRef);
 			io.emit("state", currentState);
 		});
-		socket.on("startRound", () => {
-			if (currentState.currentState !== scoreboardStates.IN_ROUND) {
-				currentState.currentTimerValue = maxTimeRemaining;
-				currentState.currentState = scoreboardStates.IN_ROUND;
-				//currentState.currentRoundIndex = roundIndex;
+		socket.on("startTimer", () => {
+			currentState.currentTimerValue = maxTimeRemaining;
+			//currentState.currentState = scoreboardStates.IN_ROUND;
+			//currentState.currentRoundIndex = roundIndex;
+			io.emit("state", currentState);
+			clearInterval(timerRef);
+			timerRef = setInterval(() => {
+				currentState.currentTimerValue--;
+				if (currentState.currentTimerValue <= 0) {
+					currentState.currentTimerValue = 0;
+					clearInterval(timerRef);
+				}
 				io.emit("state", currentState);
-				clearInterval(timerRef);
-				timerRef = setInterval(() => {
-					currentState.currentTimerValue--;
-					if (currentState.currentTimerValue <= 0) {
-						currentState.currentTimerValue = 0;
-						clearInterval(timerRef);
-					}
-					io.emit("state", currentState);
-				}, 1000);
-			}
+			}, 1000);
 		});
 	});
 
