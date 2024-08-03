@@ -44,6 +44,7 @@ export const startGameLogic = (io: any) => {
 		});
 		socket.on("newRoundState", (roundIndex: number) => {
 			currentState.currentRoundIndex = roundIndex;
+			currentState.currentState = scoreboardStates.SCREEN_SAVER;
 			currentState.currentTimerValue = 0;
 			clearInterval(timerRef);
 			io.emit("state", currentState);
