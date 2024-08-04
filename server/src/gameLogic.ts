@@ -20,7 +20,7 @@ const currentState: FullStateType = {
 	currentState: scoreboardStates.SCREEN_SAVER,
 	currentPlayerBuzzedIn: -1,
 	currentRoundIndex: -1,
-	rounds: show,
+	fullShowData: show,
 };
 
 export const startGameLogic = (io: any) => {

@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { TopBar } from "./components";
+import { TopBar, MainSection } from "./components";
 import { useEffect } from "react";
 export const ControlPanel = () => {
 	useEffect(() => {
@@ -8,6 +8,7 @@ export const ControlPanel = () => {
 	return (
 		<Stack display="flex" justifyContent="space-between">
 			<TopBar />
+			<MainSection />
 		</Stack>
 	);
 };

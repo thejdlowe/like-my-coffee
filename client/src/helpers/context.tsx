@@ -5,22 +5,63 @@ import React, {
 	useEffect,
 	useCallback,
 } from "react";
+import { scoreboardStates } from "../sharedCopy";
 // import { FullStateType } from "../../../shared/types";
 // import { scoreboardStates } from "../../../shared/consts";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import { socket } from "./socket";
 
-const AppContext = createContext({
+export type PlayerType = {
+	displayName: string;
+	pronouns: string;
+	soundIndex: number;
+	score: number;
+};
+
+export type RoundType = {
+	players: [PlayerType, PlayerType, PlayerType];
+	minigame: string;
+};
+
+export type ShowType = {
+	rounds: RoundType[];
+	images: string[];
+	logo: string;
+	apply: string;
+	social: string;
+};
+
+export type FullStateType = {
+	currentTimerValue: number;
+	currentState: scoreboardStates;
+	currentPlayerBuzzedIn: number;
+	currentRoundIndex: number;
+	fullShowData: ShowType;
+};
+interface AppContextInterface {
+	startTimer: () => void;
+	setRoundIndex: (newRound: number) => void;
+	setCurrentShowState: (newState: string) => void;
+	gameState: FullStateType;
+}
+
+const AppContext = createContext<AppContextInterface>({
 	gameState: {
 		currentTimerValue: -1,
-		currentState: "",
+		currentState: scoreboardStates.SCREEN_SAVER,
 		currentPlayerBuzzedIn: -1,
 		currentRoundIndex: -1,
-		rounds: [],
+		fullShowData: {
+			images: [],
+			logo: "",
+			apply: "",
+			social: "",
+			rounds: [],
+		},
 	},
-	setCurrentShowState: (newState: string) => {},
-	setRoundIndex: (newRound: number) => {},
+	setCurrentShowState: () => {},
+	setRoundIndex: () => {},
 	startTimer: () => {},
 });
 
@@ -33,10 +74,16 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 }) => {
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
-		currentState: "",
+		currentState: scoreboardStates.SCREEN_SAVER,
 		currentPlayerBuzzedIn: -1,
 		currentRoundIndex: -1,
-		rounds: [],
+		fullShowData: {
+			images: [],
+			logo: "",
+			apply: "",
+			social: "",
+			rounds: [],
+		},
 	});
 
 	const setCurrentShowState = useCallback((newState: string) => {

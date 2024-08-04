@@ -43,5 +43,5 @@ export type FullStateType = {
 	currentState: scoreboardStates;
 	currentPlayerBuzzedIn: number;
 	currentRoundIndex: number;
-	rounds: ShowType;
+	fullShowData: ShowType;
 };
