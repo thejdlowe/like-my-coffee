@@ -3,7 +3,7 @@ import { useAppContext } from "../../../../helpers/context";
 import { PlayerSection } from "./PlayerSection";
 export const MainSection = () => {
 	const { gameState } = useAppContext();
-	const { fullShowData, currentRoundIndex } = gameState;
+	const { fullShowData, currentRoundIndex, currentPlayerBuzzedIn } = gameState;
 	let header;
 	if (currentRoundIndex < 0) header = "Pre-Round";
 	else if (currentRoundIndex > 2) header = "Final Round";
@@ -19,6 +19,7 @@ export const MainSection = () => {
 						return (
 							<PlayerSection
 								key={index}
+								buzzedIn={index === currentPlayerBuzzedIn}
 								displayName={player.displayName}
 								currentScore={player.score}
 								playerIndex={index}

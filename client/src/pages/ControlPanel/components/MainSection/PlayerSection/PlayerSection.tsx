@@ -1,23 +1,31 @@
-import { Stack, Typography, Button } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { useAppContext } from "../../../../../helpers/context";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import PublishIcon from "@mui/icons-material/Publish";
+import HighlightIcon from "@mui/icons-material/Highlight";
 
 export const PlayerSection = ({
 	displayName,
 	currentScore,
 	playerIndex,
+	buzzedIn,
 }: {
 	displayName: string;
 	currentScore: number;
 	playerIndex: number;
+	buzzedIn: boolean;
 }) => {
 	const [scoreChangeValue, setScoreChange] = useState<number>(0);
 	const { scoreChange } = useAppContext();
 	return (
-		<Stack sx={{ width: "33%" }}>
+		<Stack sx={{ width: "33%" }} justifyContent="center" alignItems="center">
+			{buzzedIn && (
+				<Typography>
+					<HighlightIcon />
+				</Typography>
+			)}
 			<Typography>{displayName}</Typography>
 			<Typography>{currentScore}</Typography>
 			<Typography>
