@@ -1,4 +1,4 @@
-import { Stack, LinearProgress, Box } from "@mui/material";
+import { Stack, LinearProgress, Box, Typography } from "@mui/material";
 import { useAppContext } from "../../../../helpers/context";
 import { PlayerColumn } from "./components";
 
@@ -51,16 +51,32 @@ export const Maingame = () => {
 			</Stack>
 			<Box sx={{ height: "10vh", position: "relative" }}>
 				{currentTimerPercentage >= 0 && (
-					<LinearProgress
-						variant="determinate"
-						value={currentTimerPercentage}
-						sx={{
-							"& .MuiLinearProgress-bar": {
-								backgroundColor: progressBarColor,
-							},
-							height: "10vh",
-						}}
-					/>
+					<>
+						<LinearProgress
+							variant="determinate"
+							value={currentTimerPercentage}
+							sx={{
+								"& .MuiLinearProgress-bar": {
+									backgroundColor: progressBarColor,
+								},
+								height: "10vh",
+							}}
+						/>
+						<Typography
+							sx={{
+								position: "absolute",
+								top: 0,
+								left: "30%",
+								transform: "transformX(-50%)",
+								"-webkit-text-stroke": "1px black",
+								color: "white !important",
+								fontSize: "8vh",
+								lineHeight: "1.4",
+							}}
+						>
+							{progressText}
+						</Typography>
+					</>
 				)}
 			</Box>
 		</Stack>
