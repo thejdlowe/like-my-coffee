@@ -1,11 +1,8 @@
 import { Stack, LinearProgress, Box } from "@mui/material";
 import { useAppContext } from "../../../../helpers/context";
 import { PlayerColumn } from "./components";
-import { useState } from "react";
 
 export const Maingame = () => {
-	//const [progressBarColor, setProgressBarColor] = useState("green");
-	//const [progressText, setProgressText] = useState("Like My *Blank*");
 	let progressBarColor = "green";
 	let progressText = "Like My *Blank*";
 	const { gameState } = useAppContext();
