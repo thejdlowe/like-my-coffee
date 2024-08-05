@@ -20,9 +20,13 @@ export const CurrentGameStateDropdown = () => {
 		<Box>
 			<FormControl sx={{ m: 1, minWidth: 150 }}>
 				<Select onChange={changeDropdown} value={gameState.currentState}>
-					{Object.values(scoreboardStates).map((el) => {
+					{Object.values(scoreboardStates).map((el, index) => {
 						const value = el;
-						return <MenuItem value={el}>{value}</MenuItem>;
+						return (
+							<MenuItem key={index} value={el}>
+								{value}
+							</MenuItem>
+						);
 					})}
 				</Select>
 				<FormHelperText>Set Status</FormHelperText>

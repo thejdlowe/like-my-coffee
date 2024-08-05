@@ -18,6 +18,7 @@ export const MainSection = () => {
 					currentRound.players.map((player, index) => {
 						return (
 							<PlayerSection
+								key={index}
 								displayName={player.displayName}
 								currentScore={player.score}
 								playerIndex={index}
