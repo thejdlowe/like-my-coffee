@@ -55,6 +55,26 @@ export const startGameLogic = (io: any) => {
 			clearInterval(timerRef);
 			io.emit("state", currentState);
 		});
+		socket.on(
+			"scoreChange",
+			({
+				scoreChangeValue,
+				index,
+			}: {
+				scoreChangeValue: number;
+				index: number;
+			}) => {
+				console.log(
+					currentState.fullShowData.rounds[currentState.currentRoundIndex],
+					index
+				);
+				currentState.fullShowData.rounds[
+					currentState.currentRoundIndex
+				].players[index].score += scoreChangeValue;
+				currentState.currentPlayerBuzzedIn = -1;
+				io.emit("state", currentState);
+			}
+		);
 		socket.on("startTimer", () => {
 			currentState.currentTimerValue = maxTimeRemaining;
 			//currentState.currentState = scoreboardStates.IN_ROUND;

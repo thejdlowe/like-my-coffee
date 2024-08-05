@@ -43,6 +43,7 @@ interface AppContextInterface {
 	startTimer: () => void;
 	setRoundIndex: (newRound: number) => void;
 	setCurrentShowState: (newState: string) => void;
+	scoreChange: (scoreChangeValue: number, index: number) => void;
 	gameState: FullStateType;
 }
 
@@ -63,6 +64,7 @@ const AppContext = createContext<AppContextInterface>({
 	setCurrentShowState: () => {},
 	setRoundIndex: () => {},
 	startTimer: () => {},
+	scoreChange: () => {},
 });
 
 interface AppContextProviderProps {
@@ -97,6 +99,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	const startTimer = useCallback(() => {
 		socket.emit("startTimer");
 	}, []);
+
+	const scoreChange = useCallback((scoreChangeValue: number, index: number) => {
+		socket.emit("scoreChange", { scoreChangeValue, index });
+	}, []);
+
 	useEffect(() => {
 		function setFullState(newState: any) {
 			setGameState(newState);
@@ -115,6 +122,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 				setCurrentShowState,
 				setRoundIndex,
 				startTimer,
+				scoreChange,
 			}}
 		>
 			{children}
