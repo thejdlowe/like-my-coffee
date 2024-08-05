@@ -38,6 +38,7 @@ export type FullStateType = {
 	currentPlayerBuzzedIn: number;
 	currentRoundIndex: number;
 	fullShowData: ShowType;
+	currentTimerPercentage: number;
 };
 interface AppContextInterface {
 	startTimer: () => void;
@@ -60,6 +61,7 @@ const AppContext = createContext<AppContextInterface>({
 			social: "",
 			rounds: [],
 		},
+		currentTimerPercentage: -1,
 	},
 	setCurrentShowState: () => {},
 	setRoundIndex: () => {},
@@ -86,6 +88,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			social: "",
 			rounds: [],
 		},
+		currentTimerPercentage: -1,
 	});
 
 	const setCurrentShowState = useCallback((newState: string) => {

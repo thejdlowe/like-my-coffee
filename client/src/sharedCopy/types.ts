@@ -44,4 +44,5 @@ export type FullStateType = {
 	currentPlayerBuzzedIn: number;
 	currentRoundIndex: number;
 	rounds: ShowType;
+	currentTimerPercentage: number;
 };

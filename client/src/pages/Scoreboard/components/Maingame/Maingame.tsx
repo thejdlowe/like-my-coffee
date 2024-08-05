@@ -1,9 +1,30 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack, LinearProgress, Box } from "@mui/material";
 import { useAppContext } from "../../../../helpers/context";
 import { PlayerColumn } from "./components";
+import { useState } from "react";
+
 export const Maingame = () => {
+	//const [progressBarColor, setProgressBarColor] = useState("green");
+	//const [progressText, setProgressText] = useState("Like My *Blank*");
+	let progressBarColor = "green";
+	let progressText = "Like My *Blank*";
 	const { gameState } = useAppContext();
-	const { fullShowData, currentRoundIndex, currentPlayerBuzzedIn } = gameState;
+	const {
+		fullShowData,
+		currentRoundIndex,
+		currentPlayerBuzzedIn,
+		currentTimerPercentage,
+	} = gameState;
+	if (currentTimerPercentage <= 33) {
+		progressText = "Threesomes Are Like *Blank*";
+		progressBarColor = "red";
+	} else if (currentTimerPercentage <= 66) {
+		progressText = "Sex With Me Is Like *Blank*";
+		progressBarColor = "yellow";
+	} else {
+		progressText = "Like My *Blank*";
+		progressBarColor = "green";
+	}
 	const currentRound = fullShowData.rounds[currentRoundIndex] || [];
 	const players = currentRound && currentRound.players;
 	return (
@@ -31,6 +52,20 @@ export const Maingame = () => {
 					pronouns={players[2].pronouns}
 				/>
 			</Stack>
+			<Box sx={{ height: "10vh", position: "relative" }}>
+				{currentTimerPercentage >= 0 && (
+					<LinearProgress
+						variant="determinate"
+						value={currentTimerPercentage}
+						sx={{
+							"& .MuiLinearProgress-bar": {
+								backgroundColor: progressBarColor,
+							},
+							height: "10vh",
+						}}
+					/>
+				)}
+			</Box>
 		</Stack>
 	);
 };

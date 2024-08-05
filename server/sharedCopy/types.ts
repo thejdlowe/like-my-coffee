@@ -44,4 +44,5 @@ export type FullStateType = {
 	currentPlayerBuzzedIn: number;
 	currentRoundIndex: number;
 	fullShowData: ShowType;
+	currentTimerPercentage: number;
 };
