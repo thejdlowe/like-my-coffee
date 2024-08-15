@@ -1,6 +1,7 @@
 import { webusb } from "usb";
 import { show } from "./shows";
 import { ShowType, FullStateType, scoreboardStates } from "../sharedCopy";
+import express, { Express, Request, Response } from "express";
 
 const DEVICE_INFO = {
 	vendorId: 1118,
@@ -24,7 +25,7 @@ const currentState: FullStateType = {
 	currentTimerPercentage: -1,
 };
 
-export const startGameLogic = (io: any) => {
+export const startGameLogic = (io: any, app: any) => {
 	const maxTimeRemaining = 60 * 6; //10; //Ten minutes
 	let timerRef: any = undefined;
 
@@ -157,5 +158,20 @@ export const startGameLogic = (io: any) => {
 		}
 	};
 
-	initiateIRReceiver();
+	app.get("/buzz/:controllerId", (req: Request, res: Response) => {
+		if (currentState.currentPlayerBuzzedIn === -1) {
+			const whichController = req.params.controllerId;
+			if (whichController) {
+				const ID = parseInt(whichController);
+				if (!isNaN(ID) && ID >= 0 && ID <= 2) {
+					currentState.currentPlayerBuzzedIn = ID;
+					io.emit("state", currentState);
+				}
+			}
+		}
+
+		res.send(`Request sent to buzz ${req.params.controllerId}`);
+	});
+
+	//initiateIRReceiver();
 };
