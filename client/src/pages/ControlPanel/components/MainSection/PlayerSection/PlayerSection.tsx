@@ -21,15 +21,11 @@ export const PlayerSection = ({
 	const { scoreChange } = useAppContext();
 	return (
 		<Stack sx={{ width: "33%" }} justifyContent="center" alignItems="center">
-			{buzzedIn && (
-				<Typography>
-					<HighlightIcon />
-				</Typography>
-			)}
 			<Typography>{displayName}</Typography>
 			<Typography>{currentScore}</Typography>
 			<Typography>
 				<AddCircleIcon
+					sx={{ fontSize: 110 }}
 					onClick={() => {
 						setScoreChange((prev) => ++prev);
 					}}
@@ -38,6 +34,7 @@ export const PlayerSection = ({
 			<Typography>{scoreChangeValue}</Typography>
 			<Typography>
 				<RemoveCircleIcon
+					sx={{ fontSize: 110 }}
 					onClick={() => {
 						setScoreChange((prev) => --prev);
 					}}
@@ -45,12 +42,18 @@ export const PlayerSection = ({
 			</Typography>
 			<Typography>
 				<PublishIcon
+				sx={{ fontSize: 100 }}
 					onClick={() => {
 						scoreChange(scoreChangeValue, playerIndex);
 						setScoreChange(0);
 					}}
 				/>
 			</Typography>
+			{buzzedIn && (
+				<Typography>
+					<HighlightIcon />
+				</Typography>
+			)}
 		</Stack>
 	);
 };
