@@ -3,19 +3,34 @@ import { AppContextProvider } from "./helpers/context";
 import { ControlPanel } from "./pages/ControlPanel";
 import { Scoreboard } from "./pages/Scoreboard";
 import { CssBaseline } from "@mui/material";
-// import logo from './logo.svg';
-// import './App.css';
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { useEffect } from "react";
+import "./App.css";
 
 function App() {
+	const handle = useFullScreenHandle();
+	useEffect(() => {
+		const startFullScreen = () => {
+			handle.enter();
+		};
+		document.addEventListener("keypress", startFullScreen);
+		document.addEventListener("click", startFullScreen);
+		return () => {
+			document.removeEventListener("keypress", startFullScreen);
+			document.removeEventListener("click", startFullScreen);
+		};
+	}, []);
 	return (
 		<>
-			<CssBaseline />
-			<AppContextProvider>
-				<Routes>
-					<Route path="/" element={<Scoreboard />} />
-					<Route path="/controlpanel" element={<ControlPanel />} />
-				</Routes>
-			</AppContextProvider>
+			<FullScreen handle={handle}>
+				<CssBaseline />
+				<AppContextProvider>
+					<Routes>
+						<Route path="/" element={<Scoreboard />} />
+						<Route path="/controlpanel" element={<ControlPanel />} />
+					</Routes>
+				</AppContextProvider>
+			</FullScreen>
 		</>
 	);
 }
