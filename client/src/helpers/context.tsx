@@ -6,6 +6,7 @@ import React, {
 	useCallback,
 } from "react";
 import { scoreboardStates } from "../sharedCopy";
+import useSound from "use-sound";
 // import { FullStateType } from "../../../shared/types";
 // import { scoreboardStates } from "../../../shared/consts";
 
