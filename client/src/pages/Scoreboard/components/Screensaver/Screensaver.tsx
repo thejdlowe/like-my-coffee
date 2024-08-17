@@ -39,7 +39,7 @@ export const Screensaver = () => {
 							key={index}
 							style={{
 								width: "100wh",
-								height: "95vh",
+								height: "100vh",
 								marginLeft: "auto",
 								marginRight: "auto",
 							}}
