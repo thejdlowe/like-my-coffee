@@ -5,42 +5,42 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Bryn",
-					pronouns: "They/Them",
+					displayName: "Ryan",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 0,
 				},
 				{
-					displayName: "Indy",
-					pronouns: "They/Them/He/Him",
+					displayName: "Steven",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 1,
 				},
 				{
-					displayName: "Chelsea",
-					pronouns: "She/Her",
+					displayName: "Elijah K.",
+					pronouns: "He/Him/They/Them",
 					score: 0,
 					soundIndex: 2,
 				},
 			],
-			minigame: "Dopple-Banger",
+			minigame: "We've Got Movie Line!",
 		},
 		{
 			players: [
 				{
-					displayName: "Kristen",
+					displayName: "tami",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 3,
 				},
 				{
-					displayName: "Justin",
+					displayName: "Elijah R.",
 					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 4,
 				},
 				{
-					displayName: "Lindy",
+					displayName: "Rina",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 5,
@@ -51,25 +51,25 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Kim",
-					pronouns: "She/Her",
+					displayName: "Ross",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 6,
 				},
 				{
-					displayName: "Lisa",
-					pronouns: "She/Her",
+					displayName: "Barack",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 7,
 				},
 				{
-					displayName: "Melissa",
+					displayName: "Shannon",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 8,
 				},
 			],
-			minigame: "Time Line",
+			minigame: "185 Blanks",
 		},
 	],
 	images: [
