@@ -12,7 +12,10 @@ function App() {
 	useEffect(() => {
 		const startFullScreen = () => {
 			handle.enter();
+			document.removeEventListener("keypress", startFullScreen);
+			document.removeEventListener("click", startFullScreen);
 		};
+		
 		document.addEventListener("keypress", startFullScreen);
 		document.addEventListener("click", startFullScreen);
 		return () => {
