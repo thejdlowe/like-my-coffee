@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "scripts": {
+    "start": "concurrently \"npx ts-node server/src/server.ts\" \"npm start --prefix client/\""
+  }
+}
