@@ -74,9 +74,26 @@ interface AppContextProviderProps {
 	children?: React.ReactNode | React.ReactNode[];
 }
 
+const SOUND_URL = "/sounds/all sound effects.mp3";
+
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	children,
 }) => {
+	const [play] = useSound(SOUND_URL, {
+		sprite: {
+			intro: [0, 3366],
+			outro: [3970, 7328 - 3970],
+			donkeykong: [7817, 8449 - 7817],
+			pacman: [8450, 8991 - 8450],
+			link: [8996, 9467 - 8996],
+			candycrush: [9510, 10374 - 9510],
+			aol: [10643, 11153 - 10643],
+			digdug: [11185, 11665 - 11185],
+			discord: [11812, 12163 - 11812],
+			jeopardy: [12309, 12900 - 12309],
+			metalgearsolid: [12966, 14315 - 12966],
+		},
+	});
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
 		currentState: scoreboardStates.SCREEN_SAVER,
