@@ -79,7 +79,9 @@ const SOUND_URL = "/sounds/all sound effects.mp3";
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	children,
 }) => {
-	const [play] = useSound(SOUND_URL, {
+	const location = useLocation();
+	const { pathname } = location;
+	const [play, { stop }] = useSound(SOUND_URL, {
 		sprite: {
 			intro: [0, 3366],
 			outro: [3970, 7328 - 3970],
@@ -94,6 +96,49 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			metalgearsolid: [12966, 14315 - 12966],
 		},
 	});
+
+	const intro = () => play({ id: "intro" }),
+		outro = () => play({ id: "outro" }),
+		donkeykong = () => play({ id: "donkeykong" }),
+		pacman = () => play({ id: "pacman" }),
+		link = () => play({ id: "link" }),
+		candycrush = () => play({ id: "candycrush" }),
+		aol = () => play({ id: "aol" }),
+		digdug = () => play({ id: "digdug" }),
+		discord = () => play({ id: "discord" }),
+		jeopardy = () => play({ id: "jeopardy" }),
+		metalgearsolid = () => play({ id: "metalgearsolid" });
+
+	const allSoundsObject = {
+		intro: intro,
+		outro: outro,
+		donkeykong: donkeykong,
+		pacman: pacman,
+		link: link,
+		candycrush: candycrush,
+		aol: aol,
+		digdug: digdug,
+		discord: discord,
+		jeopardy: jeopardy,
+		metalgearsolid: metalgearsolid,
+	};
+
+	const gameSounds = [
+		donkeykong,
+		pacman,
+		link,
+		candycrush,
+		aol,
+		digdug,
+		discord,
+		jeopardy,
+		metalgearsolid,
+	];
+
+	useEffect(() => {
+		//play({ id: "metalgearsolid" });
+	}, [play]);
+
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
 		currentState: scoreboardStates.SCREEN_SAVER,
@@ -130,12 +175,17 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			setGameState(newState);
 		}
 
+		function demoSound(soundToPlay: string) {
+			if (allSoundsObject[soundToPlay as keyof typeof allSoundsObject]) {
+				allSoundsObject[soundToPlay as keyof typeof allSoundsObject]();
+			}
+		}
+
 		socket.on("state", setFullState);
+
+		pathname === "/" && socket.on("demoSound", demoSound);
 	}, []);
-	// socket.on("state", (value) => {
-	// 	console.log(value);
-	// 	setGameState(value);
-	// });
+	
 	return (
 		<AppContext.Provider
 			value={{
