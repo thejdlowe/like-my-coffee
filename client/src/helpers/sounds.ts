@@ -53,7 +53,7 @@ export const useSounds = () => {
 		metalgearsolid,
 	};
 
-	const gameSounds = [
+	const gameSoundsArr = [
 		donkeykong,
 		pacman,
 		link,
@@ -65,5 +65,5 @@ export const useSounds = () => {
 		metalgearsolid,
 	];
 
-	return { allSoundsObject, gameSounds, stop };
+	return { allSoundsObject, gameSoundsArr, stop };
 };

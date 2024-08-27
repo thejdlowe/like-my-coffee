@@ -81,7 +81,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 }) => {
 	const location = useLocation();
 	const { pathname } = location;
-	const { allSoundsObject, gameSounds, stop } = useSounds();
+	const { allSoundsObject, gameSoundsArr, stop } = useSounds();
 
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
@@ -124,11 +124,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		}
 
 		function demoSound(soundToPlay: string) {
-			console.log(`sound To Play ${soundToPlay}`);
 			if (allSoundsObject[soundToPlay as keyof typeof allSoundsObject]) {
-				console.log(
-					allSoundsObject[soundToPlay as keyof typeof allSoundsObject]
-				);
 				allSoundsObject[soundToPlay as keyof typeof allSoundsObject]();
 			}
 		}
@@ -136,12 +132,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		socket.on("state", setFullState);
 
 		pathname === "/" && socket.on("demoSound", demoSound);
-	}, []);
-
-	useEffect(() => {
-		setTimeout(() => {
-			//allSoundsObject.intro();
-		}, 2000);
 	}, []);
 
 	return (

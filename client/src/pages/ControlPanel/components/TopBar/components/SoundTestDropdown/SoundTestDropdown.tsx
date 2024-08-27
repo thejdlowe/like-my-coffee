@@ -14,7 +14,7 @@ import { useAppContext } from "../../../../../../helpers/context";
 import { useSounds } from "../../../../../../helpers/sounds";
 
 export const SoundTestDropdown = () => {
-	const { allSoundsObject, gameSounds, stop } = useSounds();
+	const { allSoundsObject } = useSounds();
 	const { gameState, setDemoSound } = useAppContext();
 	const [currentSound, setCurrentSound] = useState("");
 
