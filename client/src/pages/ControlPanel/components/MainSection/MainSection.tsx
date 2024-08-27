@@ -2,8 +2,8 @@ import { Stack, Typography } from "@mui/material";
 import { useAppContext } from "../../../../helpers/context";
 import { PlayerSection } from "./PlayerSection";
 export const MainSection = () => {
-	const { gameState } = useAppContext();
-	const { fullShowData, currentRoundIndex, currentPlayerBuzzedIn } = gameState;
+	const { gameState, currentPlayerBuzzedIn, currentRoundIndex } = useAppContext();
+	const { fullShowData, } = gameState;
 	let header;
 	if (currentRoundIndex < 0) header = "Pre-Round";
 	else if (currentRoundIndex > 2) header = "Final Round";

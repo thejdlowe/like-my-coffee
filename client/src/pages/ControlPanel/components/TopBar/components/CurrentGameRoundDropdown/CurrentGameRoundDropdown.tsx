@@ -12,7 +12,7 @@ import { scoreboardStates } from "../../../../../../sharedCopy";
 import { useAppContext } from "../../../../../../helpers/context";
 
 export const CurrentGameRoundDropdown = () => {
-	const { gameState, setRoundIndex } = useAppContext();
+	const { gameState, currentRoundIndex, setRoundIndex } = useAppContext();
 
 	const changeDropdown = (event: SelectChangeEvent) => {
 		const value = event.target.value;
@@ -24,7 +24,7 @@ export const CurrentGameRoundDropdown = () => {
 			<FormControl sx={{ m: 1, minWidth: 150 }}>
 				<Select
 					onChange={changeDropdown}
-					value={gameState.currentRoundIndex + ""}
+					value={currentRoundIndex + ""}
 				>
 					<MenuItem value={-1}>Pre Game</MenuItem>
 					<MenuItem value={0}>Round One</MenuItem>

@@ -6,8 +6,8 @@ export const Scoreboard = () => {
 	useEffect(() => {
 		document.title = "Scoreboard";
 	}, []);
-	const { gameState } = useAppContext();
-	const { currentState, currentRoundIndex } = gameState;
+	const { gameState, currentRoundIndex } = useAppContext();
+	const { currentState, } = gameState;
 	if (currentState === scoreboardStates.SCREEN_SAVER || currentRoundIndex < 0)
 		return <Screensaver />;
 	else if (currentState === scoreboardStates.MINI_GAME) return <Minigame />;

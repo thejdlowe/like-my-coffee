@@ -5,13 +5,13 @@ import { PlayerColumn } from "./components";
 export const Maingame = () => {
 	let progressBarColor = "green";
 	let progressText = "Like My *Blank*";
-	const { gameState } = useAppContext();
 	const {
-		fullShowData,
-		currentRoundIndex,
+		gameState,
 		currentPlayerBuzzedIn,
 		currentTimerPercentage,
-	} = gameState;
+		currentRoundIndex,
+	} = useAppContext();
+	const { fullShowData } = gameState;
 	if (currentTimerPercentage <= 33) {
 		progressText = "Threesomes Are Like *Blank*";
 		progressBarColor = "red";

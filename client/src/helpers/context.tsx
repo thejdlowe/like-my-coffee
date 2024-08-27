@@ -48,6 +48,10 @@ interface AppContextInterface {
 	setCurrentShowState: (newState: string) => void;
 	scoreChange: (scoreChangeValue: number, index: number) => void;
 	gameState: FullStateType;
+	currentTimerValue: number;
+	currentPlayerBuzzedIn: number;
+	currentTimerPercentage: number;
+	currentRoundIndex: number;
 }
 
 const AppContext = createContext<AppContextInterface>({
@@ -70,6 +74,10 @@ const AppContext = createContext<AppContextInterface>({
 	startTimer: () => {},
 	scoreChange: () => {},
 	setDemoSound: () => {},
+	currentTimerValue: -1,
+	currentPlayerBuzzedIn: -1,
+	currentTimerPercentage: -1,
+	currentRoundIndex: -1,
 });
 
 interface AppContextProviderProps {
@@ -82,6 +90,14 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	const location = useLocation();
 	const { pathname } = location;
 	const { allSoundsObject, gameSoundsArr, stop } = useSounds();
+
+	const [currentTimerValue, setCurrentTimerValue] = useState(-1);
+	const [currentScreenState, setCurrentScreenState] = useState(
+		scoreboardStates.SCREEN_SAVER
+	);
+	const [currentPlayerBuzzedIn, setCurrentPlayerBuzzedIn] = useState(-1);
+	const [currentRoundIndex, setCurrentRoundIndex] = useState(-1);
+	const [currentTimerPercentage, setCurrentTimerPercentage] = useState(-1);
 
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
@@ -119,8 +135,13 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	}, []);
 
 	useEffect(() => {
-		function setFullState(newState: any) {
-			setGameState(newState);
+		function setFullState(newState: FullStateType) {
+			setGameState(newState as any);
+			console.log(newState);
+			setCurrentTimerValue(newState.currentTimerValue);
+			setCurrentPlayerBuzzedIn(newState.currentPlayerBuzzedIn);
+			setCurrentTimerPercentage(newState.currentTimerPercentage);
+			setCurrentRoundIndex(newState.currentRoundIndex);
 		}
 
 		function demoSound(soundToPlay: string) {
@@ -143,6 +164,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 				startTimer,
 				scoreChange,
 				setDemoSound,
+				currentTimerValue,
+				currentPlayerBuzzedIn,
+				currentTimerPercentage,
+				currentRoundIndex,
 			}}
 		>
 			{children}

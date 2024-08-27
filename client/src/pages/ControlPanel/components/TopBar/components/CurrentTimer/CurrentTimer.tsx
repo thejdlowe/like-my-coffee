@@ -4,15 +4,14 @@ import { useAppContext } from "../../../../../../helpers/context";
 import { useEffect } from "react";
 
 export const CurrentTimer = () => {
-	const { gameState } = useAppContext();
-	const timeRemaining = gameState.currentTimerValue;
+	const { currentTimerValue } = useAppContext();
 
-	const minutesRemaining = Math.floor(timeRemaining / 60);
+	const minutesRemaining = Math.floor(currentTimerValue / 60);
 	let minutesRemainingStr = "";
 	if (minutesRemaining <= 0) minutesRemainingStr = "0";
 	else minutesRemainingStr = minutesRemaining.toString();
 
-	const secondsRemaining = Math.floor(timeRemaining % 60);
+	const secondsRemaining = Math.floor(currentTimerValue % 60);
 	let secondsRemainingStr = "";
 	if (secondsRemaining <= 0) secondsRemainingStr = "0";
 	else secondsRemainingStr = secondsRemaining.toString();
