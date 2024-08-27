@@ -5,24 +5,28 @@ import { Scoreboard } from "./pages/Scoreboard";
 import { CssBaseline } from "@mui/material";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./App.css";
 
 function App() {
 	const handle = useFullScreenHandle();
+	const location = useLocation();
+	const { pathname } = location;
 	useEffect(() => {
 		const startFullScreen = () => {
 			handle.enter();
 			document.removeEventListener("keypress", startFullScreen);
 			document.removeEventListener("click", startFullScreen);
 		};
-		
-		document.addEventListener("keypress", startFullScreen);
-		document.addEventListener("click", startFullScreen);
+		if (pathname === "/") {
+			document.addEventListener("keypress", startFullScreen);
+			document.addEventListener("click", startFullScreen);
+		}
 		return () => {
 			document.removeEventListener("keypress", startFullScreen);
 			document.removeEventListener("click", startFullScreen);
 		};
-	}, []);
+	}, [pathname]);
 	return (
 		<>
 			<FullScreen handle={handle}>

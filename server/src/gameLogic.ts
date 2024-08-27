@@ -40,6 +40,10 @@ export const startGameLogic = (io: any, app: any) => {
 	io.on("connection", (socket: any) => {
 		console.log("Connected");
 		socket.emit("state", currentState);
+		socket.on("sendSound", (sound: string) => {
+			console.log(`sound received ${sound}`);
+			io.emit("demoSound", sound);
+		});
 		socket.on("resetActive", () => {
 			currentState.currentPlayerBuzzedIn = -1;
 			io.emit("state", currentState);
