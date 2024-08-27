@@ -16,9 +16,19 @@ export const MinigamePlayerColumn = ({
 			justifyContent="center"
 			alignItems="center"
 		>
-			<Typography>{displayName}</Typography>
-			<Typography>{pronouns}</Typography>
-			<Typography>{currentScore}</Typography>
+			<Typography
+				variant="h1"
+				sx={{ fontSize: "8vh !important", lineHeight: "1.4" }}
+			>
+				{displayName}
+			</Typography>
+			<Typography variant="h3">{pronouns}</Typography>
+			<Typography
+				variant="h1"
+				sx={{ fontSize: "8vh !important", lineHeight: "1.4" }}
+			>
+				{currentScore}
+			</Typography>
 		</Stack>
 	);
 };

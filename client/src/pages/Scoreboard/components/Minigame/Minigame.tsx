@@ -1,24 +1,15 @@
-import { Stack, LinearProgress, Box, Typography } from "@mui/material";
+import { Stack, Box, Typography } from "@mui/material";
 import { useAppContext } from "../../../../helpers/context";
 import { MinigamePlayerColumn } from "./components";
 
 export const Minigame = () => {
-	let progressBarColor = "green";
-	let progressText = "Like My *Blank*";
 	const { gameState } = useAppContext();
-	const { fullShowData, currentRoundIndex, currentTimerPercentage } = gameState;
-	if (currentTimerPercentage <= 33) {
-		progressText = "Threesomes Are Like *Blank*";
-		progressBarColor = "red";
-	} else if (currentTimerPercentage <= 66) {
-		progressText = "Sex With Me Is Like *Blank*";
-		progressBarColor = "yellow";
-	} else {
-		progressText = "Like My *Blank*";
-		progressBarColor = "green";
-	}
+	const { fullShowData, currentRoundIndex } = gameState;
+
 	const currentRound = fullShowData.rounds[currentRoundIndex] || [];
+
 	const players = currentRound && currentRound.players;
+	const miniGame = currentRound && currentRound.minigame;
 	return (
 		<Stack>
 			<Stack direction="row" sx={{ height: "80vh" }}>
@@ -39,18 +30,8 @@ export const Minigame = () => {
 				/>
 			</Stack>
 			<Box sx={{ height: "10vh", position: "relative" }}>
-				{currentTimerPercentage >= 0 && (
+				{
 					<>
-						<LinearProgress
-							variant="determinate"
-							value={currentTimerPercentage}
-							sx={{
-								"& .MuiLinearProgress-bar": {
-									backgroundColor: progressBarColor,
-								},
-								height: "10vh",
-							}}
-						/>
 						<Typography
 							sx={{
 								position: "absolute",
@@ -63,10 +44,10 @@ export const Minigame = () => {
 								lineHeight: "1.4",
 							}}
 						>
-							{progressText}
+							{miniGame}
 						</Typography>
 					</>
-				)}
+				}
 			</Box>
 		</Stack>
 	);
