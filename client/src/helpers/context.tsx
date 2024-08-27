@@ -35,7 +35,7 @@ export type ShowType = {
 
 export type FullStateType = {
 	currentTimerValue: number;
-	currentState: scoreboardStates;
+	currentScreenState: scoreboardStates;
 	currentPlayerBuzzedIn: number;
 	currentRoundIndex: number;
 	fullShowData: ShowType;
@@ -52,12 +52,13 @@ interface AppContextInterface {
 	currentPlayerBuzzedIn: number;
 	currentTimerPercentage: number;
 	currentRoundIndex: number;
+	currentScreenState: scoreboardStates;
 }
 
 const AppContext = createContext<AppContextInterface>({
 	gameState: {
 		currentTimerValue: -1,
-		currentState: scoreboardStates.SCREEN_SAVER,
+		currentScreenState: scoreboardStates.SCREEN_SAVER,
 		currentPlayerBuzzedIn: -1,
 		currentRoundIndex: -1,
 		fullShowData: {
@@ -78,6 +79,7 @@ const AppContext = createContext<AppContextInterface>({
 	currentPlayerBuzzedIn: -1,
 	currentTimerPercentage: -1,
 	currentRoundIndex: -1,
+	currentScreenState: scoreboardStates.SCREEN_SAVER,
 });
 
 interface AppContextProviderProps {
@@ -101,7 +103,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
-		currentState: scoreboardStates.SCREEN_SAVER,
+		currentScreenState: scoreboardStates.SCREEN_SAVER,
 		currentPlayerBuzzedIn: -1,
 		currentRoundIndex: -1,
 		fullShowData: {
@@ -142,6 +144,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			setCurrentPlayerBuzzedIn(newState.currentPlayerBuzzedIn);
 			setCurrentTimerPercentage(newState.currentTimerPercentage);
 			setCurrentRoundIndex(newState.currentRoundIndex);
+			setCurrentScreenState(newState.currentScreenState);
 		}
 
 		function demoSound(soundToPlay: string) {
@@ -168,6 +171,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 				currentPlayerBuzzedIn,
 				currentTimerPercentage,
 				currentRoundIndex,
+				currentScreenState,
 			}}
 		>
 			{children}

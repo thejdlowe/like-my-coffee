@@ -40,7 +40,7 @@ export type ShowType = {
 
 export type FullStateType = {
 	currentTimerValue: number;
-	currentState: scoreboardStates;
+	currentScreenState: scoreboardStates;
 	currentPlayerBuzzedIn: number;
 	currentRoundIndex: number;
 	fullShowData: ShowType;

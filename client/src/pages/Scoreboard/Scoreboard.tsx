@@ -6,12 +6,17 @@ export const Scoreboard = () => {
 	useEffect(() => {
 		document.title = "Scoreboard";
 	}, []);
-	const { gameState, currentRoundIndex } = useAppContext();
-	const { currentState, } = gameState;
-	if (currentState === scoreboardStates.SCREEN_SAVER || currentRoundIndex < 0)
+	const { currentRoundIndex, currentScreenState } = useAppContext();
+	if (
+		currentScreenState === scoreboardStates.SCREEN_SAVER ||
+		currentRoundIndex < 0
+	)
 		return <Screensaver />;
-	else if (currentState === scoreboardStates.MINI_GAME) return <Minigame />;
-	else if (currentState === scoreboardStates.IN_ROUND) return <Maingame />;
-	else if (currentState === scoreboardStates.FINAL_ROUND) return <FinalRound />;
+	else if (currentScreenState === scoreboardStates.MINI_GAME)
+		return <Minigame />;
+	else if (currentScreenState === scoreboardStates.IN_ROUND)
+		return <Maingame />;
+	else if (currentScreenState === scoreboardStates.FINAL_ROUND)
+		return <FinalRound />;
 	else return <>invalid state?</>;
 };
