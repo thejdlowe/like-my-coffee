@@ -182,5 +182,5 @@ export const startGameLogic = (io: any, app: any) => {
 		res.send(`Request sent to buzz ${req.params.controllerId}`);
 	});
 
-	//initiateIRReceiver();
+	initiateIRReceiver();
 };
