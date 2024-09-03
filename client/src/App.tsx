@@ -19,7 +19,6 @@ function App() {
 			document.removeEventListener("click", startFullScreen);
 		};
 		if (pathname === "/") {
-			handle.enter();
 			document.addEventListener("keypress", startFullScreen);
 			document.addEventListener("click", startFullScreen);
 		}
