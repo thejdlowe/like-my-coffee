@@ -10,7 +10,11 @@ import { scoreboardStates } from "../../../../../../sharedCopy";
 import { useAppContext } from "../../../../../../helpers/context";
 
 export const CurrentGameStateDropdown = () => {
-	const { gameState, setCurrentShowState, currentScreenState } = useAppContext();
+	const {
+		serverState: gameState,
+		setCurrentShowState,
+		currentScreenState,
+	} = useAppContext();
 
 	const changeDropdown = (event: SelectChangeEvent) => {
 		console.log(event.target.value);

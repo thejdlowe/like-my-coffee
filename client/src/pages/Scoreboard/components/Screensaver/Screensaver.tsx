@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 
 export const Screensaver = () => {
-	const { gameState } = useAppContext();
+	const { serverState: gameState } = useAppContext();
 	const { logo, social, apply, images } = gameState.fullShowData;
 	const [whatToRender, setWhatToRender] = useState<any>([]);
 

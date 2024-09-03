@@ -3,7 +3,7 @@ import { useAppContext } from "../../../../helpers/context";
 import { MinigamePlayerColumn } from "./components";
 
 export const Minigame = () => {
-	const { gameState, currentRoundIndex } = useAppContext();
+	const { serverState: gameState, currentRoundIndex } = useAppContext();
 	const { fullShowData } = gameState;
 
 	const currentRound = fullShowData.rounds[currentRoundIndex] || [];

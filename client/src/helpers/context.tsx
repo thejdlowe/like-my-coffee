@@ -47,7 +47,7 @@ interface AppContextInterface {
 	setDemoSound: (sound: string) => void;
 	setCurrentShowState: (newState: string) => void;
 	scoreChange: (scoreChangeValue: number, index: number) => void;
-	gameState: FullStateType;
+	serverState: FullStateType;
 	currentTimerValue: number;
 	currentPlayerBuzzedIn: number;
 	currentTimerPercentage: number;
@@ -56,7 +56,7 @@ interface AppContextInterface {
 }
 
 const AppContext = createContext<AppContextInterface>({
-	gameState: {
+	serverState: {
 		currentTimerValue: -1,
 		currentScreenState: scoreboardStates.SCREEN_SAVER,
 		currentPlayerBuzzedIn: -1,
@@ -162,13 +162,13 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	useEffect(() => {
 		if (pathname === "/") {
 			if (currentTimerPercentage === 100) {
+				console.log("Playing Intro");
 				allSoundsObject.intro();
 				setHasRoundStarted(true);
 			} else if (currentTimerPercentage === 0) {
 				if (hasRoundStarted === true) {
 					allSoundsObject.outro();
 				}
-				//allSoundsObject.outro();
 			}
 		}
 	}, [currentTimerPercentage, pathname, hasRoundStarted]);
@@ -193,7 +193,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	return (
 		<AppContext.Provider
 			value={{
-				gameState,
+				serverState: gameState,
 				setCurrentShowState,
 				setRoundIndex,
 				startTimer,

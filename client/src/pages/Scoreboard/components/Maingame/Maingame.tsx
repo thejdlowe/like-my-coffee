@@ -6,7 +6,7 @@ export const Maingame = () => {
 	let progressBarColor = "green";
 	let progressText = "Like My *Blank*";
 	const {
-		gameState,
+		serverState: gameState,
 		currentPlayerBuzzedIn,
 		currentTimerPercentage,
 		currentRoundIndex,

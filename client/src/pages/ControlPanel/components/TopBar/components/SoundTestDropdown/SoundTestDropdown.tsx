@@ -15,7 +15,7 @@ import { useSounds } from "../../../../../../helpers/sounds";
 
 export const SoundTestDropdown = () => {
 	const { allSoundsObject } = useSounds();
-	const { gameState, setDemoSound } = useAppContext();
+	const { serverState: gameState, setDemoSound } = useAppContext();
 	const [currentSound, setCurrentSound] = useState("");
 
 	const changeDropdown = (event: SelectChangeEvent) => {
