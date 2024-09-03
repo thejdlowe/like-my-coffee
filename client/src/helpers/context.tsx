@@ -100,6 +100,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	const [currentPlayerBuzzedIn, setCurrentPlayerBuzzedIn] = useState(-1);
 	const [currentRoundIndex, setCurrentRoundIndex] = useState(-1);
 	const [currentTimerPercentage, setCurrentTimerPercentage] = useState(-1);
+	const [hasRoundStarted, setHasRoundStarted] = useState(false);
 
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
@@ -162,19 +163,27 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		if (pathname === "/") {
 			if (currentTimerPercentage === 100) {
 				allSoundsObject.intro();
+				setHasRoundStarted(true);
+			} else if (currentTimerPercentage === 0) {
+				if (hasRoundStarted === true) {
+					allSoundsObject.outro();
+				}
+				//allSoundsObject.outro();
 			}
 		}
-	}, [currentTimerPercentage, pathname]);
+	}, [currentTimerPercentage, pathname, hasRoundStarted]);
 
 	useEffect(() => {
 		if (pathname === "/") {
 			if (currentScreenState === scoreboardStates.IN_ROUND) {
-				if (currentPlayerBuzzedIn !== -1 && currentRoundIndex !== -1) {
-					//console.log(currentPlayerBuzzedIn)
-					const whichSound = currentPlayerBuzzedIn + currentRoundIndex * 3;
-					//console.log(whichSound);
-					if(gameSoundsArr[whichSound]) {
-						gameSoundsArr[whichSound]();
+				if (currentRoundIndex !== -1) {
+					if (currentPlayerBuzzedIn !== -1) {
+						//console.log(currentPlayerBuzzedIn)
+						const whichSound = currentPlayerBuzzedIn + currentRoundIndex * 3;
+						//console.log(whichSound);
+						if (gameSoundsArr[whichSound]) {
+							gameSoundsArr[whichSound]();
+						}
 					}
 				}
 			}

@@ -61,7 +61,6 @@ export const startGameLogic = (io: any, app: any) => {
 			currentState.currentTimerValue = 0;
 			currentState.currentTimerPercentage = 0;
 			clearInterval(timerRef);
-			console.log(currentState)
 			io.emit("state", currentState);
 		});
 		socket.on(
