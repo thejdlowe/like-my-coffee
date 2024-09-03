@@ -11,7 +11,7 @@ export const Maingame = () => {
 		currentTimerPercentage,
 		currentRoundIndex,
 	} = useAppContext();
-	const { fullShowData } = gameState;
+	const { fullShowData, hasStarted } = gameState;
 	if (currentTimerPercentage <= 33) {
 		progressText = "Threesomes Are Like *Blank*";
 		progressBarColor = "red";
@@ -49,7 +49,7 @@ export const Maingame = () => {
 					pronouns={players[2].pronouns}
 				/>
 			</Stack>
-			<Box sx={{ height: "10vh", position: "relative" }}>
+			{hasStarted && (<Box sx={{ height: "10vh", position: "relative" }}>
 				{currentTimerPercentage >= 0 && (
 					<>
 						<LinearProgress
@@ -78,7 +78,7 @@ export const Maingame = () => {
 						</Typography>
 					</>
 				)}
-			</Box>
+			</Box>)}
 		</Stack>
 	);
 };

@@ -40,6 +40,7 @@ export type FullStateType = {
 	currentRoundIndex: number;
 	fullShowData: ShowType;
 	currentTimerPercentage: number;
+	hasStarted: boolean;
 };
 interface AppContextInterface {
 	startTimer: () => void;
@@ -69,6 +70,7 @@ const AppContext = createContext<AppContextInterface>({
 			rounds: [],
 		},
 		currentTimerPercentage: -1,
+		hasStarted: false,
 	},
 	setCurrentShowState: () => {},
 	setRoundIndex: () => {},
@@ -115,6 +117,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			rounds: [],
 		},
 		currentTimerPercentage: -1,
+		hasStarted: false,
 	});
 
 	const setCurrentShowState = useCallback((newState: string) => {

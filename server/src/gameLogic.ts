@@ -23,6 +23,7 @@ const currentState: FullStateType = {
 	currentRoundIndex: -1,
 	fullShowData: show,
 	currentTimerPercentage: -1,
+	hasStarted: false,
 };
 
 export const startGameLogic = (io: any, app: any) => {
@@ -53,6 +54,7 @@ export const startGameLogic = (io: any, app: any) => {
 			currentState.currentScreenState = scoreboardStates.SCREEN_SAVER;
 			currentState.currentTimerValue = 0;
 			currentState.currentTimerPercentage = 0;
+
 			clearInterval(timerRef);
 			io.emit("state", currentState);
 		});
@@ -60,6 +62,7 @@ export const startGameLogic = (io: any, app: any) => {
 			currentState.currentScreenState = status;
 			currentState.currentTimerValue = 0;
 			currentState.currentTimerPercentage = 0;
+			currentState.hasStarted = false;
 			clearInterval(timerRef);
 			io.emit("state", currentState);
 		});
@@ -86,6 +89,7 @@ export const startGameLogic = (io: any, app: any) => {
 		socket.on("startTimer", () => {
 			currentState.currentTimerValue = maxTimeRemaining;
 			currentState.currentTimerPercentage = 100;
+			currentState.hasStarted = true;
 			//currentState.currentScreenState = scoreboardStates.IN_ROUND;
 			//currentState.currentRoundIndex = roundIndex;
 			io.emit("state", currentState);

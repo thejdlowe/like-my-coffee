@@ -45,4 +45,5 @@ export type FullStateType = {
 	currentRoundIndex: number;
 	fullShowData: ShowType;
 	currentTimerPercentage: number;
+	hasStarted: boolean;
 };
