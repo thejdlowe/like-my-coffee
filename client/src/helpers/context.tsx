@@ -158,6 +158,29 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		pathname === "/" && socket.on("demoSound", demoSound);
 	}, []);
 
+	useEffect(() => {
+		if (pathname === "/") {
+			if (currentTimerPercentage === 100) {
+				allSoundsObject.intro();
+			}
+		}
+	}, [currentTimerPercentage, pathname]);
+
+	useEffect(() => {
+		if (pathname === "/") {
+			if (currentScreenState === scoreboardStates.IN_ROUND) {
+				if (currentPlayerBuzzedIn !== -1 && currentRoundIndex !== -1) {
+					//console.log(currentPlayerBuzzedIn)
+					const whichSound = currentPlayerBuzzedIn + currentRoundIndex * 3;
+					//console.log(whichSound);
+					if(gameSoundsArr[whichSound]) {
+						gameSoundsArr[whichSound]();
+					}
+				}
+			}
+		}
+	}, [pathname, currentPlayerBuzzedIn, currentRoundIndex, currentScreenState]);
+
 	return (
 		<AppContext.Provider
 			value={{
