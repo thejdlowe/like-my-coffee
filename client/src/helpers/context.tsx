@@ -149,6 +149,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			setCurrentTimerPercentage(newState.currentTimerPercentage);
 			setCurrentRoundIndex(newState.currentRoundIndex);
 			setCurrentScreenState(newState.currentScreenState);
+			setHasRoundStarted(newState.hasStarted);
 		}
 
 		function demoSound(soundToPlay: string) {
@@ -165,9 +166,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	useEffect(() => {
 		if (pathname === "/") {
 			if (currentTimerPercentage === 100) {
-				console.log("Playing Intro");
-				allSoundsObject.intro();
-				setHasRoundStarted(true);
+				if (hasRoundStarted === true) {
+					allSoundsObject.intro();
+				}
 			} else if (currentTimerPercentage === 0) {
 				if (hasRoundStarted === true) {
 					allSoundsObject.outro();
