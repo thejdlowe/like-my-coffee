@@ -93,7 +93,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 }) => {
 	const location = useLocation();
 	const { pathname } = location;
-	const { allSoundsObject, gameSoundsArr, stop } = useSounds();
+	const { allSoundsObject, gameSoundsArr } = useSounds();
 
 	const [currentTimerValue, setCurrentTimerValue] = useState(-1);
 	const [currentScreenState, setCurrentScreenState] = useState(
@@ -188,6 +188,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 						if (gameSoundsArr[whichSound]) {
 							gameSoundsArr[whichSound]();
 						}
+					} else {
+						allSoundsObject.ready();
 					}
 				}
 			}
