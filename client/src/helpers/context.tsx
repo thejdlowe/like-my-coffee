@@ -7,10 +7,7 @@ import React, {
 } from "react";
 import { scoreboardStates } from "../sharedCopy";
 import { useSounds } from "./sounds";
-// import { FullStateType } from "../../../shared/types";
-// import { scoreboardStates } from "../../../shared/consts";
-
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { socket } from "./socket";
 
 export type PlayerType = {
@@ -182,9 +179,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			if (currentScreenState === scoreboardStates.IN_ROUND) {
 				if (currentRoundIndex !== -1) {
 					if (currentPlayerBuzzedIn !== -1) {
-						//console.log(currentPlayerBuzzedIn)
 						const whichSound = currentPlayerBuzzedIn + currentRoundIndex * 3;
-						//console.log(whichSound);
 						if (gameSoundsArr[whichSound]) {
 							gameSoundsArr[whichSound]();
 						}

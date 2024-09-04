@@ -2,27 +2,23 @@ import { useState } from "react";
 import {
 	Box,
 	FormControl,
-	InputLabel,
-	Button,
 	MenuItem,
 	Select,
 	SelectChangeEvent,
 	FormHelperText,
 } from "@mui/material";
-import { scoreboardStates } from "../../../../../../sharedCopy";
 import { useAppContext } from "../../../../../../helpers/context";
 import { useSounds } from "../../../../../../helpers/sounds";
 
 export const SoundTestDropdown = () => {
 	const { allSoundsObject } = useSounds();
-	const { serverState: gameState, setDemoSound } = useAppContext();
+	const { setDemoSound } = useAppContext();
 	const [currentSound, setCurrentSound] = useState("");
 
 	const changeDropdown = (event: SelectChangeEvent) => {
 		const value = event.target.value;
 		if (value === "") return;
 		setCurrentSound(value);
-		//if (parseInt(value) < 0) return;
 		setDemoSound(value);
 	};
 	return (

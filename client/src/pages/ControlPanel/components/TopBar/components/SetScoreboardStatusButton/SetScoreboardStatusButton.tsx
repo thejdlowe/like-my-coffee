@@ -1,13 +1,4 @@
-import {
-	FormControl,
-	MenuItem,
-	Select,
-	SelectChangeEvent,
-	Box,
-	FormHelperText,
-	Button,
-} from "@mui/material";
-import { scoreboardStates } from "../../../../../../sharedCopy";
+import { Button } from "@mui/material";
 import { useAppContext } from "../../../../../../helpers/context";
 export const SetScoreboardStatusButton = () => {
 	const { serverState: gameState, startTimer } = useAppContext();

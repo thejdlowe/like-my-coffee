@@ -11,7 +11,6 @@ import { useAppContext } from "../../../../../../helpers/context";
 
 export const CurrentGameStateDropdown = () => {
 	const {
-		serverState: gameState,
 		setCurrentShowState,
 		currentScreenState,
 	} = useAppContext();

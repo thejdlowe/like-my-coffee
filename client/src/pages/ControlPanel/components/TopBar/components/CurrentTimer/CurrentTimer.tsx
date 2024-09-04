@@ -1,7 +1,5 @@
 import { Typography, Box, FormControl, FormHelperText } from "@mui/material";
-import { scoreboardStates } from "../../../../../../sharedCopy";
 import { useAppContext } from "../../../../../../helpers/context";
-import { useEffect } from "react";
 
 export const CurrentTimer = () => {
 	const { currentTimerValue } = useAppContext();
@@ -15,8 +13,6 @@ export const CurrentTimer = () => {
 	let secondsRemainingStr = "";
 	if (secondsRemaining <= 0) secondsRemainingStr = "0";
 	else secondsRemainingStr = secondsRemaining.toString();
-
-	//if (gameState.currentState !== scoreboardStates.IN_ROUND) return null;
 
 	return (
 		<Box>
