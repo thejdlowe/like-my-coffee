@@ -1,12 +1,18 @@
 import { Stack, Typography } from "@mui/material";
 import { useAppContext } from "../../../../helpers/context";
 import { PlayerSection } from "./PlayerSection";
+import { playerColors } from "../../../../sharedCopy";
 export const MainSection = () => {
 	const {
 		serverState: gameState,
 		currentPlayerBuzzedIn,
 		currentRoundIndex,
 	} = useAppContext();
+	const colors = [
+		playerColors.PLAYER_ONE,
+		playerColors.PLAYER_TWO,
+		playerColors.PLAYER_THREE,
+	];
 	const { fullShowData } = gameState;
 	let header;
 	if (currentRoundIndex < 0) header = "Pre-Round";
@@ -27,6 +33,7 @@ export const MainSection = () => {
 								displayName={player.displayName}
 								currentScore={player.score}
 								playerIndex={index}
+								color={colors[index]}
 							/>
 						);
 					})}

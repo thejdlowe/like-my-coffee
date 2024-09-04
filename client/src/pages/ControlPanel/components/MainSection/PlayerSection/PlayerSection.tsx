@@ -11,11 +11,13 @@ export const PlayerSection = ({
 	currentScore,
 	playerIndex,
 	buzzedIn,
+	color,
 }: {
 	displayName: string;
 	currentScore: number;
 	playerIndex: number;
 	buzzedIn: boolean;
+	color: string;
 }) => {
 	const [scoreChangeValue, setScoreChange] = useState<number>(0);
 	const { scoreChange } = useAppContext();
