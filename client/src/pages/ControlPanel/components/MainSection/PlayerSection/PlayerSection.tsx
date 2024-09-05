@@ -4,7 +4,6 @@ import { useAppContext } from "../../../../../helpers/context";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import PublishIcon from "@mui/icons-material/Publish";
-import HighlightIcon from "@mui/icons-material/Highlight";
 
 export const PlayerSection = ({
 	displayName,
@@ -22,7 +21,18 @@ export const PlayerSection = ({
 	const [scoreChangeValue, setScoreChange] = useState<number>(0);
 	const { scoreChange } = useAppContext();
 	return (
-		<Stack sx={{ width: "33%" }} justifyContent="center" alignItems="center">
+		<Stack
+			sx={{
+				width: "33%",
+				...(buzzedIn && {
+					backgroundColor: color,
+					WebkitTextStroke: "1px black",
+					color: "white",
+				}),
+			}}
+			justifyContent="center"
+			alignItems="center"
+		>
 			<Typography>{displayName}</Typography>
 			<Typography>{currentScore}</Typography>
 			<Typography>
@@ -44,18 +54,13 @@ export const PlayerSection = ({
 			</Typography>
 			<Typography>
 				<PublishIcon
-				sx={{ fontSize: 100 }}
+					sx={{ fontSize: 100 }}
 					onClick={() => {
 						scoreChange(scoreChangeValue, playerIndex);
 						setScoreChange(0);
 					}}
 				/>
 			</Typography>
-			{buzzedIn && (
-				<Typography>
-					<HighlightIcon />
-				</Typography>
-			)}
 		</Stack>
 	);
 };
