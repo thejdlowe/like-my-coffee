@@ -57,8 +57,8 @@ export const show: ShowType = {
 					soundIndex: 6,
 				},
 				{
-					displayName: "Barack",
-					pronouns: "He/Him",
+					displayName: "Ashley",
+					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 7,
 				},
