@@ -69,7 +69,7 @@ export const show: ShowType = {
 					soundIndex: 8,
 				},
 			],
-			minigame: "185 Blanks",
+			minigame: "Broken Communication",
 		},
 	],
 	images: [
