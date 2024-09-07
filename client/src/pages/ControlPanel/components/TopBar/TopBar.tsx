@@ -4,6 +4,7 @@ import {
 	CurrentTimer,
 	SetScoreboardStatusButton,
 	SoundTestDropdown,
+	CurrentUsbReceiverConnectedStatusIndicator,
 } from "./components";
 import { Stack } from "@mui/material";
 
@@ -15,6 +16,7 @@ export const TopBar = () => {
 			<CurrentTimer />
 			<SetScoreboardStatusButton />
 			<SoundTestDropdown />
+			<CurrentUsbReceiverConnectedStatusIndicator />
 		</Stack>
 	);
 };

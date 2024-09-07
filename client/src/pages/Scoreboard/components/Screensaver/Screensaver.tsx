@@ -10,6 +10,7 @@ export const Screensaver = () => {
 	useEffect(() => {
 		setWhatToRender(
 			<img
+				alt=""
 				style={{
 					width: "100wh",
 					height: "95vh",
@@ -36,6 +37,7 @@ export const Screensaver = () => {
 				>
 					{allImages.map((el, index) => (
 						<img
+							alt=""
 							key={index}
 							style={{
 								width: "100wh",
@@ -52,6 +54,6 @@ export const Screensaver = () => {
 		return () => {
 			clearTimeout(screensave);
 		};
-	}, [logo]);
+	}, [logo, apply, images, social]);
 	return <center>{whatToRender}</center>;
 };
