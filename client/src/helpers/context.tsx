@@ -38,6 +38,7 @@ export type FullStateType = {
 	fullShowData: ShowType;
 	currentTimerPercentage: number;
 	hasStarted: boolean;
+	usbReceiverConnectedStatus: boolean;
 };
 interface AppContextInterface {
 	startTimer: () => void;
@@ -51,6 +52,7 @@ interface AppContextInterface {
 	currentTimerPercentage: number;
 	currentRoundIndex: number;
 	currentScreenState: scoreboardStates;
+	currentUsbReceiverConnectedStatus: boolean;
 }
 
 const AppContext = createContext<AppContextInterface>({
@@ -68,6 +70,7 @@ const AppContext = createContext<AppContextInterface>({
 		},
 		currentTimerPercentage: -1,
 		hasStarted: false,
+		usbReceiverConnectedStatus: false,
 	},
 	setCurrentShowState: () => {},
 	setRoundIndex: () => {},
@@ -79,6 +82,7 @@ const AppContext = createContext<AppContextInterface>({
 	currentTimerPercentage: -1,
 	currentRoundIndex: -1,
 	currentScreenState: scoreboardStates.SCREEN_SAVER,
+	currentUsbReceiverConnectedStatus: false,
 });
 
 interface AppContextProviderProps {
@@ -100,6 +104,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	const [currentRoundIndex, setCurrentRoundIndex] = useState(-1);
 	const [currentTimerPercentage, setCurrentTimerPercentage] = useState(-1);
 	const [hasRoundStarted, setHasRoundStarted] = useState(false);
+	const [
+		currentUsbReceiverConnectedStatus,
+		setCurrentUsbReceiverConnectedStatus,
+	] = useState(false);
 
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
@@ -115,6 +123,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		},
 		currentTimerPercentage: -1,
 		hasStarted: false,
+		usbReceiverConnectedStatus: false,
 	});
 
 	const setCurrentShowState = useCallback((newState: string) => {
@@ -147,6 +156,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			setCurrentRoundIndex(newState.currentRoundIndex);
 			setCurrentScreenState(newState.currentScreenState);
 			setHasRoundStarted(newState.hasStarted);
+			setCurrentUsbReceiverConnectedStatus(newState.usbReceiverConnectedStatus);
 		}
 
 		function demoSound(soundToPlay: string) {
@@ -205,6 +215,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 				currentTimerPercentage,
 				currentRoundIndex,
 				currentScreenState,
+				currentUsbReceiverConnectedStatus,
 			}}
 		>
 			{children}

@@ -1,7 +1,7 @@
 import { webusb } from "usb";
 import { show } from "./shows";
-import { ShowType, FullStateType, scoreboardStates } from "../sharedCopy";
-import express, { Express, Request, Response } from "express";
+import { FullStateType, scoreboardStates } from "../sharedCopy";
+import express, { Request, Response } from "express";
 
 const DEVICE_INFO = {
 	vendorId: 1118,
@@ -24,6 +24,7 @@ const currentState: FullStateType = {
 	fullShowData: show,
 	currentTimerPercentage: -1,
 	hasStarted: false,
+	usbReceiverConnectedStatus: false,
 };
 
 export const startGameLogic = (io: any, app: any) => {
@@ -32,7 +33,6 @@ export const startGameLogic = (io: any, app: any) => {
 
 	const handleBuzzer = (buttonData: any) => {
 		if (currentState.currentPlayerBuzzedIn === -1) {
-			console.log(buttonData);
 			currentState.currentPlayerBuzzedIn = buttonData.whichController;
 			io.emit("state", currentState);
 		}
@@ -42,7 +42,6 @@ export const startGameLogic = (io: any, app: any) => {
 		console.log("Connected");
 		socket.emit("state", currentState);
 		socket.on("sendSound", (sound: string) => {
-			console.log(`sound received ${sound}`);
 			io.emit("demoSound", sound);
 		});
 		socket.on("resetActive", () => {
@@ -90,8 +89,6 @@ export const startGameLogic = (io: any, app: any) => {
 			currentState.currentTimerValue = maxTimeRemaining;
 			currentState.currentTimerPercentage = 100;
 			currentState.hasStarted = true;
-			//currentState.currentScreenState = scoreboardStates.IN_ROUND;
-			//currentState.currentRoundIndex = roundIndex;
 			io.emit("state", currentState);
 			clearInterval(timerRef);
 			timerRef = setInterval(() => {
@@ -117,6 +114,7 @@ export const startGameLogic = (io: any, app: any) => {
 				],
 			});
 		} catch (e) {
+			currentState.usbReceiverConnectedStatus = false;
 			console.log("Unable to find USB; trying again");
 			setTimeout(initiateIRReceiver, 1000);
 		}
@@ -124,6 +122,7 @@ export const startGameLogic = (io: any, app: any) => {
 			await device.open();
 			await device.selectConfiguration(1);
 			await device.claimInterface(DEVICE_INFO.interfaceId);
+			currentState.usbReceiverConnectedStatus = true;
 
 			while (true) {
 				let result = await device.transferIn(1, 5);

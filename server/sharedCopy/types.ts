@@ -46,4 +46,5 @@ export type FullStateType = {
 	fullShowData: ShowType;
 	currentTimerPercentage: number;
 	hasStarted: boolean;
+	usbReceiverConnectedStatus: boolean;
 };
