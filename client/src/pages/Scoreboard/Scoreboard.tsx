@@ -2,6 +2,7 @@ import { useAppContext } from "../../helpers/context";
 import { scoreboardStates } from "../../sharedCopy";
 import { Screensaver, FinalRound, Maingame, Minigame } from "./components";
 import { useEffect } from "react";
+import "./scoreboard.css";
 export const Scoreboard = () => {
 	useEffect(() => {
 		document.title = "Scoreboard";
