@@ -80,6 +80,7 @@ export const show: ShowType = {
 		"Justin.png",
 		"Rina.png",
 		"Ross.png",
+		"Ryan.png",
 		"Shannon.png",
 		"Steven.png",
 		"Tami Kamin Meyer.png",
