@@ -173,6 +173,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 					.then((data) => data.json())
 					.then((obj) => {
 						setFullState(obj);
+					})
+					.catch((err) => {
+						console.log(err);
 					});
 			} catch (e) {}
 		}, 250);
