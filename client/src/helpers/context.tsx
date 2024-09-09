@@ -8,7 +8,7 @@ import React, {
 import { scoreboardStates } from "../sharedCopy";
 import { useSounds } from "./sounds";
 import { useLocation } from "react-router-dom";
-import { socket } from "./socket";
+import { socket, heartBeatURL } from "./socket";
 
 export type PlayerType = {
 	displayName: string;
@@ -165,9 +165,19 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			}
 		}
 
-		socket.on("state", setFullState);
+		//socket.on("state", setFullState);
+
+		const heartbeat = setInterval(() => {
+			fetch(heartBeatURL)
+				.then((data) => data.json())
+				.then((obj) => {
+					setFullState(obj);
+				});
+		}, 250);
 
 		pathname === "/" && socket.on("demoSound", demoSound);
+
+		return () => clearInterval(heartbeat);
 	}, []);
 
 	useEffect(() => {

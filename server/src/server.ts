@@ -1,9 +1,11 @@
 import * as http from "http";
 import express, { Express, Request, Response } from "express";
+import cors from "cors";
 import { startGameLogic } from "./gameLogic";
 import { SERVER_PORT_NUM } from "../sharedCopy";
 
 const app = express();
+app.use(cors());
 
 const server = http.createServer(app);
 

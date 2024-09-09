@@ -181,5 +181,10 @@ export const startGameLogic = (io: any, app: any) => {
 		res.send(`Request sent to buzz ${req.params.controllerId}`);
 	});
 
+	app.get("/status", (req: Request, res: Response) => {
+		console.log("Update requested");
+		res.json(currentState);
+	});
+
 	initiateIRReceiver();
 };
