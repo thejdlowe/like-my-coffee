@@ -73,6 +73,7 @@ export const show: ShowType = {
 		},
 	],
 	images: [
+		"Apply.png",
 		"Ashley.png",
 		"Elijah K.png",
 		"Elijah Ransom.png",
@@ -84,6 +85,7 @@ export const show: ShowType = {
 		"Shannon.png",
 		"Steven.png",
 		"Tami Kamin Meyer.png",
+		"Social.png",
 	],
 	logo: "logo.png",
 	apply: "Apply.png",

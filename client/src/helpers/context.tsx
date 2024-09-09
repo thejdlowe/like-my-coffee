@@ -146,10 +146,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		socket.emit("sendSound", sound);
 	}, []);
 
-	useEffect(() => {
-		function setFullState(newState: FullStateType) {
+	const newSetFullState = useCallback((newState: FullStateType) => {
+		if(JSON.stringify(newState) !== JSON.stringify(gameState)) {
 			setGameState(newState as any);
-			console.log(newState);
+		
 			setCurrentTimerValue(newState.currentTimerValue);
 			setCurrentPlayerBuzzedIn(newState.currentPlayerBuzzedIn);
 			setCurrentTimerPercentage(newState.currentTimerPercentage);
@@ -158,21 +158,24 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			setHasRoundStarted(newState.hasStarted);
 			setCurrentUsbReceiverConnectedStatus(newState.usbReceiverConnectedStatus);
 		}
+	}, [gameState, setGameState, setCurrentTimerValue, setCurrentPlayerBuzzedIn, setCurrentTimerPercentage, setCurrentRoundIndex, setCurrentScreenState, setHasRoundStarted, setCurrentUsbReceiverConnectedStatus])
 
+	useEffect(() => {
+		
 		function demoSound(soundToPlay: string) {
 			if (allSoundsObject[soundToPlay as keyof typeof allSoundsObject]) {
 				allSoundsObject[soundToPlay as keyof typeof allSoundsObject]();
 			}
 		}
 
-		//socket.on("state", setFullState);
+		//socket.on("state", newSetFullState);
 
 		const heartbeat = setInterval(() => {
 			try {
 				fetch(heartBeatURL)
 					.then((data) => data.json())
 					.then((obj) => {
-						setFullState(obj);
+						newSetFullState(obj);
 					})
 					.catch((err) => {
 						console.log(err);
@@ -183,7 +186,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		pathname === "/" && socket.on("demoSound", demoSound);
 
 		return () => clearInterval(heartbeat);
-	}, []);
+	}, [gameState]);
 
 	useEffect(() => {
 		if (pathname === "/") {

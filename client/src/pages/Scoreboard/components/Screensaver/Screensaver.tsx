@@ -23,8 +23,7 @@ export const Screensaver = () => {
 
 		const screensave = setTimeout(() => {
 			const allImages = images;
-			allImages.splice(Math.floor(Math.random() * allImages.length), 0, social);
-			allImages.splice(Math.floor(Math.random() * allImages.length), 0, apply);
+			
 			setWhatToRender(
 				<Carousel
 					indicators={false}
