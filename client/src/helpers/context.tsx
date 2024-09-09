@@ -168,11 +168,13 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		//socket.on("state", setFullState);
 
 		const heartbeat = setInterval(() => {
-			fetch(heartBeatURL)
-				.then((data) => data.json())
-				.then((obj) => {
-					setFullState(obj);
-				});
+			try {
+				fetch(heartBeatURL)
+					.then((data) => data.json())
+					.then((obj) => {
+						setFullState(obj);
+					});
+			} catch (e) {}
 		}, 250);
 
 		pathname === "/" && socket.on("demoSound", demoSound);
