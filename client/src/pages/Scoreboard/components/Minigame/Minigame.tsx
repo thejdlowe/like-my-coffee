@@ -38,8 +38,7 @@ export const Minigame = () => {
 								top: 0,
 								left: "30%",
 								transform: "transformX(-50%)",
-								"-webkit-text-stroke": "1px black",
-								color: "white !important",
+
 								fontSize: "8vh",
 								lineHeight: "1.4",
 							}}
