@@ -28,7 +28,7 @@ const currentState: FullStateType = {
 };
 
 export const startGameLogic = (io: any, app: any) => {
-	const maxTimeRemaining = 60 * 6; //10; //Ten minutes
+	const maxTimeRemaining = 60 * 1; //10; //Ten minutes
 	let timerRef: any = undefined;
 
 	const handleBuzzer = (buttonData: any) => {
