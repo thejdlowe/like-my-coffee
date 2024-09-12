@@ -24,6 +24,7 @@ export const show: ShowType = {
 				},
 			],
 			minigame: "We've Got Movie Line!",
+			example: "Sex with me is like the movie Aladdin; the sequels ain't getting better",
 		},
 		{
 			players: [
@@ -47,6 +48,7 @@ export const show: ShowType = {
 				},
 			],
 			minigame: "Sexy Slogans",
+			example: "Nike - Just Do Me, or McDonalds: *jingle* I'm lovin' dick.",
 		},
 		{
 			players: [
@@ -70,6 +72,7 @@ export const show: ShowType = {
 				},
 			],
 			minigame: "Broken Communication",
+			example: "Flossing - While, I got really deep in there that time!",
 		},
 	],
 	images: [

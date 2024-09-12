@@ -7,7 +7,16 @@ export const MainSection = () => {
 		serverState: gameState,
 		currentPlayerBuzzedIn,
 		currentRoundIndex,
+		currentTimerPercentage,
 	} = useAppContext();
+	let highlightDescriptorIndex = 0;
+	if (currentTimerPercentage <= 33) {
+		highlightDescriptorIndex = 2;
+	} else if (currentTimerPercentage <= 66) {
+		highlightDescriptorIndex = 1;
+	} else {
+		highlightDescriptorIndex = 0;
+	}
 	const colors = [
 		playerColors.PLAYER_ONE,
 		playerColors.PLAYER_TWO,
@@ -52,10 +61,20 @@ export const MainSection = () => {
 				</Stack>
 				<Stack sx={{ width: "33%" }}>
 					<b>Descriptors:</b>
-					{currentDescriptors.map((desc) => {
-						return <Box>{desc}</Box>;
+					{currentDescriptors.map((desc, index) => {
+						return (
+							<Box>
+								{index === highlightDescriptorIndex && "*"}
+								{desc}
+							</Box>
+						);
 					})}
-					<Box sx={{marginTop: "10px"}}><b>Minigame</b>: {currentRound.minigame}</Box>
+					<Box sx={{ marginTop: "10px" }}>
+						<b>Minigame</b>: {currentRound.minigame}
+					</Box>
+					<Box sx={{ marginTop: "10px" }}>
+						<b>Description</b>: {currentRound.example}
+					</Box>
 				</Stack>
 			</Stack>
 		</Stack>

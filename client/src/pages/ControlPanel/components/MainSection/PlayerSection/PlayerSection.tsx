@@ -33,8 +33,8 @@ export const PlayerSection = ({
 			justifyContent="center"
 			alignItems="center"
 		>
-			<Typography>{displayName}</Typography>
-			<Typography>{currentScore}</Typography>
+			<Typography variant="h2">{displayName}</Typography>
+			<Typography variant="h3">{currentScore}</Typography>
 			<Typography>
 				<AddCircleIcon
 					sx={{ fontSize: 110 }}
@@ -43,7 +43,7 @@ export const PlayerSection = ({
 					}}
 				/>
 			</Typography>
-			<Typography>{scoreChangeValue}</Typography>
+			<Typography variant="h2">{scoreChangeValue}</Typography>
 			<Typography>
 				<RemoveCircleIcon
 					sx={{ fontSize: 110 }}

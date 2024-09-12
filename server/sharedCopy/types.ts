@@ -28,6 +28,7 @@ export type PlayerType = {
 export type RoundType = {
 	players: [PlayerType, PlayerType, PlayerType];
 	minigame: string;
+	example: string;
 };
 
 export type ShowType = {
