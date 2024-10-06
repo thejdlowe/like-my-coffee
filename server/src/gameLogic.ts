@@ -165,8 +165,8 @@ export const startGameLogic = (io: any, app: any) => {
 		}
 	};
 
-	app.get("/buzz/:controllerId", (req: Request, res: Response) => {
-		console.log(`Request sent to buzz ${req.params.controllerId}`);
+	app.get("/buzz/:controllerId/:powerPercentage?", (req: Request, res: Response) => {
+		console.log(`Request sent to buzz ${req.params.controllerId} with power level ${req.params.powerPercentage}`);
 		if (currentState.currentPlayerBuzzedIn === -1) {
 			const whichController = req.params.controllerId;
 			if (whichController) {
