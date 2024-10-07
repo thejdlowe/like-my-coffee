@@ -28,7 +28,7 @@ const currentState: FullStateType = {
 };
 
 export const startGameLogic = (io: any, app: any) => {
-	const maxTimeRemaining = 60 * 6; //Ten minutes
+	const maxTimeRemaining = 60 * 10; //Ten minutes
 	let timerRef: any = undefined;
 
 	const handleBuzzer = (buttonData: any) => {
@@ -165,21 +165,26 @@ export const startGameLogic = (io: any, app: any) => {
 		}
 	};
 
-	app.get("/buzz/:controllerId/:powerPercentage?", (req: Request, res: Response) => {
-		console.log(`Request sent to buzz ${req.params.controllerId} with power level ${req.params.powerPercentage}`);
-		if (currentState.currentPlayerBuzzedIn === -1) {
-			const whichController = req.params.controllerId;
-			if (whichController) {
-				const ID = parseInt(whichController);
-				if (!isNaN(ID) && ID >= 0 && ID <= 2) {
-					currentState.currentPlayerBuzzedIn = ID;
-					io.emit("state", currentState);
+	app.get(
+		"/buzz/:controllerId/:powerPercentage?",
+		(req: Request, res: Response) => {
+			console.log(
+				`Request sent to buzz ${req.params.controllerId} with power level ${req.params.powerPercentage}`
+			);
+			if (currentState.currentPlayerBuzzedIn === -1) {
+				const whichController = req.params.controllerId;
+				if (whichController) {
+					const ID = parseInt(whichController);
+					if (!isNaN(ID) && ID >= 0 && ID <= 2) {
+						currentState.currentPlayerBuzzedIn = ID;
+						io.emit("state", currentState);
+					}
 				}
 			}
-		}
 
-		res.send(`Request sent to buzz ${req.params.controllerId}`);
-	});
+			res.send(`Request sent to buzz ${req.params.controllerId}`);
+		}
+	);
 
 	app.get("/status", (req: Request, res: Response) => {
 		console.log("Update requested");
