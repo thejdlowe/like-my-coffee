@@ -1,23 +1,5 @@
 import { scoreboardStates } from "./consts";
 
-export type OldPlayerType = {
-	displayName: string;
-	fullName: string;
-	pronouns: "He/Him" | "She/Her" | "They/Them";
-	sound: number;
-};
-
-export type OldRoundType = {
-	players: [OldPlayerType, OldPlayerType, OldPlayerType];
-	minigame: string;
-};
-
-export type OldShowType = {
-	Round1: OldRoundType;
-	Round2: OldRoundType;
-	Round3: OldRoundType;
-};
-
 export type PlayerType = {
 	displayName: string;
 	pronouns: string;
@@ -28,10 +10,11 @@ export type PlayerType = {
 export type RoundType = {
 	players: [PlayerType, PlayerType, PlayerType];
 	minigame: string;
+	example: string;
 };
 
 export type ShowType = {
-	rounds: [RoundType, RoundType, RoundType];
+	rounds: RoundType[];
 	images: string[];
 	logo: string;
 	apply: string;
@@ -40,9 +23,11 @@ export type ShowType = {
 
 export type FullStateType = {
 	currentTimerValue: number;
-	currentState: scoreboardStates;
+	currentScreenState: scoreboardStates;
 	currentPlayerBuzzedIn: number;
 	currentRoundIndex: number;
-	rounds: ShowType;
+	fullShowData: ShowType;
 	currentTimerPercentage: number;
+	hasStarted: boolean;
+	usbReceiverConnectedStatus: boolean;
 };

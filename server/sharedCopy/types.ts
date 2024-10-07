@@ -39,6 +39,11 @@ export type ShowType = {
 	social: string;
 };
 
+export type ControllerStatusType = {
+	enabled: boolean;
+	powerPercentage: number;
+};
+
 export type FullStateType = {
 	currentTimerValue: number;
 	currentScreenState: scoreboardStates;

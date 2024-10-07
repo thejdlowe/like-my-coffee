@@ -5,42 +5,11 @@ import React, {
 	useEffect,
 	useCallback,
 } from "react";
-import { scoreboardStates } from "../sharedCopy";
+import { scoreboardStates, FullStateType } from "../sharedCopy";
 import { useSounds } from "./sounds";
 import { useLocation } from "react-router-dom";
 import { socket, heartBeatURL } from "./socket";
 
-export type PlayerType = {
-	displayName: string;
-	pronouns: string;
-	soundIndex: number;
-	score: number;
-};
-
-export type RoundType = {
-	players: [PlayerType, PlayerType, PlayerType];
-	minigame: string;
-	example: string;
-};
-
-export type ShowType = {
-	rounds: RoundType[];
-	images: string[];
-	logo: string;
-	apply: string;
-	social: string;
-};
-
-export type FullStateType = {
-	currentTimerValue: number;
-	currentScreenState: scoreboardStates;
-	currentPlayerBuzzedIn: number;
-	currentRoundIndex: number;
-	fullShowData: ShowType;
-	currentTimerPercentage: number;
-	hasStarted: boolean;
-	usbReceiverConnectedStatus: boolean;
-};
 interface AppContextInterface {
 	startTimer: () => void;
 	setRoundIndex: (newRound: number) => void;
