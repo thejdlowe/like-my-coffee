@@ -25,6 +25,11 @@ const currentState: FullStateType = {
 	currentTimerPercentage: -1,
 	hasStarted: false,
 	usbReceiverConnectedStatus: false,
+	controllerStatuses: [
+		{ enabled: true, powerPercentage: 100 },
+		{ enabled: true, powerPercentage: 100 },
+		{ enabled: true, powerPercentage: 100 },
+	],
 };
 
 export const startGameLogic = (io: any, app: any) => {

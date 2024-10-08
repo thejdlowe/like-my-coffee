@@ -7,6 +7,11 @@ export type PlayerType = {
 	score: number;
 };
 
+export type ControllerStatusType = {
+	enabled: boolean;
+	powerPercentage: number;
+};
+
 export type RoundType = {
 	players: [PlayerType, PlayerType, PlayerType];
 	minigame: string;
@@ -30,4 +35,5 @@ export type FullStateType = {
 	currentTimerPercentage: number;
 	hasStarted: boolean;
 	usbReceiverConnectedStatus: boolean;
+	controllerStatuses: ControllerStatusType[];
 };

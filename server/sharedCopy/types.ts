@@ -32,7 +32,7 @@ export type RoundType = {
 };
 
 export type ShowType = {
-	rounds: [RoundType, RoundType, RoundType];
+	rounds: RoundType[];
 	images: string[];
 	logo: string;
 	apply: string;
@@ -53,4 +53,5 @@ export type FullStateType = {
 	currentTimerPercentage: number;
 	hasStarted: boolean;
 	usbReceiverConnectedStatus: boolean;
+	controllerStatuses: ControllerStatusType[];
 };

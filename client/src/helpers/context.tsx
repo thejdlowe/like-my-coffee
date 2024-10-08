@@ -5,7 +5,11 @@ import React, {
 	useEffect,
 	useCallback,
 } from "react";
-import { scoreboardStates, FullStateType } from "../sharedCopy";
+import {
+	scoreboardStates,
+	FullStateType,
+	ControllerStatusType,
+} from "../sharedCopy";
 import { useSounds } from "./sounds";
 import { useLocation } from "react-router-dom";
 import { socket, heartBeatURL } from "./socket";
@@ -41,6 +45,11 @@ const AppContext = createContext<AppContextInterface>({
 		currentTimerPercentage: -1,
 		hasStarted: false,
 		usbReceiverConnectedStatus: false,
+		controllerStatuses: [
+			{ enabled: true, powerPercentage: -1 },
+			{ enabled: true, powerPercentage: -1 },
+			{ enabled: true, powerPercentage: -1 },
+		],
 	},
 	setCurrentShowState: () => {},
 	setRoundIndex: () => {},
@@ -78,6 +87,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		currentUsbReceiverConnectedStatus,
 		setCurrentUsbReceiverConnectedStatus,
 	] = useState(false);
+	const [controllerStatuses, setControllerStatuses] = useState([
+		{ enabled: true, powerPercentage: -1 },
+		{ enabled: true, powerPercentage: -1 },
+		{ enabled: true, powerPercentage: -1 },
+	]);
 
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
@@ -94,6 +108,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		currentTimerPercentage: -1,
 		hasStarted: false,
 		usbReceiverConnectedStatus: false,
+		controllerStatuses: [
+			{ enabled: true, powerPercentage: -1 },
+			{ enabled: true, powerPercentage: -1 },
+			{ enabled: true, powerPercentage: -1 },
+		],
 	});
 
 	const setCurrentShowState = useCallback((newState: string) => {
@@ -116,22 +135,36 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		socket.emit("sendSound", sound);
 	}, []);
 
-	const newSetFullState = useCallback((newState: FullStateType) => {
-		if(JSON.stringify(newState) !== JSON.stringify(gameState)) {
-			setGameState(newState as any);
-		
-			setCurrentTimerValue(newState.currentTimerValue);
-			setCurrentPlayerBuzzedIn(newState.currentPlayerBuzzedIn);
-			setCurrentTimerPercentage(newState.currentTimerPercentage);
-			setCurrentRoundIndex(newState.currentRoundIndex);
-			setCurrentScreenState(newState.currentScreenState);
-			setHasRoundStarted(newState.hasStarted);
-			setCurrentUsbReceiverConnectedStatus(newState.usbReceiverConnectedStatus);
-		}
-	}, [gameState, setGameState, setCurrentTimerValue, setCurrentPlayerBuzzedIn, setCurrentTimerPercentage, setCurrentRoundIndex, setCurrentScreenState, setHasRoundStarted, setCurrentUsbReceiverConnectedStatus])
+	const newSetFullState = useCallback(
+		(newState: FullStateType) => {
+			if (JSON.stringify(newState) !== JSON.stringify(gameState)) {
+				setGameState(newState as any);
+
+				setCurrentTimerValue(newState.currentTimerValue);
+				setCurrentPlayerBuzzedIn(newState.currentPlayerBuzzedIn);
+				setCurrentTimerPercentage(newState.currentTimerPercentage);
+				setCurrentRoundIndex(newState.currentRoundIndex);
+				setCurrentScreenState(newState.currentScreenState);
+				setHasRoundStarted(newState.hasStarted);
+				setCurrentUsbReceiverConnectedStatus(
+					newState.usbReceiverConnectedStatus
+				);
+			}
+		},
+		[
+			gameState,
+			setGameState,
+			setCurrentTimerValue,
+			setCurrentPlayerBuzzedIn,
+			setCurrentTimerPercentage,
+			setCurrentRoundIndex,
+			setCurrentScreenState,
+			setHasRoundStarted,
+			setCurrentUsbReceiverConnectedStatus,
+		]
+	);
 
 	useEffect(() => {
-		
 		function demoSound(soundToPlay: string) {
 			if (allSoundsObject[soundToPlay as keyof typeof allSoundsObject]) {
 				allSoundsObject[soundToPlay as keyof typeof allSoundsObject]();

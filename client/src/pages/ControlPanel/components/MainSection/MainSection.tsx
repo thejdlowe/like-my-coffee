@@ -32,7 +32,7 @@ export const MainSection = () => {
 			"Something someone gave you",
 		],
 	];
-	const { fullShowData } = gameState;
+	const { fullShowData, controllerStatuses } = gameState;
 	let header;
 	if (currentRoundIndex < 0) header = "Pre-Round";
 	else if (currentRoundIndex > 2) header = "Final Round";
@@ -55,6 +55,7 @@ export const MainSection = () => {
 									currentScore={player.score}
 									playerIndex={index}
 									color={colors[index]}
+									controllerStatus={controllerStatuses[index]}
 								/>
 							);
 						})}
