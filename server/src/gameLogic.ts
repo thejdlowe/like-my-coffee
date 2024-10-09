@@ -26,9 +26,9 @@ const currentState: FullStateType = {
 	hasStarted: false,
 	usbReceiverConnectedStatus: false,
 	controllerStatuses: [
-		{ enabled: true, powerPercentage: 100 },
-		{ enabled: true, powerPercentage: 100 },
-		{ enabled: true, powerPercentage: 100 },
+		{ enabled: true, powerPercentage: -1 },
+		{ enabled: true, powerPercentage: -1 },
+		{ enabled: true, powerPercentage: -1 },
 	],
 };
 
@@ -182,6 +182,11 @@ export const startGameLogic = (io: any, app: any) => {
 					const ID = parseInt(whichController);
 					if (!isNaN(ID) && ID >= 0 && ID <= 2) {
 						currentState.currentPlayerBuzzedIn = ID;
+						if (req.params.powerPercentage) {
+							currentState.controllerStatuses[ID].powerPercentage = parseFloat(
+								req.params.powerPercentage
+							);
+						}
 						io.emit("state", currentState);
 					}
 				}
