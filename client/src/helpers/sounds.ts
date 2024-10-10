@@ -19,6 +19,7 @@ export const useSounds = () => {
 		discord = () => playSound("discord-notification.mp3"),
 		jeopardy = () => playSound("times-up.mp3"),
 		metalgearsolid = () => playSound("codec.mp3"),
+		windowserror = () => playSound("WindowsError.mp3"),
 		ready = () => playSound("playersready.mp3");
 
 	const allSoundsObject = {
@@ -33,6 +34,7 @@ export const useSounds = () => {
 		discord,
 		jeopardy,
 		metalgearsolid,
+		windowserror,
 		ready,
 	};
 
@@ -44,7 +46,7 @@ export const useSounds = () => {
 		aol,
 		digdug,
 		discord,
-		jeopardy,
+		windowserror,
 		metalgearsolid,
 	];
 
