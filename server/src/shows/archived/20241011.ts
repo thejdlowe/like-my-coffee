@@ -1,4 +1,4 @@
-import { ShowType } from "../../sharedCopy";
+import { ShowType } from "../../../sharedCopy";
 
 export const show: ShowType = {
 	rounds: [
@@ -24,7 +24,8 @@ export const show: ShowType = {
 				},
 			],
 			minigame: "We've Got Movie Line!",
-			example: "Sex with me is like the movie Aladdin; the sequels ain't getting better",
+			example:
+				"Sex with me is like the movie Aladdin; the sequels ain't getting better",
 		},
 		{
 			players: [
