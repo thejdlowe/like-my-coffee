@@ -24,7 +24,8 @@ export const show: ShowType = {
 				},
 			],
 			minigame: "We've Got Movie Line!",
-			example: "Sex with me is like the movie Aladdin; the sequels ain't getting better",
+			example:
+				"Sex with me is like the movie Aladdin; the sequels ain't getting better",
 		},
 		{
 			players: [
@@ -79,10 +80,11 @@ export const show: ShowType = {
 		"Apply.png",
 		"Adam.png",
 		"Barack.png",
+		"Colin.png",
 		"Dodie.png",
-		"Jules.png",
 		"JD.png",
 		"Justin.png",
+		"Jules.png",
 		"Leslie.png",
 		"Mike.png",
 		"Tanya.png",
