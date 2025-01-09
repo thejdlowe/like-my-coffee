@@ -20,6 +20,9 @@ export const useSounds = () => {
 		jeopardy = () => playSound("times-up.mp3"),
 		metalgearsolid = () => playSound("codec.mp3"),
 		windowserror = () => playSound("WindowsError.mp3"),
+		stardewvalley = () => playSound("stardew-fishing_EimR00g.mp3"),
+		streetfighter = () => playSound("coin_1.mp3"),
+		portal = () => playSound("portal-2-sound-effects-portal-gun-fire-orange"),
 		ready = () => playSound("playersready.mp3");
 
 	const allSoundsObject = {
