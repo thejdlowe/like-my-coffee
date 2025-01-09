@@ -38,6 +38,9 @@ export const useSounds = () => {
 		jeopardy,
 		metalgearsolid,
 		windowserror,
+		stardewvalley,
+		streetfighter,
+		portal,
 		ready,
 	};
 
@@ -51,6 +54,9 @@ export const useSounds = () => {
 		discord,
 		windowserror,
 		metalgearsolid,
+		stardewvalley,
+		streetfighter,
+		portal,
 	];
 
 	return { allSoundsObject, gameSoundsArr };

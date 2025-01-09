@@ -28,6 +28,7 @@ export const CurrentGameRoundDropdown = () => {
 					<MenuItem value={0}>Round One</MenuItem>
 					<MenuItem value={1}>Round Two</MenuItem>
 					<MenuItem value={2}>Round Three</MenuItem>
+					<MenuItem value={3}>Round Four</MenuItem>
 				</Select>
 				<FormHelperText>Select Round</FormHelperText>
 			</FormControl>
