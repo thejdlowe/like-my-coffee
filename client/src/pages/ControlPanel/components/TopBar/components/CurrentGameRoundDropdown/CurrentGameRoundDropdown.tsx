@@ -15,8 +15,6 @@ export const CurrentGameRoundDropdown = () => {
 		setRoundIndex,
 	} = useAppContext();
 
-	console.log(gameState);
-
 	const changeDropdown = (event: SelectChangeEvent) => {
 		const value = event.target.value;
 		//if (parseInt(value) < 0) return;
