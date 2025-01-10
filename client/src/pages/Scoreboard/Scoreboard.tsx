@@ -1,6 +1,12 @@
 import { useAppContext } from "../../helpers/context";
 import { scoreboardStates } from "../../sharedCopy";
-import { Screensaver, FinalRound, Maingame, Minigame } from "./components";
+import {
+	Screensaver,
+	FinalRound,
+	Maingame,
+	Minigame,
+	MysteryScreen,
+} from "./components";
 import { useEffect } from "react";
 import "./scoreboard.css";
 export const Scoreboard = () => {
@@ -19,5 +25,7 @@ export const Scoreboard = () => {
 		return <Maingame />;
 	else if (currentScreenState === scoreboardStates.FINAL_ROUND)
 		return <FinalRound />;
+	else if (currentScreenState === scoreboardStates.SECRET_VIDEO)
+		return <MysteryScreen />;
 	else return <>invalid state?</>;
 };
