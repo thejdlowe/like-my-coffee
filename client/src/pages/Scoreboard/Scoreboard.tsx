@@ -6,6 +6,7 @@ import {
 	Maingame,
 	Minigame,
 	MysteryScreen,
+	CreditsScreen,
 } from "./components";
 import { useEffect } from "react";
 import "./scoreboard.css";
@@ -27,5 +28,7 @@ export const Scoreboard = () => {
 		return <FinalRound />;
 	else if (currentScreenState === scoreboardStates.SECRET_VIDEO)
 		return <MysteryScreen />;
+	else if (currentScreenState === scoreboardStates.CREDITS)
+		return <CreditsScreen />;
 	else return <>invalid state?</>;
 };
