@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { AppContextProvider } from "./helpers/context";
 import { ControlPanel } from "./pages/ControlPanel";
 import { Scoreboard } from "./pages/Scoreboard";
+import { PlayerDisplay } from "./pages/PlayerDisplay";
 import { CssBaseline } from "@mui/material";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { useEffect } from "react";
@@ -35,6 +36,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Scoreboard />} />
 						<Route path="/controlpanel" element={<ControlPanel />} />
+						<Route path="/playerdisplay/:id" element={<PlayerDisplay />} />
 					</Routes>
 				</AppContextProvider>
 			</FullScreen>
