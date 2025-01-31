@@ -55,7 +55,7 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Jen",
+					displayName: "Jules",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 6,
@@ -82,7 +82,7 @@ export const show: ShowType = {
 		"Aaron.png",
 		"Des.png",
 		"Ervin.png",
-		"Jennifer.png",
+		"Jules.png",
 		"JD.png",
 		"Justin.png",
 		"Kal.png",
