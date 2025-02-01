@@ -5,20 +5,20 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Aaron",
-					pronouns: "He/Him",
+					displayName: "Karissa",
+					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 0,
 				},
 				{
-					displayName: "Karissa",
+					displayName: "Caroline",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 1,
 				},
 				{
-					displayName: "Kelley",
-					pronouns: "She/Her",
+					displayName: "Josh",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 2,
 				},
@@ -30,20 +30,20 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Kal",
+					displayName: "Stephanie",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 3,
 				},
 				{
-					displayName: "Zach",
-					pronouns: "",
+					displayName: "Mark",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 4,
 				},
 				{
-					displayName: "Des",
-					pronouns: "She/Her",
+					displayName: "Elijah",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 5,
 				},
@@ -55,22 +55,46 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Jules",
+					displayName: "Melissa",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 6,
 				},
 				{
-					displayName: "Ervin",
+					displayName: "Chris",
 					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 7,
 				},
 				{
-					displayName: "Kelsey",
-					pronouns: "She/He/They",
+					displayName: "Tanya",
+					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 8,
+				},
+			],
+			minigame: "Bad Communication",
+			example: "Doing the laundry - you mean I have to put ANOTHER load in?",
+		},
+		{
+			players: [
+				{
+					displayName: "Chris",
+					pronouns: "He/Him",
+					score: 0,
+					soundIndex: 9,
+				},
+				{
+					displayName: "Q",
+					pronouns: "She/Her",
+					score: 0,
+					soundIndex: 10,
+				},
+				{
+					displayName: "",
+					pronouns: "",
+					score: 0,
+					soundIndex: 11,
 				},
 			],
 			minigame: "Bad Communication",
