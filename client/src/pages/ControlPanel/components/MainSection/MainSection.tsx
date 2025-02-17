@@ -35,7 +35,7 @@ export const MainSection = () => {
 	const { fullShowData, controllerStatuses } = gameState;
 	let header;
 	if (currentRoundIndex < 0) header = "Pre-Round";
-	else if (currentRoundIndex > 2) header = "Final Round";
+	else if (currentRoundIndex > 3) header = "Final Round";
 	else header = `Round ${currentRoundIndex + 1}`;
 	const currentRound = fullShowData.rounds[currentRoundIndex] || [];
 	const currentDescriptors = descriptors[currentRoundIndex] || [];

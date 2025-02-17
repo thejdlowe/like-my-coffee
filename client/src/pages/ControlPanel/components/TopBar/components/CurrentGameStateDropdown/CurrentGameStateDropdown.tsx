@@ -10,10 +10,8 @@ import { scoreboardStates } from "../../../../../../sharedCopy";
 import { useAppContext } from "../../../../../../helpers/context";
 
 export const CurrentGameStateDropdown = () => {
-	const {
-		setCurrentShowState,
-		currentScreenState,
-	} = useAppContext();
+	const { setCurrentShowState, currentScreenState, currentRoundIndex } =
+		useAppContext();
 
 	const changeDropdown = (event: SelectChangeEvent) => {
 		console.log(event.target.value);
@@ -26,11 +24,32 @@ export const CurrentGameStateDropdown = () => {
 				<Select onChange={changeDropdown} value={currentScreenState}>
 					{Object.values(scoreboardStates).map((el, index) => {
 						const value = el;
-						return (
-							<MenuItem key={index} value={el}>
-								{value}
-							</MenuItem>
-						);
+						if (currentRoundIndex < 99) {
+							if (
+								el === scoreboardStates.SECRET_VIDEO ||
+								el === scoreboardStates.CREDITS
+							)
+								return null;
+							return (
+								<MenuItem key={index} value={el}>
+									{value}
+								</MenuItem>
+							);
+						} else {
+							//if(el !== scoreboardStates.SECRET_VIDEO || el !== scoreboardStates.CREDITS) return null;
+							if (
+								el === scoreboardStates.CREDITS ||
+								el === scoreboardStates.SECRET_VIDEO ||
+								el === scoreboardStates.SCREEN_SAVER ||
+								el === scoreboardStates.FINAL_ROUND
+							) {
+								return (
+									<MenuItem key={index} value={el}>
+										{value}
+									</MenuItem>
+								);
+							}
+						}
 					})}
 				</Select>
 				<FormHelperText>Set Status</FormHelperText>

@@ -29,6 +29,8 @@ export const CurrentGameRoundDropdown = () => {
 				<Select onChange={changeDropdown} value={currentRoundIndex + ""}>
 					<MenuItem value={-1}>Pre Game</MenuItem>
 					{rounds.map((el, index) => {return (<MenuItem value={index}>Round {index + 1}</MenuItem>)}) }
+					<MenuItem value={99}>Secret Video</MenuItem>
+					<MenuItem value={100}>Credits Video</MenuItem>
 				</Select>
 				<FormHelperText>Select Round</FormHelperText>
 			</FormControl>
