@@ -15,13 +15,14 @@ with open("settings.json") as f:
 
 controllernumber = config["CONTROLLER_NUMBER"]
 controllerdebug = config["DEBUG"]
-
 ssid = config["WIFI_SSID"]
 password = config["WIFI_PASSWORD"]
+
 light_number_redcable = 13
 buttonpress_number_yellowcable = 18
 button = Button(buttonpress_number_yellowcable)
 button_led = LED(light_number_redcable)
+print(controllerdebug)
 temperature = 0
 
 '''
@@ -123,11 +124,12 @@ def buzzIn():
         percentage = 100.00
         '''
     temperature = pico_temp_sensor.temp
-    response = requests.get(f'http://likemycoffee.local:3001/buzz/{controllernumber}/100')
-    print(f'{response.content}')
+    #response = requests.get(f'http://likemycoffee.local:3001/buzz/{controllernumber}/100')
+    #print(f'{response.content}')
+    print("Buzzed in")
     turn_light_on()
 
-connect()
+# connect()
 '''
 try:
     connect()
