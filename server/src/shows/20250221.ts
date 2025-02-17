@@ -73,8 +73,8 @@ export const show: ShowType = {
 					soundIndex: 8,
 				},
 			],
-			minigame: "Bad Communication",
-			example: "Doing the laundry - you mean I have to put ANOTHER load in?",
+			minigame: "Sexy Slogans",
+			example: "Nike - Just Do Me",
 		},
 		{
 			players: [
