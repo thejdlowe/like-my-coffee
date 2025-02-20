@@ -9,6 +9,9 @@ import json
 from time import sleep
 from picozero import pico_temp_sensor, pico_led, LED, Button
 from machine import ADC, Pin
+from file_logger import Logger
+
+logger = Logger("debug", "logfile.log")
 
 with open("settings.json") as f:
     config = json.load(f)
@@ -22,7 +25,6 @@ light_number_redcable = 13
 buttonpress_number_yellowcable = 18
 button = Button(buttonpress_number_yellowcable)
 button_led = LED(light_number_redcable)
-print(controllerdebug)
 temperature = 0
 
 '''
@@ -75,10 +77,13 @@ def connect():
     '''
     #Connect to WLAN
     wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
     wlan.config(pm = 0xa11140)
-    wlan.connect(ssid, password)
+    wlan.active(False)
+    wlan.active(True)
+    
+    wlan.connect(ssid, password, channel=2)
     while wlan.isconnected() == False:
+        logger.info(str(wlan.status()))
         turn_light_on()
         sleep(0.2)
         turn_light_off()
@@ -124,20 +129,12 @@ def buzzIn():
         percentage = 100.00
         '''
     temperature = pico_temp_sensor.temp
-    #response = requests.get(f'http://likemycoffee.local:3001/buzz/{controllernumber}/100')
-    #print(f'{response.content}')
-    print("Buzzed in")
+    response = requests.get(f'http://likemycoffee.local:3001/buzz/{controllernumber}/100')
+    print(f'{response.content}')
     turn_light_on()
 
-# connect()
-'''
-try:
-    connect()
-except Exception as error:
-    # handle the exception
-    print("An exception occurred:", error) # An exception occurred: division by zero
-except KeyboardInterrupt:
-    machine.reset() 
-'''
+connect()
+
+print("Successfully connected")
 button.when_pressed = buzzIn
 button.when_released = turn_light_off
