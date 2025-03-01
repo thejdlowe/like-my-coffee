@@ -6,22 +6,28 @@ import { createBluetooth } from "node-ble";
 
 
 const initiateBLE = async () => {
-	const { bluetooth, destroy } = createBluetooth()
-	const adapter = await bluetooth.defaultAdapter()
-	if (! await adapter.isDiscovering())
-		await adapter.startDiscovery();
+	try {
+		const { bluetooth, destroy } = createBluetooth()
+		const adapter = await bluetooth.defaultAdapter()
+		if (! await adapter.isDiscovering())
+			await adapter.startDiscovery();
 
-	const device = await adapter.waitDevice('D8:3A:DD:76:3D:40')
-	await device.connect()
-	console.log("Connected");
-	// 	console.log(device)
-	// await device.connect()
-	// const gattServer = await device.gatt()
-	// const service1 = await gattServer.getPrimaryService('uuid')
-	// const characteristic1 = await service1.getCharacteristic('uuid')
-	// await characteristic1.writeValue(Buffer.from("Hello world"))
-	// const buffer = await characteristic1.readValue()
-	// console.log(buffer)
+		const device = await adapter.waitDevice('D8:3A:DD:76:3D:40')
+		await device.connect()
+		console.log("Connected");
+		await device.connect()
+		const gattServer = await device.gatt();
+		const services = await gattServer.services();
+		console.log(services);
+		// const service1 = await gattServer.getPrimaryService('uuid')
+		// const characteristic1 = await service1.getCharacteristic('uuid')
+		// await characteristic1.writeValue(Buffer.from("Hello world"))
+		// const buffer = await characteristic1.readValue()
+		// console.log(buffer)
+	}
+	catch {
+		console.log("Error handled")
+	}
 }
 
 initiateBLE();
@@ -220,7 +226,7 @@ export const startGameLogic = (io: any, app: any) => {
 	);
 
 	app.get("/status", (req: Request, res: Response) => {
-		console.log("Update requested");
+		//console.log("Update requested");
 		res.json(currentState);
 	});
 
