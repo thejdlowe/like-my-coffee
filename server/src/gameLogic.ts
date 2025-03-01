@@ -2,6 +2,29 @@ import { webusb } from "usb";
 import { show } from "./shows";
 import { FullStateType, scoreboardStates } from "../sharedCopy";
 import express, { Request, Response } from "express";
+import { createBluetooth } from "node-ble";
+
+
+const initiateBLE = async () => {
+	const { bluetooth, destroy } = createBluetooth()
+	const adapter = await bluetooth.defaultAdapter()
+	if (! await adapter.isDiscovering())
+		await adapter.startDiscovery();
+
+	const device = await adapter.waitDevice('D8:3A:DD:76:3D:40')
+	await device.connect()
+	console.log("Connected");
+	// 	console.log(device)
+	// await device.connect()
+	// const gattServer = await device.gatt()
+	// const service1 = await gattServer.getPrimaryService('uuid')
+	// const characteristic1 = await service1.getCharacteristic('uuid')
+	// await characteristic1.writeValue(Buffer.from("Hello world"))
+	// const buffer = await characteristic1.readValue()
+	// console.log(buffer)
+}
+
+initiateBLE();
 
 const DEVICE_INFO = {
 	vendorId: 1118,
