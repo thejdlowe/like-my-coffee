@@ -20,9 +20,12 @@ noble.on('discover', async function (device: any) {
 	if (goodMacs.includes(mac.toUpperCase())) {
 		console.log(`Hey we found ${mac}`);
 		await device.connectAsync();
-		console.log({ device })
-		const everything = device.discoverAllServicesAndCharacteristics();
-		console.log({ everything })
+		device.discoverAllServicesAndCharacteristics((eror: any, services: any, characteristics: any) => {
+			// handle services
+			console.log("Services", services);
+			console.log("characteristics", characteristics)
+		});
+
 	}
 	//console.log(mac)
 });
