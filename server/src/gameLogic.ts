@@ -22,6 +22,9 @@ noble.on('discover', async function (device: any) {
 		await device.connectAsync();
 		device.discoverAllServicesAndCharacteristics((eror: any, services: any, characteristics: any) => {
 			// handle services
+			//this works!!!!!
+
+			//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
 			console.log("Services", services);
 			console.log("characteristics", characteristics)
 		});
