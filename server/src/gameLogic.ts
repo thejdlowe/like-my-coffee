@@ -6,8 +6,11 @@ import { createBluetooth } from "node-ble";
 
 
 const initiateBLE = async () => {
-	const { bluetooth, destroy } = createBluetooth()
+	let destroyer = () => {};
+	
 	try {
+		const { bluetooth, destroy } = createBluetooth()
+		destroyer = destroy;
 		const adapter = await bluetooth.defaultAdapter()
 		if (! await adapter.isDiscovering())
 			await adapter.startDiscovery();
@@ -24,7 +27,7 @@ const initiateBLE = async () => {
 	}
 	catch {
 		console.log("Error handled");
-		destroy();
+		destroyer();
 		initiateBLE();
 	}
 }
