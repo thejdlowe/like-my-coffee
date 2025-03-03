@@ -6,27 +6,26 @@ import { createBluetooth } from "node-ble";
 
 
 const initiateBLE = async () => {
+	const { bluetooth, destroy } = createBluetooth()
 	try {
-		const { bluetooth, destroy } = createBluetooth()
 		const adapter = await bluetooth.defaultAdapter()
 		if (! await adapter.isDiscovering())
 			await adapter.startDiscovery();
-
-		const device = await adapter.waitDevice('D8:3A:DD:76:3D:40')
-		await device.connect()
-		console.log("Connected");
-		await device.connect()
-		const gattServer = await device.gatt();
-		const services = await gattServer.services();
-		console.log(services);
-		// const service1 = await gattServer.getPrimaryService('uuid')
-		// const characteristic1 = await service1.getCharacteristic('uuid')
-		// await characteristic1.writeValue(Buffer.from("Hello world"))
-		// const buffer = await characteristic1.readValue()
-		// console.log(buffer)
+		const controllerIDs = ['D8:3A:DD:76:3D:40'];
+		controllerIDs.forEach(async (controllerID) => {
+			const device = await adapter.waitDevice(controllerID)
+			await device.connect()
+			console.log(`Connected to ${controllerID}`);
+			await device.connect()
+			const gattServer = await device.gatt();
+			const services = await gattServer.services();
+			console.log(services);
+		})
 	}
 	catch {
-		console.log("Error handled")
+		console.log("Error handled");
+		destroy();
+		initiateBLE();
 	}
 }
 
