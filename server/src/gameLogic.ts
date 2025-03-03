@@ -2,37 +2,61 @@ import { webusb } from "usb";
 import { show } from "./shows";
 import { FullStateType, scoreboardStates } from "../sharedCopy";
 import express, { Request, Response } from "express";
-import { createBluetooth } from "node-ble";
+const noble = require('@abandonware/noble');
 
 
-const initiateBLE = async () => {
-	let destroyer = () => {};
-	
-	try {
-		const { bluetooth, destroy } = createBluetooth()
-		destroyer = destroy;
-		const adapter = await bluetooth.defaultAdapter()
-		if (! await adapter.isDiscovering())
-			await adapter.startDiscovery();
-		const controllerIDs = ['D8:3A:DD:76:3D:40'];
-		controllerIDs.forEach(async (controllerID) => {
-			const device = await adapter.waitDevice(controllerID)
-			await device.connect()
-			console.log(`Connected to ${controllerID}`);
-			await device.connect()
-			const gattServer = await device.gatt();
-			const services = await gattServer.services();
-			console.log(services);
-		})
+noble.on('stateChange', function (state: any) {
+	if (state === 'poweredOn') {
+		noble.startScanning();
 	}
-	catch {
-		console.log("Error handled");
-		destroyer();
-		initiateBLE();
+	else {
+		noble.stopScanning();
 	}
-}
+});
 
-initiateBLE();
+noble.on('discover', async function (device: any) {
+	const mac = device.address; // retrieves the MAC address
+	const goodMacs = ['D8:3A:DD:76:3D:40'];
+	if (goodMacs.includes(mac.toUpperCase())) {
+		console.log(`Hey we found ${mac}`);
+		await device.connectAsync();
+		console.log({ device })
+		const everything = device.discoverAllServicesAndCharacteristics();
+		console.log({ everything })
+	}
+	//console.log(mac)
+});
+//import { createBluetooth } from "node-ble";
+
+
+// const initiateBLE = async () => {
+// 	let destroyer = () => {};
+
+// 	try {
+// 		const { bluetooth, destroy } = createBluetooth()
+// 		destroyer = destroy;
+// 		const adapter = await bluetooth.defaultAdapter()
+// 		if (! await adapter.isDiscovering())
+// 			await adapter.startDiscovery();
+// 		const controllerIDs = ['D8:3A:DD:76:3D:40'];
+// 		controllerIDs.forEach(async (controllerID) => {
+// 			const device = await adapter.waitDevice(controllerID)
+// 			await device.connect()
+// 			console.log(`Connected to ${controllerID}`);
+// 			await device.connect()
+// 			const gattServer = await device.gatt();
+// 			const services = await gattServer.services();
+// 			console.log(services);
+// 		})
+// 	}
+// 	catch {
+// 		console.log("Error handled");
+// 		destroyer();
+// 		initiateBLE();
+// 	}
+// }
+
+// initiateBLE();
 
 const DEVICE_INFO = {
 	vendorId: 1118,

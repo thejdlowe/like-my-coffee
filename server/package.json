@@ -9,10 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@abandonware/noble": "^1.9.2-26",
+    "@types/noble": "^0.0.44",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "noble": "^1.9.1",
-    "node-ble": "^1.13.0",
     "socket.io": "^4.7.5",
     "typescript": "^5.5.3",
     "usb": "^2.13.0"
