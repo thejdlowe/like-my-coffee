@@ -3,6 +3,9 @@ import bluetooth
 from machine import ADC, Pin
 import asyncio
 
+button_pin = 18
+button_pin_object = Pin(button_pin, Pin.IN, Pin.PULL_UP)
+
 # Define UUIDs for the service and characteristics
 _SERVICE_UUID = bluetooth.UUID(0x1848)
 _WRITE_CHARACTERISTIC_UUID = bluetooth.UUID(0x2A6E)  # Central writes here
@@ -47,11 +50,29 @@ def decode_message(message):
     """Decode a message from bytes."""
     return message.decode('utf-8')
 
+being_pressed = False
+async def check_button(write_characteristic):
+    while True:
+        try:
+            is_pressed = button_pin_object.value()
+            if is_pressed == 0:
+                if being_pressed == False:
+                    being_pressed = True
+                    msg = encode_message("0")
+                    write_characteristic.write(msg)  # Peripheral writes data here
+                    print("Sent data")
+            else:
+                being_pressed = False
+            await asyncio.sleep(0.1)
+        except Exception as e:
+            print(f"Error while sending data: {e}")
+            continue
+
 async def send_data_task(connection, write_characteristic):
     """Send data to the central device."""
     global message_count
     while True:
-        message = f"{read_temperature()}�C"
+        message = f"{read_temperature()}°C"
         # print(f"Sending: {message}")
 
         try:
@@ -107,8 +128,9 @@ async def run_peripheral_mode():
 
             # Create tasks for sending and receiving data
             tasks = [
-                asyncio.create_task(send_data_task(connection, read_characteristic)),
-                asyncio.create_task(receive_data_task(write_characteristic)),
+                #asyncio.create_task(send_data_task(connection, read_characteristic)),
+                #asyncio.create_task(receive_data_task(write_characteristic)),
+                asyncio.create_task(check_button(read_characteristic))
             ]
             await asyncio.gather(*tasks)
             print(f"{IAM} disconnected")
