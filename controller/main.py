@@ -36,7 +36,7 @@ IAM = "Peripheral"
 # Bluetooth parameters
 BLE_NAME = "Like My Coffee Controller" # f"{IAM}"  # Dynamic name for the device
 BLE_SVC_UUID = _SERVICE_UUID
-BLE_APPEARANCE = 0x0300
+BLE_APPEARANCE = 0x03C0
 BLE_ADVERTISING_INTERVAL = 2000
 
 # state variables
