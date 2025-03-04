@@ -4,7 +4,6 @@ import { FullStateType, scoreboardStates } from "../sharedCopy";
 import express, { Request, Response } from "express";
 const noble = require('@abandonware/noble');
 
-
 noble.on('stateChange', function (state: any) {
 	if (state === 'poweredOn') {
 		noble.startScanning();
@@ -18,16 +17,33 @@ noble.on('discover', async function (device: any) {
 	const mac = device.address; // retrieves the MAC address
 	const goodMacs = ['D8:3A:DD:76:3D:40'];
 	if (goodMacs.includes(mac.toUpperCase())) {
-		console.log(`Hey we found ${mac}`);
+		console.log(`${mac} discovered`);
 		await device.connectAsync();
-		device.discoverAllServicesAndCharacteristics((eror: any, services: any, characteristics: any) => {
+		console.log(`${mac} connected, getting services`);
+
+		device.discoverAllServicesAndCharacteristics((err: any, services: any, characteristics: any) => {
 			// handle services
 			//this works!!!!!
 
 			//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
-			console.log("Services", services);
-			console.log("characteristics", characteristics)
+
+			// console.log("Services2", services);
+			characteristics.forEach((characteristic: any) => {
+				if (characteristic.uuid === "2a6e" || characteristic.uuid === "2a6f") {
+					console.log(`Monitoring characteristic ${characteristic.uuid}`);
+					characteristic.on('read', (data: any, isNotification: any) => {
+						console.log("Data!")
+						console.log(`the button pressed ${data}`)
+						console.log(`isNotification ${isNotification}`)
+					});
+					// characteristic.subscribe(() => {
+					// 	characteristic.
+					// });
+				}
+
+			})
 		});
+
 
 	}
 	//console.log(mac)
