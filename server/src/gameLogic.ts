@@ -2,48 +2,6 @@ import { webusb } from "usb";
 import { show } from "./shows";
 import { FullStateType, scoreboardStates } from "../sharedCopy";
 import express, { Request, Response } from "express";
-const noble = require('@abandonware/noble');
-
-noble.on('stateChange', function (state: any) {
-	if (state === 'poweredOn') {
-		noble.startScanning();
-	}
-	else {
-		noble.stopScanning();
-	}
-});
-
-noble.on('discover', async function (device: any) {
-	const mac = device.address; // retrieves the MAC address
-	const goodMacs = ['D8:3A:DD:76:3D:40'];
-	if (goodMacs.includes(mac.toUpperCase())) {
-		console.log(`${mac} discovered`);
-		await device.connectAsync();
-		console.log(`${mac} connected, getting services`);
-
-		device.discoverAllServicesAndCharacteristics((err: any, services: any, characteristics: any) => {
-			//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
-
-			characteristics.forEach((characteristic: any) => {
-				if (characteristic.uuid === "2a6f") {
-					console.log(`Monitoring characteristic ${characteristic.uuid}`);
-					let lastdata: any = null;
-
-					setInterval(async () => {
-						const newdata = (await characteristic.readAsync());
-						if (lastdata !== newdata.toString()) {
-							console.log("Data received from controler: ", newdata.toString());
-							lastdata = newdata.toString();
-							const controllernumber = lastdata.split("&")[0];
-							fetch(`http://likemycoffee.local:3001/buzz/${controllernumber}`)
-							//http://likemycoffee.local:3001/buzz/{controllernumber}
-						}
-					}, 100)
-				}
-			})
-		});
-	}
-});
 
 const DEVICE_INFO = {
 	vendorId: 1118,
