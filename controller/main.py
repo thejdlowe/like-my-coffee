@@ -68,11 +68,9 @@ async def check_button(connection, write_characteristic):
                     being_pressed = True
                     msg = encode_message("0")
                     message = f"{controllernumber}&{random.randint(1,2_000_000_000)}".encode('utf-8')
-                    print(message)
                     write_characteristic.write(message)
-                    
-                    # write_characteristic.write(msg, send_update=True)  # Peripheral writes data here
-                    print("Sent data")
+
+                    print(f"Sent data {message}")
             else:
                 being_pressed = False
             await asyncio.sleep(0.1)
