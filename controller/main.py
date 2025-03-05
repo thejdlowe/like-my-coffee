@@ -2,6 +2,13 @@ import aioble
 import bluetooth
 from machine import ADC, Pin
 import asyncio
+import random
+import json
+
+with open("settings.json") as f:
+    config = json.load(f)
+
+controllernumber = config["CONTROLLER_NUMBER"]
 
 button_pin = 18
 button_pin_object = Pin(button_pin, Pin.IN, Pin.PULL_UP)
@@ -28,6 +35,7 @@ ble.active(True)
 _, mac_address = ble.config('mac')
 formatted_mac = ':'.join(f'{b:02X}' for b in mac_address)
 print(f"Bluetooth MAC Address for this device is: {formatted_mac}")
+print(f"Controller registered as {controllernumber}")
 ble.active(False)
 ble = None
 
@@ -36,7 +44,7 @@ IAM = "Peripheral"
 # Bluetooth parameters
 BLE_NAME = "Like My Coffee Controller" # f"{IAM}"  # Dynamic name for the device
 BLE_SVC_UUID = _SERVICE_UUID
-BLE_APPEARANCE = 0x03C0
+BLE_APPEARANCE = 0x0300
 BLE_ADVERTISING_INTERVAL = 2000
 
 # state variables
@@ -51,7 +59,7 @@ def decode_message(message):
     return message.decode('utf-8')
 
 being_pressed = False
-async def check_button(write_characteristic):
+async def check_button(connection, write_characteristic):
     while True:
         try:
             is_pressed = button_pin_object.value()
@@ -59,7 +67,11 @@ async def check_button(write_characteristic):
                 if being_pressed == False:
                     being_pressed = True
                     msg = encode_message("0")
-                    write_characteristic.write(msg)  # Peripheral writes data here
+                    message = f"{controllernumber}&{random.randint(1,2_000_000_000)}".encode('utf-8')
+                    print(message)
+                    write_characteristic.write(message)
+                    
+                    # write_characteristic.write(msg, send_update=True)  # Peripheral writes data here
                     print("Sent data")
             else:
                 being_pressed = False
@@ -130,7 +142,7 @@ async def run_peripheral_mode():
             tasks = [
                 #asyncio.create_task(send_data_task(connection, read_characteristic)),
                 #asyncio.create_task(receive_data_task(write_characteristic)),
-                asyncio.create_task(check_button(read_characteristic))
+                asyncio.create_task(check_button(connection, read_characteristic))
             ]
             await asyncio.gather(*tasks)
             print(f"{IAM} disconnected")
