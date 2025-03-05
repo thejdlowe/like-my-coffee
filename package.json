@@ -2,6 +2,9 @@
   "dependencies": {
     "concurrently": "^8.2.2"
   },
+  "name": "LikeMyCoffee",
+	"version": "3.0.0",
+  "description": "J.D. Lowe's open source scoreboard for the game show Like My Coffee",
   "scripts": {
     "start": "concurrently \"npx ts-node server/src/server.ts\" \"npm start --prefix client/\""
   }
