@@ -28,14 +28,21 @@ noble.on('discover', async function (device: any) {
 			//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
 
 			// console.log("Services2", services);
+
 			characteristics.forEach((characteristic: any) => {
-				if (characteristic.uuid === "2a6e" || characteristic.uuid === "2a6f") {
+				if (characteristic.uuid === "2a6f") {
 					console.log(`Monitoring characteristic ${characteristic.uuid}`);
-					characteristic.on('read', (data: any, isNotification: any) => {
-						console.log("Data!")
-						console.log(`the button pressed ${data}`)
-						console.log(`isNotification ${isNotification}`)
-					});
+					let lastdata: any = null;
+
+					setInterval(async () => {
+						const newdata = (await characteristic.readAsync());
+						if (lastdata !== newdata.toString()) {
+							console.log("Data received from controler: ", newdata.toString());
+							lastdata = newdata.toString();
+						}
+						// const batteryLevel = (await characteristic.readAsync());
+						// console.log(`batteryLevel ${batteryLevel}`)
+					}, 100)
 					// characteristic.subscribe(() => {
 					// 	characteristic.
 					// });
