@@ -1,5 +1,7 @@
 # Like My Coffee Scoreboard 3.0
+
 ### by J.D. Lowe
+
 _I like my lovers like I like my coffee: open source_
 
 <img src="https://github.com/thejdlowe/like-my-coffee-scoreboard/assets/2357370/d96b879c-cc73-4bdd-8d4b-e44f2ba1b3a0" alt="drawing" width="200"/>
@@ -8,7 +10,7 @@ This is the software needed for the application that powers the Like My Coffee s
 
 ### Hardware
 
-1. A Raspberry Pi 5 or higher; this will act as the main hub, and will need to be connected to a TV to broadcast the scoreboard 
+1. A Raspberry Pi 5 or higher; this will act as the main hub, and will need to be connected to a TV to broadcast the scoreboard
 2. At least three Raspberry Pi Pico W's, with power supplies and wiring from GP18 to a pushbutton.
 3. A wifi router for the Pi to connect to.
 4. A mobile device to connect to the same network as the Pi. This is for the control panel.
@@ -16,7 +18,7 @@ This is the software needed for the application that powers the Like My Coffee s
 ### Software
 
 1. Do your normal Pi updates/upgrades/whatever.
-2. Your Pi will need to be set up to: get the scripts JD 
+2. Your Pi will need to be set up to: get the scripts JD
 
 ### TO DO
 
@@ -27,6 +29,8 @@ This is the software needed for the application that powers the Like My Coffee s
 5. Style it up, baby!
 6. Allow custom time lengths for rounds
 7. Mark who wins in each round, so that a final round can have all the winners.
+8. Separate the logic of bluetooth from the server so if the bluetooth crashes, I can try again.
+9. If the player buzzes in successfully, return True to the controller and give a haptic response of some kind.
 
 Below is the original ReadMe:
 
