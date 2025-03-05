@@ -18,7 +18,16 @@ This is the software needed for the application that powers the Like My Coffee s
 ### Software
 
 1. Do your normal Pi updates/upgrades/whatever.
-2. Your Pi will need to be set up to: get the scripts JD
+2. Your Pi will need to be set up to run the `like-my-coffee-fancy` npm start as sudo; same for npm run bluetooth, and it also needs chromium to run shortly after those have started.
+
+This is how my `wayfire.ini` is setup (yes this has been moved on; this was written using it, so this would need to be updated. My worry is that it's all part of how windows render; Chromium is already hard enough)
+
+```
+[autostart]
+LikeMyCoffee = sudo npm run start --prefix /home/LikeMyCoffee/shared/like-my-coffee-fancy/ > coffeelog.txt
+LMCBluetooth = sudo npm run bluetooth --prefix /home/LikeMyCoffee/shared/like-my-coffee-fancy/ > bluetoothlogs.txt
+chromium = sleep 15;chromium-browser --incognito --disable-session-crashed-bubble --disable-infobars --start-fullscreen --start-maximized http://localhost:3000/
+```
 
 ### TO DO
 
