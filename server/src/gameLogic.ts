@@ -22,12 +22,7 @@ noble.on('discover', async function (device: any) {
 		console.log(`${mac} connected, getting services`);
 
 		device.discoverAllServicesAndCharacteristics((err: any, services: any, characteristics: any) => {
-			// handle services
-			//this works!!!!!
-
 			//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
-
-			// console.log("Services2", services);
 
 			characteristics.forEach((characteristic: any) => {
 				if (characteristic.uuid === "2a6f") {
@@ -39,53 +34,16 @@ noble.on('discover', async function (device: any) {
 						if (lastdata !== newdata.toString()) {
 							console.log("Data received from controler: ", newdata.toString());
 							lastdata = newdata.toString();
+							const controllernumber = lastdata.split("&")[0];
+							fetch(`http://likemycoffee.local:3001/buzz/${controllernumber}`)
+							//http://likemycoffee.local:3001/buzz/{controllernumber}
 						}
-						// const batteryLevel = (await characteristic.readAsync());
-						// console.log(`batteryLevel ${batteryLevel}`)
 					}, 100)
-					// characteristic.subscribe(() => {
-					// 	characteristic.
-					// });
 				}
-
 			})
 		});
-
-
 	}
-	//console.log(mac)
 });
-//import { createBluetooth } from "node-ble";
-
-
-// const initiateBLE = async () => {
-// 	let destroyer = () => {};
-
-// 	try {
-// 		const { bluetooth, destroy } = createBluetooth()
-// 		destroyer = destroy;
-// 		const adapter = await bluetooth.defaultAdapter()
-// 		if (! await adapter.isDiscovering())
-// 			await adapter.startDiscovery();
-// 		const controllerIDs = ['D8:3A:DD:76:3D:40'];
-// 		controllerIDs.forEach(async (controllerID) => {
-// 			const device = await adapter.waitDevice(controllerID)
-// 			await device.connect()
-// 			console.log(`Connected to ${controllerID}`);
-// 			await device.connect()
-// 			const gattServer = await device.gatt();
-// 			const services = await gattServer.services();
-// 			console.log(services);
-// 		})
-// 	}
-// 	catch {
-// 		console.log("Error handled");
-// 		destroyer();
-// 		initiateBLE();
-// 	}
-// }
-
-// initiateBLE();
 
 const DEVICE_INFO = {
 	vendorId: 1118,
