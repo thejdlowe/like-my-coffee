@@ -18,10 +18,10 @@ noble.on("discover", async function (device) {
 		await device.connectAsync();
 		console.log(`${mac} connected, getting services`);
 
-		console.log(device);
-
 		device.discoverAllServicesAndCharacteristics(
 			(err, services, characteristics) => {
+				console.log("JD HERE");
+				console.log({ err, services, characteristics });
 				//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
 
 				characteristics.forEach((characteristic) => {
