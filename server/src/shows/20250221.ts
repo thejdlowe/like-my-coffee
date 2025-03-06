@@ -9,7 +9,7 @@ export const show: ShowType = {
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 0,
-					isWinner: true,
+					isWinner: false,
 				},
 				{
 					displayName: "Caroline",
@@ -58,7 +58,7 @@ export const show: ShowType = {
 			minigame: "Name That Position",
 			example:
 				"The USB Drive - You have to flip over twice before it can go in",
-				timelength: 15,
+			timelength: 15,
 		},
 		{
 			players: [

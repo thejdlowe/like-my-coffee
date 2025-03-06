@@ -33,7 +33,8 @@ const currentState: FullStateType = {
 };
 
 export const startGameLogic = (io: any, app: any) => {
-	const maxTimeRemaining = 60 * 12; //10;	//Ten minutes
+	//const maxTimeRemaining = 60 * 12; //10;	//Ten minutes
+	let currentMaxTimeRemaining = 0;
 	let timerRef: any = undefined;
 
 	const handleBuzzer = (buttonData: any) => {
@@ -105,7 +106,7 @@ export const startGameLogic = (io: any, app: any) => {
 				const finalRoundRoundIndex =
 					currentState.fullShowData.rounds.length - 1;
 				const whichColumn = currentState.currentRoundIndex;
-				
+
 				currentState.fullShowData.rounds[finalRoundRoundIndex].players[
 					whichColumn
 				].displayName =
@@ -123,7 +124,10 @@ export const startGameLogic = (io: any, app: any) => {
 			io.emit("state", currentState);
 		});
 		socket.on("startTimer", () => {
-			currentState.currentTimerValue = maxTimeRemaining;
+			currentMaxTimeRemaining =
+				currentState.fullShowData.rounds[currentState.currentRoundIndex]
+					.timelength * 60;
+			currentState.currentTimerValue = currentMaxTimeRemaining;
 			currentState.currentTimerPercentage = 100;
 			currentState.hasStarted = true;
 			io.emit("state", currentState);
@@ -131,7 +135,7 @@ export const startGameLogic = (io: any, app: any) => {
 			timerRef = setInterval(() => {
 				currentState.currentTimerValue--;
 				currentState.currentTimerPercentage =
-					(currentState.currentTimerValue / maxTimeRemaining) * 100;
+					(currentState.currentTimerValue / currentMaxTimeRemaining) * 100;
 				if (currentState.currentTimerValue <= 0) {
 					currentState.currentTimerValue = 0;
 					currentState.currentTimerPercentage = 0;
