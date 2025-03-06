@@ -44,3 +44,4 @@ chromium = sleep 15;chromium-browser --incognito --disable-session-crashed-bubbl
 5. Individual player screens to mount to the front of pedestals that will reflect the current player's name, pronouns, and their score. This is already in progress but as of March 4, 2025, it is not usable.
 6. Style it up, baby!
 7. If the player buzzes in successfully, return True to the controller and give a haptic response of some kind.
+8. Display in Control Panel what Bluetooth are currently active somehow.
