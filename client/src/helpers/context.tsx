@@ -20,6 +20,7 @@ interface AppContextInterface {
 	setDemoSound: (sound: string) => void;
 	setCurrentShowState: (newState: string) => void;
 	scoreChange: (scoreChangeValue: number, index: number) => void;
+	winnerChange: (playerIndex: number) => void;
 	serverState: FullStateType;
 	currentTimerValue: number;
 	currentPlayerBuzzedIn: number;
@@ -55,6 +56,7 @@ const AppContext = createContext<AppContextInterface>({
 	setRoundIndex: () => {},
 	startTimer: () => {},
 	scoreChange: () => {},
+	winnerChange: () => {},
 	setDemoSound: () => {},
 	currentTimerValue: -1,
 	currentPlayerBuzzedIn: -1,
@@ -131,6 +133,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		socket.emit("scoreChange", { scoreChangeValue, index });
 	}, []);
 
+	const winnerChange = useCallback((playerIndex: number) => {
+		socket.emit("winnerChange", { playerIndex });
+	}, []);
+
 	const setDemoSound = useCallback((sound: string) => {
 		socket.emit("sendSound", sound);
 	}, []);
@@ -170,8 +176,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 				allSoundsObject[soundToPlay as keyof typeof allSoundsObject]();
 			}
 		}
-
-		//socket.on("state", newSetFullState);
 
 		const heartbeat = setInterval(() => {
 			try {
@@ -230,6 +234,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 				setRoundIndex,
 				startTimer,
 				scoreChange,
+				winnerChange,
 				setDemoSound,
 				currentTimerValue,
 				currentPlayerBuzzedIn,

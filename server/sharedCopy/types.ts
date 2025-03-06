@@ -23,12 +23,14 @@ export type PlayerType = {
 	pronouns: string;
 	soundIndex: number;
 	score: number;
+	isWinner: boolean;
 };
 
 export type RoundType = {
 	players: [PlayerType, PlayerType, PlayerType];
 	minigame: string;
 	example: string;
+	timelength: number;
 };
 
 export type ShowType = {

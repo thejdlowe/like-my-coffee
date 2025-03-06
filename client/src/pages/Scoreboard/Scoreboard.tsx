@@ -9,7 +9,6 @@ import {
 	CreditsScreen,
 } from "./components";
 import { useEffect } from "react";
-import "./scoreboard.css";
 export const Scoreboard = () => {
 	useEffect(() => {
 		document.title = "Scoreboard";

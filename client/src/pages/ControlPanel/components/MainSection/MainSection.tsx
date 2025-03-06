@@ -8,7 +8,9 @@ export const MainSection = () => {
 		currentPlayerBuzzedIn,
 		currentRoundIndex,
 		currentTimerPercentage,
+		currentScreenState
 	} = useAppContext();
+	
 	let highlightDescriptorIndex = 0;
 	if (currentTimerPercentage <= 33) {
 		highlightDescriptorIndex = 2;
@@ -22,6 +24,8 @@ export const MainSection = () => {
 		playerColors.PLAYER_TWO,
 		playerColors.PLAYER_THREE,
 	];
+
+	
 	const descriptors = [
 		["Living Room", "Profession you want", "Something you want"],
 		["Kitchen", "Profession you work now", "Something you need"],
@@ -41,7 +45,7 @@ export const MainSection = () => {
 	const currentDescriptors = descriptors[currentRoundIndex] || [];
 	return (
 		<Stack>
-			<Typography variant="h1">{header}</Typography>
+			<Typography variant="h2">{header}</Typography>
 			<Stack direction="row">
 				<Stack direction="row" sx={{ width: "66%", display: "inline-flex" }}>
 					{currentRound &&
@@ -52,6 +56,7 @@ export const MainSection = () => {
 									key={index}
 									buzzedIn={index === currentPlayerBuzzedIn}
 									displayName={player.displayName}
+									isWinner={player.isWinner}
 									currentScore={player.score}
 									playerIndex={index}
 									color={colors[index]}

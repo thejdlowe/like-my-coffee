@@ -34,7 +34,7 @@ function App() {
 				<CssBaseline />
 				<AppContextProvider>
 					<Routes>
-						<Route path="/" element={<Scoreboard />} />
+						<Route path="/" element={<div style={{cursor: "none"}}><Scoreboard /></div>} />
 						<Route path="/controlpanel" element={<ControlPanel />} />
 						<Route path="/playerdisplay/:id" element={<PlayerDisplay />} />
 					</Routes>
