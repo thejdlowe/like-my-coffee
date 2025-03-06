@@ -1,4 +1,7 @@
 const noble = require("@abandonware/noble");
+async function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 noble.on("stateChange", function (state) {
 	if (state === "poweredOn") {
@@ -16,7 +19,9 @@ noble.on("discover", async function (device) {
 	if (goodMacs.includes(mac.toUpperCase())) {
 		console.log(`${mac} discovered`);
 		await device.connectAsync();
+		await sleep(3000);
 		console.log(`${mac} connected, getting services`);
+		
 
 		device.discoverAllServicesAndCharacteristics(
 			(err, services, characteristics) => {
