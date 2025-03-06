@@ -96,11 +96,30 @@ export const startGameLogic = (io: any, app: any) => {
 				playerIndex
 			);
 			const state =
-				currentState.fullShowData.rounds[currentState.currentRoundIndex]
+				!currentState.fullShowData.rounds[currentState.currentRoundIndex]
 					.players[playerIndex].isWinner;
 			currentState.fullShowData.rounds[currentState.currentRoundIndex].players[
 				playerIndex
-			].isWinner = !state;
+			].isWinner = state;
+			if (state) {
+				const finalRoundRoundIndex =
+					currentState.fullShowData.rounds.length - 1;
+				const whichColumn = currentState.currentRoundIndex;
+				
+				currentState.fullShowData.rounds[finalRoundRoundIndex].players[
+					whichColumn
+				].displayName =
+					currentState.fullShowData.rounds[
+						currentState.currentRoundIndex
+					].players[playerIndex].displayName;
+
+				currentState.fullShowData.rounds[finalRoundRoundIndex].players[
+					whichColumn
+				].pronouns =
+					currentState.fullShowData.rounds[
+						currentState.currentRoundIndex
+					].players[playerIndex].pronouns;
+			}
 			io.emit("state", currentState);
 		});
 		socket.on("startTimer", () => {
