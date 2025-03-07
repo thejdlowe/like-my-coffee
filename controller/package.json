@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "J.D. Lowe",
+  "type": "module",
   "license": "ISC",
   "dependencies": {
     "@abandonware/noble": "^1.9.2-26"
