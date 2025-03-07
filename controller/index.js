@@ -19,15 +19,14 @@ noble.on("discover", async function (device) {
 	const mac = device.address; // retrieves the MAC address
 
 	if (goodMacs.includes(mac.toUpperCase())) {
-		console.log(`${mac} discovered`);
-		await device.connectAsync();
+		console.log(`${mac} discovered, connecting`);
+		const testJD = await device.connectAsync();
+		console.log("Let's see", testJD)
 		await sleep(3000);
 		console.log(`${mac} connected, getting services`);
 
 		device.discoverAllServicesAndCharacteristics(
 			(err, services, characteristics) => {
-				console.log("JD HERE");
-				console.log({ err, services, characteristics });
 				//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
 
 				characteristics.forEach((characteristic) => {

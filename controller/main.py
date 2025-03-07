@@ -1,6 +1,7 @@
 import aioble
 import bluetooth
 from machine import ADC, Pin
+from picozero import pico_temp_sensor, pico_led
 import asyncio
 import random
 import json
@@ -78,6 +79,16 @@ async def check_button(connection, write_characteristic):
             print(f"Error while sending data: {e}")
             continue
 
+ble_connected_status = False
+async def update_led_by_status():
+    while True:
+        pico_led.on()
+        await asyncio.sleep(1)
+        if ble_connected_status == False:
+            pico_led.off()
+            await asyncio.sleep(1)
+        await asyncio.sleep(0.1)
+
 async def send_data_task(connection, write_characteristic):
     """Send data to the central device."""
     global message_count
@@ -135,6 +146,8 @@ async def run_peripheral_mode():
             appearance=BLE_APPEARANCE) as connection:
             
             print(f"{BLE_NAME} connected to {connection.device}")
+
+            ble_connected_status = True
 
             # Create tasks for sending and receiving data
             tasks = [
