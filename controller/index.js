@@ -1,4 +1,5 @@
 const noble = require("@abandonware/noble");
+import { goodMacs } from "./macaddresses";
 async function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -15,13 +16,11 @@ console.log("Scanning for Bluetooth");
 
 noble.on("discover", async function (device) {
 	const mac = device.address; // retrieves the MAC address
-	const goodMacs = ["D8:3A:DD:76:3D:40"];
 	if (goodMacs.includes(mac.toUpperCase())) {
 		console.log(`${mac} discovered`);
 		await device.connectAsync();
 		await sleep(3000);
 		console.log(`${mac} connected, getting services`);
-		
 
 		device.discoverAllServicesAndCharacteristics(
 			(err, services, characteristics) => {
