@@ -20,8 +20,8 @@ noble.on("discover", async function (device) {
 
 	if (goodMacs.includes(mac.toUpperCase())) {
 		console.log(`${mac} discovered, connecting`);
-		const testJD = await device.connectAsync();
-		console.log("Let's see", testJD)
+		await device.connectAsync();
+		console.log("Sleep")
 		await sleep(3000);
 		console.log(`${mac} connected, getting services`);
 
