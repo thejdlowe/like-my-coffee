@@ -13,12 +13,8 @@ noble.on("stateChange", async function (state) {
 	}
 });
 
-noble.on("error", () => {
-	console.log(arguments)
-})
-
-noble.on('warning', (message) => {
-	console.log(message)
+noble.on("warning", (message) => {
+	console.log(`Noble Warning: ${message}`);
 });
 
 console.log("Scanning for Bluetooth");
@@ -38,7 +34,7 @@ noble.on("discover", async function (device) {
 
 		device.discoverAllServicesAndCharacteristics(
 			async (err, services, characteristics) => {
-				console.log(`Services found for ${mac}`)
+				console.log(`Services found for ${mac}`);
 				//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
 				await noble.startScanningAsync();
 
@@ -65,3 +61,11 @@ noble.on("discover", async function (device) {
 		);
 	}
 });
+
+// Graceful shutdown on process exit
+process.on('SIGINT', () => {
+    console.log('Stopping scanning...');
+    noble.stopScanning(() => {
+      process.exit(1);
+    });
+  });
