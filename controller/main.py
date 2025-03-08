@@ -118,6 +118,15 @@ async def receive_data_task(read_characteristic):
             print(f"Error receiving data: {e}")
             break
 
+async def setup_pico():
+    tasks = [
+        #asyncio.create_task(send_data_task(connection, read_characteristic)),
+        #asyncio.create_task(receive_data_task(write_characteristic)),
+        asyncio.create_task(run_peripheral_mode),
+        update_led_by_status()
+    ]
+    await asyncio.gather(*tasks)
+
 async def run_peripheral_mode():
     """Run the peripheral mode."""
     

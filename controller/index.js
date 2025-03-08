@@ -2,7 +2,7 @@
 import noble from "@abandonware/noble";
 import { goodMacs } from "./macaddresses.js";
 async function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 noble.on("stateChange", function (state) {
@@ -19,15 +19,18 @@ noble.on("discover", async function (device) {
 	const mac = device.address; // retrieves the MAC address
 
 	if (goodMacs.includes(mac.toUpperCase())) {
-		console.log(`${mac} discovered, connecting`);
+		console.log(`${mac} discovered`);
+		noble.stopScanning();
+		console.log(`Scanning stopped`);
 		await device.connectAsync();
-		console.log("Sleep")
+		console.log("Sleep");
 		await sleep(3000);
 		console.log(`${mac} connected, getting services`);
 
 		device.discoverAllServicesAndCharacteristics(
 			(err, services, characteristics) => {
 				//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
+				noble.startScanning();
 
 				characteristics.forEach((characteristic) => {
 					if (characteristic.uuid === "2a6f") {
