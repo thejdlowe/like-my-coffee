@@ -84,6 +84,7 @@ async def update_led_by_status():
     while True:
         pico_led.on()
         await asyncio.sleep(1)
+
         if ble_connected_status == False:
             pico_led.off()
             await asyncio.sleep(1)
@@ -120,9 +121,7 @@ async def receive_data_task(read_characteristic):
 
 async def setup_pico():
     tasks = [
-        #asyncio.create_task(send_data_task(connection, read_characteristic)),
-        #asyncio.create_task(receive_data_task(write_characteristic)),
-        asyncio.create_task(run_peripheral_mode),
+        asyncio.create_task(run_peripheral_mode()),
         update_led_by_status()
     ]
     await asyncio.gather(*tasks)
@@ -154,19 +153,18 @@ async def run_peripheral_mode():
             BLE_ADVERTISING_INTERVAL, name=BLE_NAME, services=[BLE_SVC_UUID],
             appearance=BLE_APPEARANCE) as connection:
             
-            print(f"{BLE_NAME} connected to {connection.device}")
-
+            global ble_connected_status
             ble_connected_status = True
+            
+            print(f"{BLE_NAME} connected to {connection.device}")
 
             # Create tasks for sending and receiving data
             tasks = [
-                #asyncio.create_task(send_data_task(connection, read_characteristic)),
-                #asyncio.create_task(receive_data_task(write_characteristic)),
                 asyncio.create_task(check_button(connection, read_characteristic))
             ]
             await asyncio.gather(*tasks)
             print(f"{IAM} disconnected")
             break
 
-asyncio.run(run_peripheral_mode())
+asyncio.run(setup_pico())
 
