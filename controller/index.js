@@ -5,11 +5,11 @@ async function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-noble.on("stateChange", function (state) {
+noble.on("stateChange", async function (state) {
 	if (state === "poweredOn") {
-		noble.startScanning();
+		await noble.startScanningAsync();
 	} else {
-		noble.stopScanning();
+		await noble.stopScanningAsync();
 	}
 });
 
@@ -20,7 +20,7 @@ noble.on("discover", async function (device) {
 
 	if (goodMacs.includes(mac.toUpperCase())) {
 		console.log(`${mac} discovered`);
-		noble.stopScanning();
+		await noble.stopScanningAsync();
 		console.log(`Scanning stopped`);
 		await device.connectAsync();
 		console.log("Sleep");
@@ -28,9 +28,9 @@ noble.on("discover", async function (device) {
 		console.log(`${mac} connected, getting services`);
 
 		device.discoverAllServicesAndCharacteristics(
-			(err, services, characteristics) => {
+			async (err, services, characteristics) => {
 				//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
-				noble.startScanning();
+				await noble.startScanningAsync();
 
 				characteristics.forEach((characteristic) => {
 					if (characteristic.uuid === "2a6f") {
@@ -41,7 +41,7 @@ noble.on("discover", async function (device) {
 							const newdata = await characteristic.readAsync();
 							if (lastdata !== newdata.toString()) {
 								console.log(
-									"Data received from controler: ",
+									"Data received from controller: ",
 									newdata.toString()
 								);
 								lastdata = newdata.toString();
