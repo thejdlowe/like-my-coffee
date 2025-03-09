@@ -30,9 +30,17 @@ const currentState: FullStateType = {
 		{ enabled: true, powerPercentage: -1 },
 		{ enabled: true, powerPercentage: -1 },
 	],
+	bluetoothControllers: {},
 };
 
-export const startGameLogic = (io: any, app: any) => {
+export const startGameLogic = (io: any, app: any, goodMacs: string[]) => {
+	goodMacs.forEach((mac) => {
+		currentState.bluetoothControllers[mac] = {
+			status: "disconnected",
+			battery: "",
+		};
+	});
+	console.log(currentState)
 	//const maxTimeRemaining = 60 * 12; //10;	//Ten minutes
 	let currentMaxTimeRemaining = 0;
 	let timerRef: any = undefined;

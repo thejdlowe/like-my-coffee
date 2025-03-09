@@ -5,6 +5,7 @@ import {
 	SetScoreboardStatusButton,
 	SoundTestDropdown,
 	CurrentUsbReceiverConnectedStatusIndicator,
+	CurrentBluetoothStatusHolder,
 } from "./components";
 import { Stack } from "@mui/material";
 
@@ -17,6 +18,7 @@ export const TopBar = () => {
 			<SetScoreboardStatusButton />
 			<SoundTestDropdown />
 			<CurrentUsbReceiverConnectedStatusIndicator />
+			<CurrentBluetoothStatusHolder />
 		</Stack>
 	);
 };

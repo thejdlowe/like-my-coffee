@@ -28,6 +28,7 @@ interface AppContextInterface {
 	currentRoundIndex: number;
 	currentScreenState: scoreboardStates;
 	currentUsbReceiverConnectedStatus: boolean;
+	bluetoothControllers: { [key: string]: { status: string; battery: string } };
 }
 
 const AppContext = createContext<AppContextInterface>({
@@ -51,6 +52,7 @@ const AppContext = createContext<AppContextInterface>({
 			{ enabled: true, powerPercentage: -1 },
 			{ enabled: true, powerPercentage: -1 },
 		],
+		bluetoothControllers: {},
 	},
 	setCurrentShowState: () => {},
 	setRoundIndex: () => {},
@@ -64,6 +66,7 @@ const AppContext = createContext<AppContextInterface>({
 	currentRoundIndex: -1,
 	currentScreenState: scoreboardStates.SCREEN_SAVER,
 	currentUsbReceiverConnectedStatus: false,
+	bluetoothControllers: {},
 });
 
 interface AppContextProviderProps {
@@ -94,6 +97,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		{ enabled: true, powerPercentage: -1 },
 		{ enabled: true, powerPercentage: -1 },
 	]);
+	const [bluetoothControllers, setBluetoothControllers] = useState({});
 
 	const [gameState, setGameState] = useState({
 		currentTimerValue: -1,
@@ -115,6 +119,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 			{ enabled: true, powerPercentage: -1 },
 			{ enabled: true, powerPercentage: -1 },
 		],
+		bluetoothControllers: {},
 	});
 
 	const setCurrentShowState = useCallback((newState: string) => {
@@ -155,6 +160,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 				setCurrentUsbReceiverConnectedStatus(
 					newState.usbReceiverConnectedStatus
 				);
+				setBluetoothControllers(newState.bluetoothControllers);
 			}
 		},
 		[
@@ -242,6 +248,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 				currentRoundIndex,
 				currentScreenState,
 				currentUsbReceiverConnectedStatus,
+				bluetoothControllers,
 			}}
 		>
 			{children}

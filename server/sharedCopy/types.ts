@@ -46,6 +46,10 @@ export type ControllerStatusType = {
 	powerPercentage: number;
 };
 
+export type BluetoothControllerStatusType = {
+	MAC: string;
+};
+
 export type FullStateType = {
 	currentTimerValue: number;
 	currentScreenState: scoreboardStates;
@@ -56,4 +60,5 @@ export type FullStateType = {
 	hasStarted: boolean;
 	usbReceiverConnectedStatus: boolean;
 	controllerStatuses: ControllerStatusType[];
+	bluetoothControllers: { [key: string]: { status: string; battery: string } };
 };
