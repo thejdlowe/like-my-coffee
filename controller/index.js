@@ -26,14 +26,12 @@ noble.on("discover", async (device) => {
 
 	if (goodMacs.includes(mac.toUpperCase())) {
 		console.log(`${mac} discovered`);
-		console.log(device);
 		await noble.stopScanningAsync();
 		console.log(`Scanning stopped. Connecting.`);
 		await device.connectAsync();
 		console.log("Sleep for 5 seconds");
 		await sleep(5000);
 		console.log(`${mac} connected, getting services`);
-		console.log(device);
 
 		device.on("disconnect", async () => {
 			console.log(`${mac} disconnected`);
