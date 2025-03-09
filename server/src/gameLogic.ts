@@ -218,6 +218,7 @@ export const startGameLogic = (io: any, app: any, goodMacs: string[]) => {
 		const jsonData: any = req.body;
 
 		const { mac, status, battery } = jsonData;
+		console.log(mac, status, battery)
 		if (currentState.bluetoothControllers[mac]) {
 			currentState.bluetoothControllers[mac].status = status;
 			currentState.bluetoothControllers[mac].battery = battery;

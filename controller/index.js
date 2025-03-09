@@ -38,7 +38,7 @@ noble.on("discover", async (device) => {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				mac,
+				mac: mac.toUpperCase(),
 				status: "connecting",
 				battery: "",
 			}),
@@ -71,7 +71,7 @@ noble.on("discover", async (device) => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					mac,
+					mac: mac.toUpperCase(),
 					status: "disconnected",
 					battery: "",
 				}),
@@ -101,7 +101,7 @@ noble.on("discover", async (device) => {
 									"Content-Type": "application/json",
 								},
 								body: JSON.stringify({
-									mac,
+									mac: mac.toUpperCase(),
 									status: "connected",
 									battery: "",
 								}),
