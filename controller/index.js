@@ -5,6 +5,8 @@ async function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+const characteristicsObj = {};
+
 noble.on("stateChange", async function (state) {
 	if (state === "poweredOn") {
 		console.log("Powered On");
@@ -35,7 +37,7 @@ noble.on("discover", async (device) => {
 
 		device.on("disconnect", async () => {
 			console.log(`${mac} disconnected`);
-			console.log("arguments: ", arguments);
+			delete characteristicsObj[mac];
 		});
 
 		device.discoverAllServicesAndCharacteristics(
@@ -50,16 +52,20 @@ noble.on("discover", async (device) => {
 						console.log(`Monitoring characteristic ${characteristic.uuid}`);
 						let lastdata = null;
 
+						characteristicsObj[mac] = characteristic;
+
 						setInterval(async () => {
-							const newdata = await characteristic.readAsync();
-							if (lastdata !== newdata.toString()) {
-								console.log(
-									"Data received from controller: ",
-									newdata.toString()
-								);
-								lastdata = newdata.toString();
-								const controllernumber = lastdata.split("&")[0];
-								fetch(`http://localhost:3001/buzz/${controllernumber}`);
+							if (characteristicsObj[mac]) {
+								const newdata = await characteristic.readAsync();
+								if (lastdata !== newdata.toString()) {
+									console.log(
+										"Data received from controller: ",
+										newdata.toString()
+									);
+									lastdata = newdata.toString();
+									const controllernumber = lastdata.split("&")[0];
+									fetch(`http://localhost:3001/buzz/${controllernumber}`);
+								}
 							}
 						}, 100);
 					}
