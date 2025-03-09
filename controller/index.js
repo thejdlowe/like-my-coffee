@@ -7,10 +7,10 @@ async function sleep(ms) {
 
 noble.on("stateChange", async function (state) {
 	if (state === "poweredOn") {
-        console.log("Powered On")
+		console.log("Powered On");
 		await noble.startScanningAsync();
 	} else {
-        console.log("Current state:", state)
+		console.log("Current state:", state);
 		await noble.stopScanningAsync();
 	}
 });
@@ -37,6 +37,7 @@ noble.on("discover", async (device) => {
 
 		device.on("disconnect", async () => {
 			console.log(`${mac} disconnected`);
+			noble.reset();
 		});
 
 		device.discoverAllServicesAndCharacteristics(
