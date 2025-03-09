@@ -18,6 +18,7 @@ button_pin_object = Pin(button_pin, Pin.IN, Pin.PULL_UP)
 _SERVICE_UUID = bluetooth.UUID(0x1848)
 _WRITE_CHARACTERISTIC_UUID = bluetooth.UUID(0x2A6E)  # Central writes here
 _READ_CHARACTERISTIC_UUID = bluetooth.UUID(0x2A6F)   # Peripheral responds here
+_KEEPALIVE_CHARACTERISTIC_UUID = bluetooth.UUID(0x2A12)
 
 # ADC Channel 4 reads the temperature sensor
 sensor_temp = ADC(4)
@@ -100,6 +101,7 @@ async def send_data_task(connection, write_characteristic):
         try:
             msg = encode_message(message)
             write_characteristic.write(msg)  # Peripheral writes data here
+            print(f"Sending: {message}")
             await asyncio.sleep(1)
         except Exception as e:
             print(f"Error while sending data: {e}")
@@ -137,6 +139,11 @@ async def run_peripheral_mode():
         ble_service, _WRITE_CHARACTERISTIC_UUID,
         read=True, write=True, capture=False
     )
+    
+    keepalive_characteristic = aioble.Characteristic(
+        ble_service, _KEEPALIVE_CHARACTERISTIC_UUID,
+        read=True, write=True, capture=False
+    )
 
     # Characteristic for the peripheral to write
     read_characteristic = aioble.Characteristic(
@@ -160,7 +167,7 @@ async def run_peripheral_mode():
 
             # Create tasks for sending and receiving data
             tasks = [
-                asyncio.create_task(send_data_task(connection, read_characteristic)),
+                asyncio.create_task(send_data_task(connection, keepalive_characteristic)),
                 asyncio.create_task(check_button(connection, read_characteristic))
             ]
             await asyncio.gather(*tasks)
