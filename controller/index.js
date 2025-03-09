@@ -24,12 +24,14 @@ noble.on("discover", async (device) => {
 
 	if (goodMacs.includes(mac.toUpperCase())) {
 		console.log(`${mac} discovered`);
+		console.log(device);
 		await noble.stopScanningAsync();
-		console.log(`Scanning stopped`);
+		console.log(`Scanning stopped. Connecting.`);
 		await device.connectAsync();
 		console.log("Sleep for 5 seconds");
 		await sleep(5000);
 		console.log(`${mac} connected, getting services`);
+		console.log(device);
 
 		device.on("disconnect", async () => {
 			console.log(`${mac} disconnected`);
@@ -40,34 +42,25 @@ noble.on("discover", async (device) => {
 				console.log(`Services found for ${mac}`);
 				//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
 				await noble.startScanningAsync();
+				console.log("Resuming Scanning");
 
 				characteristics.forEach((characteristic) => {
 					if (characteristic.uuid === "2a6f") {
 						console.log(`Monitoring characteristic ${characteristic.uuid}`);
 						let lastdata = null;
 
-						characteristic.on("data", (data, isNotification) => {
-							console.log(data, isNotification);
-						});
-
-						characteristic.subscribe([
-							(error) => {
-								console.log("Error happened", error);
-							},
-						]);
-
-						// setInterval(async () => {
-						// 	const newdata = await characteristic.readAsync();
-						// 	if (lastdata !== newdata.toString()) {
-						// 		console.log(
-						// 			"Data received from controller: ",
-						// 			newdata.toString()
-						// 		);
-						// 		lastdata = newdata.toString();
-						// 		const controllernumber = lastdata.split("&")[0];
-						// 		fetch(`http://localhost:3001/buzz/${controllernumber}`);
-						// 	}
-						// }, 100);
+						setInterval(async () => {
+							const newdata = await characteristic.readAsync();
+							if (lastdata !== newdata.toString()) {
+								console.log(
+									"Data received from controller: ",
+									newdata.toString()
+								);
+								lastdata = newdata.toString();
+								const controllernumber = lastdata.split("&")[0];
+								fetch(`http://localhost:3001/buzz/${controllernumber}`);
+							}
+						}, 100);
 					}
 				});
 			}

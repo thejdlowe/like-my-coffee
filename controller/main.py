@@ -70,7 +70,7 @@ async def check_button(connection, write_characteristic):
                     being_pressed = True
                     msg = encode_message("0")
                     message = f"{controllernumber}&{random.randint(1,2_000_000_000)}".encode('utf-8')
-                    write_characteristic.write(message)
+                    write_characteristic.write(message, send_update=True)
 
                     print(f"Sent data {message}")
             else:
@@ -148,7 +148,7 @@ async def run_peripheral_mode():
     # Characteristic for the peripheral to write
     read_characteristic = aioble.Characteristic(
         ble_service, _READ_CHARACTERISTIC_UUID,
-        read=True, write=True, capture=False
+        read=True, write=True, capture=False, notify=True
     )
 
     aioble.register_services(ble_service)
