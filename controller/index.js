@@ -31,10 +31,11 @@ noble.on("discover", async function (device) {
 		await sleep(5000);
 		console.log(`${mac} connected, getting services`);
 
-        device.on("disconnect", () => {
-            console.log("Disconnected?");
-            noble.reset();
-        })
+		device.on("disconnect", async () => {
+			console.log("Disconnected?");
+			await noble.stopScanningAsync();
+			await noble.startScanningAsync();
+		});
 
 		device.discoverAllServicesAndCharacteristics(
 			async (err, services, characteristics) => {
