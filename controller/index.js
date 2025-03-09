@@ -32,19 +32,20 @@ noble.on("discover", async (device) => {
 		console.log(`Scanning stopped. Connecting.`);
 		await device.connectAsync();
 
-		console.log(`${mac} connected, getting services`);
+		console.log(`${mac} connected, getting characteristics`);
 
 		device.once("disconnect", async () => {
 			console.log(`${mac} disconnected`);
 			delete characteristicsObj[mac];
 		});
 
-		const service = await device.discoverServicesAsync("1848");
-		console.log("Service found; finding characteristic");
-		service.discoverCharacteristics("2a6f", (characteristics) => {
-			console.log("Found");
-			console.log(characteristics);
-		});
+
+		const { characteristics } = await device.discoverSomeServicesAndCharacteristicsAsync(['1848'], ['2A6F']);
+
+		console.log(characteristics)
+		if (characteristics[0]) {
+			console.log("Success")
+		}
 
 		// device.discoverCharacteristics(["2a6f"], (characteristics) => {
 		// 	console.log(characteristics);
