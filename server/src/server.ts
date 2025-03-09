@@ -6,6 +6,8 @@ import { startGameLogic } from "./gameLogic";
 import { SERVER_PORT_NUM } from "../sharedCopy";
 
 const app = express();
+app.use(express.json()); // For parsing application/json
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 const server = http.createServer(app);

@@ -40,7 +40,7 @@ export const startGameLogic = (io: any, app: any, goodMacs: string[]) => {
 			battery: "",
 		};
 	});
-	console.log(currentState)
+	console.log(currentState);
 	//const maxTimeRemaining = 60 * 12; //10;	//Ten minutes
 	let currentMaxTimeRemaining = 0;
 	let timerRef: any = undefined;
@@ -213,6 +213,12 @@ export const startGameLogic = (io: any, app: any, goodMacs: string[]) => {
 			}
 		}
 	};
+
+	app.post("/bluetooth", (req: Request, res: Response) => {
+		const jsonData = req.body;
+		console.log(jsonData);
+		res.json({ message: "Updated" });
+	});
 
 	app.get(
 		"/buzz/:controllerId/:powerPercentage?",

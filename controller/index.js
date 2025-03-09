@@ -31,6 +31,31 @@ noble.on("discover", async (device) => {
 		await noble.stopScanningAsync();
 		console.log(`Scanning stopped. Connecting.`);
 		await device.connectAsync();
+		const rawResponse = await fetch(`http://localhost:3001/bluetooth/`, {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				mac,
+				status: "connecting",
+				battery: "",
+			}),
+		});
+		/*
+        const rawResponse = await fetch('https://httpbin.org/post', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({a: 1, b: 'Textual content'})
+  });
+  const content = await rawResponse.json();
+
+  console.log(content);
+        */
 		console.log(`Sleep 5 seconds`);
 		await sleep(5000);
 
@@ -39,6 +64,18 @@ noble.on("discover", async (device) => {
 		device.once("disconnect", async () => {
 			console.log(`${mac} disconnected`);
 			delete characteristicsObj[mac];
+			const rawResponse = await fetch(`http://localhost:3001/bluetooth/`, {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					mac,
+					status: "disconnected",
+					battery: "",
+				}),
+			});
 		});
 
 		device.discoverAllServicesAndCharacteristics(
@@ -48,12 +85,28 @@ noble.on("discover", async (device) => {
 				await noble.startScanningAsync();
 				console.log("Resuming Scanning");
 
-				characteristics.forEach((characteristic) => {
+				characteristics.forEach(async (characteristic) => {
 					if (characteristic.uuid === "2a6f") {
 						console.log(`Monitoring characteristic ${characteristic.uuid}`);
 						let lastdata = null;
 
 						characteristicsObj[mac] = characteristic;
+
+						const rawResponse = await fetch(
+							`http://localhost:3001/bluetooth/`,
+							{
+								method: "POST",
+								headers: {
+									Accept: "application/json",
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify({
+									mac,
+									status: "connected",
+									battery: "",
+								}),
+							}
+						);
 
 						let myHandle = setInterval(async () => {
 							if (characteristicsObj[mac]) {
