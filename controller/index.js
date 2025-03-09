@@ -19,7 +19,7 @@ noble.on("warning", (message) => {
 
 console.log("Scanning for Bluetooth");
 
-noble.on("discover", async function (device) {
+noble.on("discover", async (device) => {
 	const mac = device.address; // retrieves the MAC address
 
 	if (goodMacs.includes(mac.toUpperCase())) {
@@ -32,9 +32,7 @@ noble.on("discover", async function (device) {
 		console.log(`${mac} connected, getting services`);
 
 		device.on("disconnect", async () => {
-			console.log("Disconnected?");
-			await noble.stopScanningAsync();
-			await noble.startScanningAsync();
+			console.log(`${mac} disconnected`);
 		});
 
 		device.discoverAllServicesAndCharacteristics(
