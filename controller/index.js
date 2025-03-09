@@ -48,9 +48,6 @@ noble.on("discover", async (device) => {
 				await noble.startScanningAsync();
 				console.log("Resuming Scanning");
 
-				console.log(characteristics);
-				return;
-
 				characteristics.forEach((characteristic) => {
 					if (characteristic.uuid === "2a6f") {
 						console.log(`Monitoring characteristic ${characteristic.uuid}`);
