@@ -215,8 +215,14 @@ export const startGameLogic = (io: any, app: any, goodMacs: string[]) => {
 	};
 
 	app.post("/bluetooth", (req: Request, res: Response) => {
-		const jsonData = req.body;
-		console.log(jsonData);
+		const jsonData: any = req.body;
+
+		const { mac, status, battery } = jsonData;
+		if (currentState.bluetoothControllers[mac]) {
+			currentState.bluetoothControllers[mac].status = status;
+			currentState.bluetoothControllers[mac].battery = battery;
+		}
+		//console.log(jsonData);
 		res.json({ message: "Updated" });
 	});
 
