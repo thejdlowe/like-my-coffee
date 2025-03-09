@@ -7,8 +7,10 @@ async function sleep(ms) {
 
 noble.on("stateChange", async function (state) {
 	if (state === "poweredOn") {
+        console.log("Powered On")
 		await noble.startScanningAsync();
 	} else {
+        console.log("Current state:", state)
 		await noble.stopScanningAsync();
 	}
 });
