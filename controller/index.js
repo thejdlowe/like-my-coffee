@@ -35,6 +35,7 @@ noble.on("discover", async (device) => {
 
 		device.on("disconnect", async () => {
 			console.log(`${mac} disconnected`);
+			console.log("arguments: ", arguments);
 		});
 
 		device.discoverAllServicesAndCharacteristics(
