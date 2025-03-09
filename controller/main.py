@@ -160,6 +160,7 @@ async def run_peripheral_mode():
 
             # Create tasks for sending and receiving data
             tasks = [
+                asyncio.create_task(send_data_task(connection, read_characteristic)),
                 asyncio.create_task(check_button(connection, read_characteristic))
             ]
             await asyncio.gather(*tasks)
