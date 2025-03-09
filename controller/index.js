@@ -41,8 +41,10 @@ noble.on("discover", async (device) => {
 
 		const service = await device.discoverServicesAsync("1848");
 		console.log("Service found; finding characteristic");
-		const characteristic = await service.discoverCharacteristicsAsync("2a6f");
-		console.log(characteristic);
+		service.discoverCharacteristics("2a6f", (characteristics) => {
+			console.log("Found");
+			console.log(characteristics);
+		});
 
 		// device.discoverCharacteristics(["2a6f"], (characteristics) => {
 		// 	console.log(characteristics);
