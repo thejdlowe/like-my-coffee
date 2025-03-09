@@ -54,7 +54,7 @@ noble.on("discover", async (device) => {
 
 						characteristicsObj[mac] = characteristic;
 
-						setInterval(async () => {
+						let myHandle = setInterval(async () => {
 							if (characteristicsObj[mac]) {
 								const newdata = await characteristic.readAsync();
 								if (lastdata !== newdata.toString()) {
@@ -66,6 +66,8 @@ noble.on("discover", async (device) => {
 									const controllernumber = lastdata.split("&")[0];
 									fetch(`http://localhost:3001/buzz/${controllernumber}`);
 								}
+							} else {
+								clearInterval(myHandle);
 							}
 						}, 100);
 					}
