@@ -35,36 +35,43 @@ noble.on("discover", async (device) => {
 			console.log(`${mac} disconnected`);
 		});
 
-		const characteristics = await device.discoverCharacteristicsAsync(["2a6f"]);
-		console.log(characteristics);
+		device.discoverAllServicesAndCharacteristics(
+			async (err, services, characteristics) => {
+				console.log(`Services found for ${mac}`);
+				//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
+				await noble.startScanningAsync();
 
-		// device.discoverAllServicesAndCharacteristics(
-		// 	async (err, services, characteristics) => {
-		// 		console.log(`Services found for ${mac}`);
-		// 		//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
-		// 		await noble.startScanningAsync();
+				characteristics.forEach((characteristic) => {
+					if (characteristic.uuid === "2a6f") {
+						console.log(`Monitoring characteristic ${characteristic.uuid}`);
+						let lastdata = null;
 
-		// 		characteristics.forEach((characteristic) => {
-		// 			if (characteristic.uuid === "2a6f") {
-		// 				console.log(`Monitoring characteristic ${characteristic.uuid}`);
-		// 				let lastdata = null;
+						characteristic.on("data", (data, isNotification) => {
+							console.log(data, isNotification);
+						});
 
-		// 				setInterval(async () => {
-		// 					const newdata = await characteristic.readAsync();
-		// 					if (lastdata !== newdata.toString()) {
-		// 						console.log(
-		// 							"Data received from controller: ",
-		// 							newdata.toString()
-		// 						);
-		// 						lastdata = newdata.toString();
-		// 						const controllernumber = lastdata.split("&")[0];
-		// 						fetch(`http://localhost:3001/buzz/${controllernumber}`);
-		// 					}
-		// 				}, 100);
-		// 			}
-		// 		});
-		// 	}
-		// );
+						characteristic.subscribe([
+							(error) => {
+								console.log("Error happened", error);
+							},
+						]);
+
+						// setInterval(async () => {
+						// 	const newdata = await characteristic.readAsync();
+						// 	if (lastdata !== newdata.toString()) {
+						// 		console.log(
+						// 			"Data received from controller: ",
+						// 			newdata.toString()
+						// 		);
+						// 		lastdata = newdata.toString();
+						// 		const controllernumber = lastdata.split("&")[0];
+						// 		fetch(`http://localhost:3001/buzz/${controllernumber}`);
+						// 	}
+						// }, 100);
+					}
+				});
+			}
+		);
 	}
 });
 
