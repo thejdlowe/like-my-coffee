@@ -5,6 +5,8 @@ async function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+const characteristicsHolder = {};
+
 noble.on("stateChange", async function (state) {
 	if (state === "poweredOn") {
 		await noble.startScanningAsync();
@@ -26,7 +28,12 @@ noble.on("discover", async function (device) {
 		console.log(`${mac} discovered`);
 		await noble.stopScanningAsync();
 		console.log(`Scanning stopped`);
-
+		if (characteristicsHolder[mac]) {
+			console.log("Going to try to delete");
+			delete characteristicsHolder[mac];
+			await device.disconnectAsync();
+			console.log("Disconnected");
+		}
 		await device.connectAsync();
 		console.log("Sleep for 5 seconds");
 		await sleep(5000);
@@ -41,6 +48,7 @@ noble.on("discover", async function (device) {
 				characteristics.forEach((characteristic) => {
 					if (characteristic.uuid === "2a6f") {
 						console.log(`Monitoring characteristic ${characteristic.uuid}`);
+						characteristicsHolder[mac] = characteristic;
 						let lastdata = null;
 
 						setInterval(async () => {
@@ -63,9 +71,9 @@ noble.on("discover", async function (device) {
 });
 
 // Graceful shutdown on process exit
-process.on('SIGINT', () => {
-    console.log('Stopping scanning...');
-    noble.stopScanning(() => {
-      process.exit(1);
-    });
-  });
+process.on("SIGINT", () => {
+	console.log("Stopping scanning...");
+	noble.stopScanning(() => {
+		process.exit(1);
+	});
+});
