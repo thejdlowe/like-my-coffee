@@ -31,6 +31,8 @@ noble.on("discover", async (device) => {
 		await noble.stopScanningAsync();
 		console.log(`Scanning stopped. Connecting.`);
 		await device.connectAsync();
+		console.log(`Sleep 5 seconds`);
+		await sleep(5000);
 
 		console.log(`${mac} connected, getting characteristics`);
 
@@ -38,11 +40,6 @@ noble.on("discover", async (device) => {
 			console.log(`${mac} disconnected`);
 			delete characteristicsObj[mac];
 		});
-
-
-		// device.discoverCharacteristics(["2a6f"], (characteristics) => {
-		// 	console.log(characteristics);
-		// });
 
 		device.discoverAllServicesAndCharacteristics(
 			async (err, services, characteristics) => {
