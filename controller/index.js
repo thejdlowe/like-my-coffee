@@ -35,33 +35,38 @@ noble.on("discover", async (device) => {
 			console.log(`${mac} disconnected`);
 		});
 
-		device.discoverAllServicesAndCharacteristics(
-			async (err, services, characteristics) => {
-				console.log(`Services found for ${mac}`);
-				//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
-				await noble.startScanningAsync();
+		device.discoverCharacteristics(["2a6f"], (error, characteristics) => {
+			console.log("Done");
+			console.log(error, characteristics);
+		});
 
-				characteristics.forEach((characteristic) => {
-					if (characteristic.uuid === "2a6f") {
-						console.log(`Monitoring characteristic ${characteristic.uuid}`);
-						let lastdata = null;
+		// device.discoverAllServicesAndCharacteristics(
+		// 	async (err, services, characteristics) => {
+		// 		console.log(`Services found for ${mac}`);
+		// 		//https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf?v=1740981361600
+		// 		await noble.startScanningAsync();
 
-						setInterval(async () => {
-							const newdata = await characteristic.readAsync();
-							if (lastdata !== newdata.toString()) {
-								console.log(
-									"Data received from controller: ",
-									newdata.toString()
-								);
-								lastdata = newdata.toString();
-								const controllernumber = lastdata.split("&")[0];
-								fetch(`http://localhost:3001/buzz/${controllernumber}`);
-							}
-						}, 100);
-					}
-				});
-			}
-		);
+		// 		characteristics.forEach((characteristic) => {
+		// 			if (characteristic.uuid === "2a6f") {
+		// 				console.log(`Monitoring characteristic ${characteristic.uuid}`);
+		// 				let lastdata = null;
+
+		// 				setInterval(async () => {
+		// 					const newdata = await characteristic.readAsync();
+		// 					if (lastdata !== newdata.toString()) {
+		// 						console.log(
+		// 							"Data received from controller: ",
+		// 							newdata.toString()
+		// 						);
+		// 						lastdata = newdata.toString();
+		// 						const controllernumber = lastdata.split("&")[0];
+		// 						fetch(`http://localhost:3001/buzz/${controllernumber}`);
+		// 					}
+		// 				}, 100);
+		// 			}
+		// 		});
+		// 	}
+		// );
 	}
 });
 
