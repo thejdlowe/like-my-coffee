@@ -2,6 +2,7 @@ import { webusb } from "usb";
 import { show } from "./shows";
 import { FullStateType, scoreboardStates } from "../sharedCopy";
 import express, { Request, Response } from "express";
+const { exec } = require("child_process");
 
 const DEVICE_INFO = {
 	vendorId: 1118,
@@ -206,6 +207,18 @@ export const startGameLogic = (io: any, app: any) => {
 			}
 		}
 	};
+
+	app.get("/forcerebootnowdangit", (req: Request, res: Response) => {
+		exec("sudo reboot", (error, stdout, stderr) => {
+			if (error) {
+				console.error(`Error restarting device: ${error}`);
+				return;
+			}
+			console.log("Device restarting...");
+			res.json({ message: "Updated" });
+		});
+		//console.log(jsonData);
+	});
 
 	app.post("/setupbluetooth", (req: Request, res: Response) => {
 		const jsonData: any = req.body;
