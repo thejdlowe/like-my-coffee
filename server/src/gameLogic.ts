@@ -211,7 +211,7 @@ export const startGameLogic = (io: any, app: any) => {
 		const jsonData: any = req.body;
 
 		const { macs } = jsonData;
-		macs.forEach((mac: any) => {
+		macs.forEach((mac: string) => {
 			currentState.bluetoothControllers[mac] = {
 				status: "disconnected",
 				battery: "",
