@@ -130,7 +130,11 @@ export const PowerFunctionsHolder = () => {
 				</div>
 			)}
 			<div style={{ position: "absolute", top: 0, right: 0 }}>
-				<PowerSettingsNewIcon />
+				<PowerSettingsNewIcon
+					onClick={() => {
+						setShowMainModal(true);
+					}}
+				/>
 			</div>
 		</>
 	);
