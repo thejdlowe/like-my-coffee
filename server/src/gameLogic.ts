@@ -33,14 +33,7 @@ const currentState: FullStateType = {
 	bluetoothControllers: {},
 };
 
-export const startGameLogic = (io: any, app: any, goodMacs: string[]) => {
-	goodMacs.forEach((mac) => {
-		currentState.bluetoothControllers[mac] = {
-			status: "disconnected",
-			battery: "",
-		};
-	});
-	console.log(currentState);
+export const startGameLogic = (io: any, app: any) => {
 	//const maxTimeRemaining = 60 * 12; //10;	//Ten minutes
 	let currentMaxTimeRemaining = 0;
 	let timerRef: any = undefined;
@@ -214,11 +207,25 @@ export const startGameLogic = (io: any, app: any, goodMacs: string[]) => {
 		}
 	};
 
+	app.post("/setupbluetooth", (req: Request, res: Response) => {
+		const jsonData: any = req.body;
+
+		const { macs } = jsonData;
+		macs.forEach((mac) => {
+			currentState.bluetoothControllers[mac] = {
+				status: "disconnected",
+				battery: "",
+			};
+		});
+		//console.log(jsonData);
+		res.json({ message: "Updated" });
+	});
+
 	app.post("/bluetooth", (req: Request, res: Response) => {
 		const jsonData: any = req.body;
 
 		const { mac, status, battery } = jsonData;
-		console.log(mac, status, battery)
+		console.log(mac, status, battery);
 		if (currentState.bluetoothControllers[mac]) {
 			currentState.bluetoothControllers[mac].status = status;
 			currentState.bluetoothControllers[mac].battery = battery;

@@ -1,7 +1,6 @@
 import * as http from "http";
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
-import { goodMacs } from "./macaddresses";
 import { startGameLogic } from "./gameLogic";
 import { SERVER_PORT_NUM } from "../sharedCopy";
 
@@ -19,7 +18,7 @@ const io = new Server(server, {
 	},
 });
 
-startGameLogic(io, app, goodMacs);
+startGameLogic(io, app);
 
 server.listen(SERVER_PORT_NUM, () => {
 	console.log(`WebSocket server listening on port ${SERVER_PORT_NUM}`);

@@ -10,6 +10,16 @@ const characteristicsObj = {};
 noble.on("stateChange", async function (state) {
 	if (state === "poweredOn") {
 		console.log("Powered On");
+        const rawResponse = await fetch(`http://localhost:3001/setupbluetooth/`, {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				macs: goodMacs
+			}),
+		});
 		await noble.startScanningAsync();
 	} else {
 		console.log("Current state:", state);
