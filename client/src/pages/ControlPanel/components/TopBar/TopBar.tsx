@@ -6,6 +6,7 @@ import {
 	SoundTestDropdown,
 	CurrentUsbReceiverConnectedStatusIndicator,
 	CurrentBluetoothStatusHolder,
+	PowerFunctionsHolder,
 } from "./components";
 import { Stack } from "@mui/material";
 
@@ -19,6 +20,7 @@ export const TopBar = () => {
 			<SoundTestDropdown />
 			<CurrentUsbReceiverConnectedStatusIndicator />
 			<CurrentBluetoothStatusHolder />
+			<PowerFunctionsHolder />
 		</Stack>
 	);
 };

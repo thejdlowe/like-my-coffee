@@ -3,39 +3,6 @@ import { useAppContext } from "../../../../../../helpers/context";
 export const CurrentBluetoothStatusHolder = () => {
 	const { bluetoothControllers } = useAppContext();
 
-	/*
-    {
-  "D8:3A:DD:76:3D:40": {
-    "status": "disconnected",
-    "battery": ""
-  },
-  "28:CD:C1:10:AF:02": {
-    "status": "disconnected",
-    "battery": ""
-  },
-  "D8:3A:DD:76:3D:08": {
-    "status": "disconnected",
-    "battery": ""
-  },
-  "28:CD:C1:10:AF:5E": {
-    "status": "disconnected",
-    "battery": ""
-  },
-  "28:CD:C1:10:AD:E6": {
-    "status": "disconnected",
-    "battery": ""
-  },
-  "28:CD:C1:10:00:F0": {
-    "status": "disconnected",
-    "battery": ""
-  },
-  "D8:3A:DD:76:3C:FC": {
-    "status": "disconnected",
-    "battery": ""
-  }
-}
-    */
-
 	const [showModal, setShowModal] = useState<boolean>(false);
 	return (
 		<>
