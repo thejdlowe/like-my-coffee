@@ -209,7 +209,7 @@ export const startGameLogic = (io: any, app: any) => {
 	};
 
 	app.get("/forcerebootnowdangit", (req: Request, res: Response) => {
-		exec("sudo reboot", (error, stdout, stderr) => {
+		exec("sudo reboot", (error: any, stdout: any, stderr: any) => {
 			if (error) {
 				console.error(`Error restarting device: ${error}`);
 				return;
