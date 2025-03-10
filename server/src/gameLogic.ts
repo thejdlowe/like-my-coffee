@@ -220,6 +220,18 @@ export const startGameLogic = (io: any, app: any) => {
 		//console.log(jsonData);
 	});
 
+	app.get("/forceshutdownawwwman", (req: Request, res: Response) => {
+		exec("sudo shutdown -h now", (error: any, stdout: any, stderr: any) => {
+			if (error) {
+				console.error(`Error restarting device: ${error}`);
+				return;
+			}
+			console.log("Device shutting down...");
+			res.json({ message: "Updated" });
+		});
+		//console.log(jsonData);
+	});
+
 	app.post("/setupbluetooth", (req: Request, res: Response) => {
 		const jsonData: any = req.body;
 
