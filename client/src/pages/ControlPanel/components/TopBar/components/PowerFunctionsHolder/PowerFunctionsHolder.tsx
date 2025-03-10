@@ -99,29 +99,19 @@ export const PowerFunctionsHolder = () => {
 					>
 						<Button
 							onClick={() => {
-								if (confirm("Are you sure you want to power off?")) {
-									fetch(
-										`http://likemycoffee.local:3001/forceshutdownawwwman/`,
-										{
-											method: "GET",
-										}
-									);
-								}
+								setShowShutdownModal(true);
 							}}
 						>
 							Power Off
 						</Button>
 						<br />
+						<br />
+						<br />
+						<br />
+
 						<Button
 							onClick={() => {
-								if (confirm("Are you sure you want to power off?")) {
-									fetch(
-										`http://likemycoffee.local:3001/forcerebootnowdangit/`,
-										{
-											method: "GET",
-										}
-									);
-								}
+								setShowRebootModal(true);
 							}}
 						>
 							Restart
