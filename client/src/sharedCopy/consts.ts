@@ -1,5 +1,6 @@
 export enum scoreboardStates {
 	SCREEN_SAVER = "screensaver",
+	PRE_ROUND = "preround",
 	IN_ROUND = "inround",
 	MINI_GAME = "minigame",
 	FINAL_ROUND = "finalround",

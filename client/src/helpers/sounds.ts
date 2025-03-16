@@ -8,22 +8,22 @@ export const useSounds = () => {
 		audioElement.play();
 	};
 
-	const intro = () => playSound("intro.mp3"),
-		outro = () => playSound("amongus.mp3"),
-		donkeykong = () => playSound("dk-a2600_over.mp3"),
-		pacman = () => playSound("eat_ghost.mp3"),
-		link = () => playSound("WARC_SE_255.wav"),
-		candycrush = () => playSound("colour_bomb_created.mp3"),
-		aol = () => playSound("aol-instant-messenger-trimmed.mp3"),
-		digdug = () => playSound("09-monster-touched-digdug.mp3"),
-		discord = () => playSound("discord-notification.mp3"),
-		jeopardy = () => playSound("times-up.mp3"),
-		metalgearsolid = () => playSound("codec.mp3"),
-		windowserror = () => playSound("WindowsError.mp3"),
-		stardewvalley = () => playSound("stardew-fishing_EimR00g.mp3"),
-		streetfighter = () => playSound("coin_1.mp3"),
-		portal = () => playSound("portal-2-sound-effects-portal-gun-fire-orange"),
-		ready = () => playSound("playersready.mp3");
+	const intro = (onend?: () => void) => playSound("intro.mp3", onend),
+		outro = (onend?: () => void) => playSound("amongus.mp3", onend),
+		donkeykong = (onend?: () => void) => playSound("dk-a2600_over.mp3", onend),
+		pacman = (onend?: () => void) => playSound("eat_ghost.mp3", onend),
+		link = (onend?: () => void) => playSound("WARC_SE_255.wav", onend),
+		candycrush = (onend?: () => void) => playSound("colour_bomb_created.mp3", onend),
+		aol = (onend?: () => void) => playSound("aol-instant-messenger-trimmed.mp3", onend),
+		digdug = (onend?: () => void) => playSound("09-monster-touched-digdug.mp3", onend),
+		discord = (onend?: () => void) => playSound("discord-notification.mp3", onend),
+		jeopardy = (onend?: () => void) => playSound("times-up.mp3", onend),
+		metalgearsolid = (onend?: () => void) => playSound("codec.mp3", onend),
+		windowserror = (onend?: () => void) => playSound("WindowsError.mp3", onend),
+		stardewvalley = (onend?: () => void) => playSound("stardew-fishing_EimR00g.mp3", onend),
+		streetfighter = (onend?: () => void) => playSound("coin_1.mp3", onend),
+		portal = (onend?: () => void) => playSound("portal-2-sound-effects-portal-gun-fire-orange", onend),
+		ready = (onend?: () => void) => playSound("playersready.mp3", onend);
 
 	const allSoundsObject = {
 		intro,
