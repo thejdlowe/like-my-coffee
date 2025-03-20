@@ -30,10 +30,10 @@ LMCBluetooth = sudo npm run bluetooth --prefix /home/LikeMyCoffee/shared/like-my
 chromium = sleep 15;chromium-browser --incognito --disable-session-crashed-bubble --disable-infobars --start-fullscreen --start-maximized http://localhost:3000/
 ```
 
-4. The Pico W's will need to have `main.py` and `settings.json` moved there; you will need to update `settings.json` on each individual controller to indicate if it's player 0, 1, or 2 (we index by zero here, folks!)
-5. You will need to gather the MAC addresses of each Bluetooth and save it in `controller/index.js` in `goodMacs`. In theory this could be made so each controller is assigned, like above, but hey, this way works!
+4. The Pico W's will need to have `main.py`, `picozero.py`, and `settings.json` moved there; you will need to update `settings.json` on each individual controller to indicate if it's player 0, 1, or 2 (we index by zero here, folks!)
+5. You will need to gather the MAC addresses of each Bluetooth and save it in `controller/macaddresses.js` in `goodMacs`. In theory this could be made so each controller is assigned to a position on stage, like above, but hey, this way works!
 6. Your mobile device will need to connect to the same network as the Pi and go to `IP of machine:3000/controlpanel`. For example, my Pi is likemycoffee.local so it goes to `http://likemycoffee.local:3000/controlpanel`
-7. If you want to build your own controllers, a rudimentary buzzing in system is in place at `IP of machine:3001/buzz/{number of controller}`. Player 0 would be `http://likemycoffee.local:3001/buzz/0` for example.
+7. If you want to build your own controllers, a rudimentary buzzing in system is in place at `IP of machine:3001/buzz/{number of controller}`. Player 0 would be `http://likemycoffee.local:3001/buzz/0` for example. This is done via POST, and since the Pico W can check the temperature and battery level (by measuring VSYS), it sends these along as well.
 
 ### TO DO
 
