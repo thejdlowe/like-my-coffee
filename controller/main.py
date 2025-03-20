@@ -1,6 +1,7 @@
 import aioble
 import bluetooth
 from machine import ADC, Pin
+import network
 from picozero import pico_temp_sensor, pico_led
 import asyncio
 import random
@@ -52,6 +53,29 @@ BLE_ADVERTISING_INTERVAL = 3000
 # state variables
 message_count = 0
 
+def get_vsys():
+    conversion_factor = 3 * 3.3 / 65535
+    wlan = network.WLAN(network.STA_IF)
+    wlan_active = wlan.active()
+
+    try:
+        # Don't use the WLAN chip for a moment.
+        wlan.active(False)
+
+        # Make sure pin 25 is high.
+        Pin(25, mode=Pin.OUT, pull=Pin.PULL_DOWN).high()
+        
+        # Reconfigure pin 29 as an input.
+        Pin(29, Pin.IN)
+        
+        vsys = ADC(29)
+        return vsys.read_u16() * conversion_factor
+
+    finally:
+        # Restore the pin state and possibly reactivate WLAN
+        Pin(29, Pin.ALT, pull=Pin.PULL_DOWN, alt=7)
+        wlan.active(wlan_active)
+
 def encode_message(message):
     """Encode a message to bytes."""
     return message.encode('utf-8')
@@ -69,7 +93,7 @@ async def check_button(connection, write_characteristic):
                 if being_pressed == False:
                     being_pressed = True
                     msg = encode_message("0")
-                    message = f"{controllernumber}&{}&{read_temperature():.1f}&{random.randint(100,999)}".encode('utf-8')
+                    message = f"{controllernumber}&{get_vsys():.2f}&{read_temperature():.1f}&{random.randint(100,999)}".encode('utf-8')
                     write_characteristic.write(message, send_update=True)
 
                     print(f"Sent data {message}")

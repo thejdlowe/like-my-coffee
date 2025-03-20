@@ -1,0 +1,20 @@
+#credits {
+    position: absolute;
+    inset: 0px;
+    display: flex;
+}
+
+#credits-holder {
+    position: absolute;
+    animation: scroll 10s linear 1s infinite;
+    --credits-height: calc(100%);
+}
+
+@keyframes scroll {
+   0% {
+    transform: translateY(0);
+   }
+   100% {
+    transform: translateY(-100%);
+   }
+}

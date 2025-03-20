@@ -10,14 +10,14 @@ const characteristicsObj = {};
 noble.on("stateChange", async function (state) {
 	if (state === "poweredOn") {
 		console.log("Powered On");
-        const rawResponse = await fetch(`http://localhost:3001/setupbluetooth/`, {
+		const rawResponse = await fetch(`http://localhost:3001/setupbluetooth/`, {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				macs: goodMacs
+				macs: goodMacs,
 			}),
 		});
 		await noble.startScanningAsync();
@@ -127,8 +127,22 @@ noble.on("discover", async (device) => {
 										newdata.toString()
 									);
 									lastdata = newdata.toString();
-									const controllernumber = lastdata.split("&")[0];
-									fetch(`http://localhost:3001/buzz/${controllernumber}`);
+									const values = lastdata.split("&");
+									const controllernumber = values[0];
+									const batteryLevel = values[1];
+									const temperature = values[2];
+									fetch(`http://localhost:3001/buzz/${controllernumber}`, {
+										method: "POST",
+										headers: {
+											Accept: "application/json",
+											"Content-Type": "application/json",
+										},
+										body: JSON.stringify({
+											batteryLevel,
+											temperature,
+										}),
+									});
+									//fetch(`http://localhost:3001/buzz/${controllernumber}`);
 								}
 							} else {
 								clearInterval(myHandle);

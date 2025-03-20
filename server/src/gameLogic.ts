@@ -259,31 +259,29 @@ export const startGameLogic = (io: any, app: any) => {
 		res.json({ message: "Updated" });
 	});
 
-	app.get(
-		"/buzz/:controllerId/:powerPercentage?",
-		(req: Request, res: Response) => {
-			console.log(
-				`Request sent to buzz ${req.params.controllerId} with power level ${req.params.powerPercentage}`
-			);
-			if (currentState.currentPlayerBuzzedIn === -1) {
-				const whichController = req.params.controllerId;
-				if (whichController) {
-					const ID = parseInt(whichController);
-					if (!isNaN(ID) && ID >= 0 && ID <= 2) {
-						currentState.currentPlayerBuzzedIn = ID;
-						if (req.params.powerPercentage) {
+	app.post("/buzz/:controllerId", (req: Request, res: Response) => {
+		const jsonData: any = req.body;
+		const { batteryLevel, temperature } = jsonData;
+		console.log(batteryLevel, temperature);
+		console.log(`Request sent to buzz ${req.params.controllerId}`);
+		if (currentState.currentPlayerBuzzedIn === -1) {
+			const whichController = req.params.controllerId;
+			if (whichController) {
+				const ID = parseInt(whichController);
+				if (!isNaN(ID) && ID >= 0 && ID <= 2) {
+					currentState.currentPlayerBuzzedIn = ID;
+					/*if (req.params.powerPercentage) {
 							currentState.controllerStatuses[ID].powerPercentage = parseFloat(
 								req.params.powerPercentage
 							);
-						}
-						io.emit("state", currentState);
-					}
+						}*/
+					io.emit("state", currentState);
 				}
 			}
-
-			res.send(`Request sent to buzz ${req.params.controllerId}`);
 		}
-	);
+
+		res.send(`Request sent to buzz ${req.params.controllerId}`);
+	});
 
 	app.get("/status", (req: Request, res: Response) => {
 		//console.log("Update requested");
