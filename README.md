@@ -39,9 +39,6 @@ chromium = sleep 15;chromium-browser --incognito --disable-session-crashed-bubbl
 
 1. Major code cleanups are needed to remove the USB functionality
 2. I'd love for this to have some better style fixes, plus a debug mode so if a mouse is there, the user can use that to play, instead of requiring the IR controllers.
-3. The bluetooth functionality on the pi needs to detect when it's been disconnected, and start to re-connect. I'm learning `noble` for this!
-4. The bluetooth functionality has bugs where it will detect the bluetooth and connect, but cannot seem to find any characteristics. Tackling this!
-5. Individual player screens to mount to the front of pedestals that will reflect the current player's name, pronouns, and their score. This is already in progress but as of March 4, 2025, it is not usable.
-6. Style it up, baby!
-7. If the player buzzes in successfully, return True to the controller and give a haptic response of some kind.
-8. Display in Control Panel what Bluetooth are currently active somehow.
+3. Individual player screens to mount to the front of pedestals that will reflect the current player's name, pronouns, and their score. This is already in progress but as of March 4, 2025, it is not usable.
+4. Style it up, baby!
+5. If the player buzzes in successfully, return True to the controller and give a haptic response of some kind.
