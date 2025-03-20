@@ -10,7 +10,8 @@ export type PlayerType = {
 
 export type ControllerStatusType = {
 	enabled: boolean;
-	powerPercentage: number;
+	temperature: number;
+	battery: number;
 };
 
 export type RoundType = {

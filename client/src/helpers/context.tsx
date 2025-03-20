@@ -48,9 +48,9 @@ const AppContext = createContext<AppContextInterface>({
 		hasStarted: false,
 		usbReceiverConnectedStatus: false,
 		controllerStatuses: [
-			{ enabled: true, powerPercentage: -1 },
-			{ enabled: true, powerPercentage: -1 },
-			{ enabled: true, powerPercentage: -1 },
+			{ enabled: true, temperature: -1, battery: -1 },
+			{ enabled: true, temperature: -1, battery: -1 },
+			{ enabled: true, temperature: -1, battery: -1 },
 		],
 		bluetoothControllers: {},
 	},
@@ -93,9 +93,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		setCurrentUsbReceiverConnectedStatus,
 	] = useState(false);
 	const [controllerStatuses, setControllerStatuses] = useState([
-		{ enabled: true, powerPercentage: -1 },
-		{ enabled: true, powerPercentage: -1 },
-		{ enabled: true, powerPercentage: -1 },
+		{ enabled: true, percentage: -1, battery: -1 },
+		{ enabled: true, percentage: -1, battery: -1 },
+		{ enabled: true, percentage: -1, battery: -1 },
 	]);
 	const [bluetoothControllers, setBluetoothControllers] = useState({});
 
@@ -115,9 +115,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 		hasStarted: false,
 		usbReceiverConnectedStatus: false,
 		controllerStatuses: [
-			{ enabled: true, powerPercentage: -1 },
-			{ enabled: true, powerPercentage: -1 },
-			{ enabled: true, powerPercentage: -1 },
+			{ enabled: true, temperature: -1, battery: -1 },
+			{ enabled: true, temperature: -1, battery: -1 },
+			{ enabled: true, temperature: -1, battery: -1 },
 		],
 		bluetoothControllers: {},
 	});

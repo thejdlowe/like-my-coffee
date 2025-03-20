@@ -43,7 +43,8 @@ export type ShowType = {
 
 export type ControllerStatusType = {
 	enabled: boolean;
-	powerPercentage: number;
+	temperature: number;
+	battery: number;
 };
 
 export type BluetoothControllerStatusType = {

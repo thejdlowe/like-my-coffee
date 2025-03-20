@@ -80,8 +80,11 @@ export const PlayerSection = ({
 					}}
 				/>
 			</Typography>
-			{controllerStatus.powerPercentage !== -1 && (
-				<Typography variant="h2">{controllerStatus.powerPercentage}</Typography>
+			{controllerStatus.temperature !== -1 && (
+				<Typography variant="h2">{controllerStatus.temperature}</Typography>
+			)}
+			{controllerStatus.battery !== -1 && (
+				<Typography variant="h2">{controllerStatus.battery}</Typography>
 			)}
 		</Stack>
 	);
