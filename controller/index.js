@@ -165,6 +165,8 @@ const initBluetooth = async () => {
 	}
 };
 
+initBluetooth();
+
 // Graceful shutdown on process exit
 process.on("SIGINT", () => {
 	console.log("Stopping scanning...");
