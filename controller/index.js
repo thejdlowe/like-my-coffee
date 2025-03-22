@@ -31,6 +31,7 @@ const initBluetooth = async () => {
 
 		noble.on("warning", (message) => {
 			console.log(`Noble Warning: ${message}`);
+			noble.reset();
 		});
 
 		console.log("Scanning for Bluetooth");
