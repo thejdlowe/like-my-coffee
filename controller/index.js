@@ -2,26 +2,16 @@
 //import noble from "@abandonware/noble";
 //import Noble from '@abandonware/noble/lib/noble';
 //import HCIBindings from '@abandonware/noble/lib/hci-socket/bindings';
-const HCIBindings = require('@abandonware/noble/lib/hci-socket/bindings');
-const Noble = require('@abandonware/noble/lib/noble');
+const HCIBindings = require("@abandonware/noble/lib/hci-socket/bindings");
+const Noble = require("@abandonware/noble/lib/noble");
 const params = {
 	deviceId: 1,
 	userChannel: true,
-	extended: false //ble5 extended features
+	extended: false, //ble5 extended features
 };
 
 const noble = new Noble(new HCIBindings(params));
-//import { goodMacs } from "./macaddresses.js";
-const goodMacs = [
-	"D8:3A:DD:76:3D:40",
-	"28:CD:C1:10:AF:02",
-	"D8:3A:DD:76:3D:08",
-	"28:CD:C1:10:AF:5E",
-	"28:CD:C1:10:AD:E6",
-	"28:CD:C1:10:00:F0",
-	"D8:3A:DD:76:3C:FC",
-	"D8:3A:DD:76:3D:08",
-];
+const goodMacs = require("./macaddresses.js");
 
 async function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
