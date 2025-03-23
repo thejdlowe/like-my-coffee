@@ -1,17 +1,7 @@
 //const noble = require("@abandonware/noble");
-//import noble from "@abandonware/noble";
-//import Noble from '@abandonware/noble/lib/noble';
-//import HCIBindings from '@abandonware/noble/lib/hci-socket/bindings';
-const HCIBindings = require("@abandonware/noble/lib/hci-socket/bindings");
-const Noble = require("@abandonware/noble/lib/noble");
-const params = {
-	userChannel: true,
-	extended: false, //ble5 extended features
-};
-const externalNoble = new Noble(new HCIBindings({ ...params, deviceId: 1 }));
-const noble = new Noble(new HCIBindings({ ...params, deviceId: 0 }));
-const { goodMacs } = require("./macaddresses.js");
+import noble from "@abandonware/noble";
 
+import { goodMacs } from "./macaddresses.js";
 async function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -67,7 +57,19 @@ const initBluetooth = async () => {
 						battery: "",
 					}),
 				});
-
+				/*
+				const rawResponse = await fetch('https://httpbin.org/post', {
+			method: 'POST',
+			headers: {
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({a: 1, b: 'Textual content'})
+		  });
+		  const content = await rawResponse.json();
+		
+		  console.log(content);
+				*/
 				console.log(`Sleep 5 seconds`);
 				await sleep(5000);
 
@@ -144,6 +146,7 @@ const initBluetooth = async () => {
 													temperature,
 												}),
 											});
+											//fetch(`http://localhost:3001/buzz/${controllernumber}`);
 										}
 									} else {
 										clearInterval(myHandle);

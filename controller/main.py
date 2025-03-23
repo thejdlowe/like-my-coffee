@@ -1,11 +1,15 @@
 import aioble
 import bluetooth
-from machine import ADC, Pin
+from machine import ADC, Pin, freq
 import network
 from picozero import pico_temp_sensor, pico_led
 import asyncio
 import random
 import json
+
+print(freq())
+freq(100_000_000)
+print(freq())
 
 with open("settings.json") as f:
     config = json.load(f)
@@ -48,7 +52,7 @@ IAM = "Peripheral"
 BLE_NAME = "Like My Coffee Controller" # f"{IAM}"  # Dynamic name for the device
 BLE_SVC_UUID = _SERVICE_UUID
 BLE_APPEARANCE = 0x0300
-BLE_ADVERTISING_INTERVAL = 3000
+BLE_ADVERTISING_INTERVAL = 1000
 
 # state variables
 message_count = 0
