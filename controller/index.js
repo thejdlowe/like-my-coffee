@@ -8,10 +8,21 @@ const params = {
 	deviceId: 1,
 	userChannel: true,
 	extended: false //ble5 extended features
-  };
-  
-  const noble = new Noble(new HCIBindings(params));
-import { goodMacs } from "./macaddresses.js";
+};
+
+const noble = new Noble(new HCIBindings(params));
+//import { goodMacs } from "./macaddresses.js";
+const goodMacs = [
+	"D8:3A:DD:76:3D:40",
+	"28:CD:C1:10:AF:02",
+	"D8:3A:DD:76:3D:08",
+	"28:CD:C1:10:AF:5E",
+	"28:CD:C1:10:AD:E6",
+	"28:CD:C1:10:00:F0",
+	"D8:3A:DD:76:3C:FC",
+	"D8:3A:DD:76:3D:08",
+];
+
 async function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
