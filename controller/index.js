@@ -10,7 +10,7 @@ const params = {
 };
 const buildInNoble = new Noble(new HCIBindings({ ...params, deviceId: 0 }));
 const noble = new Noble(new HCIBindings({ ...params, deviceId: 1 }));
-const goodMacs = require("./macaddresses.js");
+const {goodMacs} = require("./macaddresses.js");
 
 async function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
