@@ -1,6 +1,4 @@
-//const noble = require("@abandonware/noble");
-import noble from "@abandonware/noble";
-
+const noble = require("@abandonware/noble");
 const { goodMacs } = require("./macaddresses.js");
 async function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
