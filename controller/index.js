@@ -1,7 +1,9 @@
 //const noble = require("@abandonware/noble");
 //import noble from "@abandonware/noble";
-import Noble from '@abandonware/noble/lib/noble';
-import HCIBindings from '@abandonware/noble/lib/hci-socket/bindings';
+//import Noble from '@abandonware/noble/lib/noble';
+//import HCIBindings from '@abandonware/noble/lib/hci-socket/bindings';
+const HCIBindings = require('@abandonware/noble/lib/hci-socket/bindings');
+const Noble = require('@abandonware/noble/lib/noble');
 const params = {
 	deviceId: 1,
 	userChannel: true,
