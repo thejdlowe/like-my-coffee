@@ -8,9 +8,9 @@ const params = {
 	userChannel: true,
 	extended: false, //ble5 extended features
 };
-const buildInNoble = new Noble(new HCIBindings({ ...params, deviceId: 0 }));
-const noble = new Noble(new HCIBindings({ ...params, deviceId: 1 }));
-const {goodMacs} = require("./macaddresses.js");
+const externalNoble = new Noble(new HCIBindings({ ...params, deviceId: 1 }));
+const noble = new Noble(new HCIBindings({ ...params, deviceId: 0 }));
+const { goodMacs } = require("./macaddresses.js");
 
 async function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
