@@ -1,5 +1,14 @@
 //const noble = require("@abandonware/noble");
-import noble from "@abandonware/noble";
+//import noble from "@abandonware/noble";
+import Noble from '@abandonware/noble/lib/noble';
+import HCIBindings from '@abandonware/noble/lib/hci-socket/bindings';
+const params = {
+	deviceId: 1,
+	userChannel: true,
+	extended: false //ble5 extended features
+  };
+  
+  const noble = new Noble(new HCIBindings(params));
 import { goodMacs } from "./macaddresses.js";
 async function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
