@@ -96,7 +96,7 @@ async def connect_to_device(
                     logging.error("%s not found", name_or_address)
                     return
                 update_bluetooth_status(name_or_address, "connecting")
-                client = BleakClient(device)
+                client = BleakClient(device, timeout=30)
 
                 logging.info("connecting to %s", name_or_address)
 
