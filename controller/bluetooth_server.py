@@ -50,12 +50,9 @@ async def connect_to_device(
             async with lock:
                 logging.info("scanning for %s", name_or_address)
 
-                if by_address:
-                    device = await BleakScanner.find_device_by_address(
-                        name_or_address, macos=dict(use_bdaddr=macos_use_bdaddr)
-                    )
-                else:
-                    device = await BleakScanner.find_device_by_name(name_or_address)
+                device = await BleakScanner.find_device_by_address(
+                    name_or_address, macos=dict(use_bdaddr=macos_use_bdaddr)
+                )
 
                 logging.info("stopped scanning for %s", name_or_address)
 
@@ -63,7 +60,7 @@ async def connect_to_device(
                     logging.error("%s not found", name_or_address)
                     return
                 update_bluetooth_status(device, "connecting")
-                client = BleakClient(device)
+                client = BleakClient(device, timeout=20)
 
                 logging.info("connecting to %s", name_or_address)
 
