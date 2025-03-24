@@ -62,12 +62,14 @@ async def connect_to_device(
                 if device is None:
                     logging.error("%s not found", name_or_address)
                     return
-
+                update_bluetooth_status(device, "connecting")
                 client = BleakClient(device)
 
                 logging.info("connecting to %s", name_or_address)
 
                 await stack.enter_async_context(client)
+
+                update_bluetooth_status(device, "connected")
 
                 logging.info("connected to %s", name_or_address)
 
