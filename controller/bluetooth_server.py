@@ -8,6 +8,13 @@ from bleak import BleakClient, BleakScanner
 import requests
 import json
 
+def update_bluetooth_status(mac: str, status: str):
+    url = f"http://localhost:3001/bluetooth/"
+    data = {"mac": mac, status: status, battery: ""}
+    data_json = json.dumps(data)
+    headers = {"Content-Type": "application/json"}
+    response_json = requests.post(url, data=data_json, headers=headers)
+
 async def connect_to_device(
     lock: asyncio.Lock,
     by_address: bool,
