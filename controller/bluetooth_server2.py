@@ -19,14 +19,17 @@ goodMacs = [
 
 async def start_discovering():
     while True:
+        print("Scanning")
         devices = await BleakScanner.discover(timeout=5.0)
 
+
         for d in devices:
-            if devices[d].address in goodMacs
+            if d.address in goodMacs:
+                print("Device found")
                 async with BleakClient(d) as client:
                     #print(client.services)
-                    client.connect()
-        await asyncio.sleep(10)
+                    await client.connect()
+        await asyncio.sleep(2)
 
 
 asyncio.run(start_discovering())
