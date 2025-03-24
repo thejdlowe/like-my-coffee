@@ -92,11 +92,14 @@ async def connect_to_device(
 
                 logging.info("stopped scanning for %s", name_or_address)
 
+                def disconnected_callback():
+                    update_bluetooth_status(name_or_address, "disconnected")
+
                 if device is None:
                     logging.error("%s not found", name_or_address)
                     return
                 update_bluetooth_status(name_or_address, "connecting")
-                client = BleakClient(device, timeout=30)
+                client = BleakClient(device, timeout=30, disconnected_callback = disconnected_callback)
 
                 logging.info("connecting to %s", name_or_address)
 
