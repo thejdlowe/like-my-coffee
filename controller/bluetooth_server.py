@@ -3,14 +3,50 @@ import asyncio
 import contextlib
 import logging
 from typing import Iterable
-
+import time
 from bleak import BleakClient, BleakScanner
 import requests
 import json
 
+devices = [
+            "D8:3A:DD:76:3D:40",
+            "28:CD:C1:10:AF:02",
+            "D8:3A:DD:76:3D:08",
+            "28:CD:C1:10:AF:5E",
+            "28:CD:C1:10:AD:E6",
+            "28:CD:C1:10:00:F0",
+            "D8:3A:DD:76:3D:08",
+            
+            # Add more devices as needed
+        ]
+
+def initialize_bluetooth(tries=0):
+    try:
+        url = f"http://localhost:3001/setupbluetooth/"
+        data = {"macs": devices}
+        data_json = json.dumps(data)
+        headers = {"Content-Type": "application/json"}
+        response_json = requests.post(url, data=data_json, headers=headers)
+        if response_json.status_code != 200:
+            if tries >= 25:
+                logging.error("Unable to initialize bluetooth, giving up")
+                return 0
+            logging.error("Unable to initialize bluetooth, trying again after 5 seconds")
+            time.sleep(5)
+            
+            return initialize_bluetooth(tries+1)
+        logging.info("Bluetooth synced with server")
+        return response_json
+        #logging.info(response_json)
+        #return response_json
+    except Exception as e:
+        logging.error("Failed, trying again %s", e)
+        time.sleep(5)
+        return initialize_bluetooth(tries+1)
+
 def update_bluetooth_status(mac: str, status: str):
     url = f"http://localhost:3001/bluetooth/"
-    data = {"mac": mac, status: status, battery: ""}
+    data = {"mac": mac, "status": status, "battery": ""}
     data_json = json.dumps(data)
     headers = {"Content-Type": "application/json"}
     response_json = requests.post(url, data=data_json, headers=headers)
@@ -62,14 +98,14 @@ async def connect_to_device(
                 if device is None:
                     logging.error("%s not found", name_or_address)
                     return
-                update_bluetooth_status(device, "connecting")
+                update_bluetooth_status(name_or_address, "connecting")
                 client = BleakClient(device)
 
                 logging.info("connecting to %s", name_or_address)
 
                 await stack.enter_async_context(client)
 
-                update_bluetooth_status(device, "connected")
+                update_bluetooth_status(name_or_address, "connected")
 
                 logging.info("connected to %s", name_or_address)
 
@@ -111,25 +147,11 @@ async def main(
     by_address: bool,
     macos_use_bdaddr: bool,
 ):
+    logging.info("Initializing Bluetooth with LMC Server")
+    initialize_bluetooth()
     lock = asyncio.Lock()
-    devices = [
-        #"D8:3A:DD:76:3D:40",
-        "28:CD:C1:10:AF:02",
-        #"D8:3A:DD:76:3D:08",
-        #"28:CD:C1:10:AF:5E",
-        #"28:CD:C1:10:AD:E6",
-        #"28:CD:C1:10:00:F0",
-        #"D8:3A:DD:76:3C:FC",
-        #"D8:3A:DD:76:3D:08",
-        
-        # Add more devices as needed
-    ]
-    url = f"http://localhost:3001/setupbluetooth/"
-    data = {"macs": devices}
-    data_json = json.dumps(data)
-    headers = {"Content-Type": "application/json"}
-    response_json = requests.post(url, data=data_json, headers=headers)
-
+    
+    
     await asyncio.gather(
         *(
             connect_to_device(lock, True, macos_use_bdaddr, address, "00002A6F-0000-1000-8000-00805f9b34fb")
