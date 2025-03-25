@@ -79,6 +79,7 @@ async def start_discovering():
                     print(f"Error: {e}")
                     continue
                 except:
+                    update_bluetooth_status(d.address, "disconnected")
                     continue
         await asyncio.sleep(2)
 
