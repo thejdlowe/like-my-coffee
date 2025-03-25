@@ -14,7 +14,6 @@ goodMacs = [
     "28:CD:C1:10:AD:E6",
     "28:CD:C1:10:00:F0",
     "D8:3A:DD:76:3D:08",
-    
     # Add more devices as needed
 ]
 NOTIFY_UUID = "00002A6F-0000-1000-8000-00805f9b34fb"
@@ -36,8 +35,6 @@ def initialize_bluetooth(tries=0):
             return initialize_bluetooth(tries+1)
         print("Bluetooth synced with server")
         return response_json
-        #logging.info(response_json)
-        #return response_json
     except Exception as e:
         print("Failed, trying again", e)
         time.sleep(5)
@@ -56,8 +53,7 @@ async def start_discovering():
         print("Scanning")
         devices = await BleakScanner.discover(timeout=5.0)
 
-
-        for d, a in devices:
+        for d in devices:
             if d.address in goodMacs:
                 print("Device found", d.address)
                 update_bluetooth_status(d.address, "connecting")
@@ -79,13 +75,11 @@ async def start_discovering():
                         response_json = requests.post(url, data=data_json, headers=headers)
 
                     await client.start_notify(NOTIFY_UUID, callback)
-                    #async with BleakClient(d) as client:
-                    #    print(client.services)
-                        
                 except ValueError as e:
                     print(f"Error: {e}")
                     continue
+                except:
+                    continue
         await asyncio.sleep(2)
-
 
 asyncio.run(start_discovering())
