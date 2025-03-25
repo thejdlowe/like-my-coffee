@@ -27,16 +27,16 @@ def initialize_bluetooth(tries=0):
         response_json = requests.post(url, data=data_json, headers=headers)
         if response_json.status_code != 200:
             if tries >= 25:
-                print("Unable to initialize bluetooth, giving up")
+                logger.error("Unable to initialize bluetooth, giving up")
                 return 0
-            print("Unable to initialize bluetooth, trying again after 5 seconds")
+            logger.error("Unable to initialize bluetooth, trying again after 5 seconds")
             time.sleep(5)
             
             return initialize_bluetooth(tries+1)
-        print("Bluetooth synced with server")
+        logger.info("Bluetooth synced with server")
         return response_json
     except Exception as e:
-        print("Failed, trying again", e)
+        logger.error("Failed, trying again %s", e)
         time.sleep(5)
         return initialize_bluetooth(tries+1)
 
@@ -50,15 +50,15 @@ def update_bluetooth_status(mac: str, status: str):
 async def start_discovering():
     initialize_bluetooth()
     while True:
-        print("Scanning")
+        logger.info("Scanning")
         devices = await BleakScanner.discover(timeout=5.0)
 
         for d in devices:
             if d.address in goodMacs:
-                print("Device found", d.address)
+                logger.info("Device found %s", d.address)
                 update_bluetooth_status(d.address, "connecting")
                 try:
-                    client = BleakClient(d, timeout=30,)
+                    client = BleakClient(d, timeout=5,)
                     await client.connect()
                     update_bluetooth_status(d.address, "connected")
                     def callback(_, data):
@@ -76,7 +76,8 @@ async def start_discovering():
 
                     await client.start_notify(NOTIFY_UUID, callback)
                 except ValueError as e:
-                    print(f"Error: {e}")
+                    logger.error("Error: %s", e)
+                    update_bluetooth_status(d.address, "disconnected")
                     continue
                 except:
                     update_bluetooth_status(d.address, "disconnected")
