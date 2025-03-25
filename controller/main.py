@@ -97,7 +97,7 @@ async def check_button(connection, write_characteristic):
                 if being_pressed == False:
                     being_pressed = True
                     msg = encode_message("0")
-                    message = f"{controllernumber}&{get_vsys():.2f}&{read_temperature():.1f}&{random.randint(100,999)}".encode('utf-8')
+                    message = f"{controllernumber}&{get_vsys():.4f}&{read_temperature():.2f}".encode('utf-8')
                     write_characteristic.write(message, send_update=True)
 
                     print(f"Sent data {message}")
