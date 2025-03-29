@@ -11,11 +11,10 @@ export const PlayerDisplay = () => {
 		currentPlayerBuzzedIn,
 		currentRoundIndex,
 	} = useAppContext();
-	const { fullShowData, hasStarted } = gameState;
+	const { fullShowData } = gameState;
 	const currentRound = fullShowData.rounds[currentRoundIndex] || [];
 	const players = currentRound && currentRound.players;
-	if (!id || isNaN(parseInt(id)) || !players || !hasStarted)
-		return <DefaultPlayerDisplay />;
+	if (!id || isNaN(parseInt(id)) || !players) return <DefaultPlayerDisplay />;
 	const index = parseInt(id);
 	const player = players[index];
 	const { displayName, score, pronouns, soundIndex } = player;
@@ -25,15 +24,7 @@ export const PlayerDisplay = () => {
 		playerColors.PLAYER_TWO,
 		playerColors.PLAYER_THREE,
 	];
-	/*
-    {
-  "displayName": "Karissa",
-  "pronouns": "She/Her",
-  "score": 0,
-  "soundIndex": 0,
-  "isWinner": false
-}
-    */
+
 	return (
 		<Stack
 			sx={{
