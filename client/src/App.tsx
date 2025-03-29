@@ -14,12 +14,13 @@ function App() {
 	const location = useLocation();
 	const { pathname } = location;
 	useEffect(() => {
+		console.log(pathname);
 		const startFullScreen = () => {
 			handle.enter();
 			document.removeEventListener("keypress", startFullScreen);
 			document.removeEventListener("click", startFullScreen);
 		};
-		if (pathname === "/") {
+		if (pathname === "/" || pathname.includes("playerdisplay")) {
 			document.addEventListener("keypress", startFullScreen);
 			document.addEventListener("click", startFullScreen);
 		}
@@ -34,7 +35,14 @@ function App() {
 				<CssBaseline />
 				<AppContextProvider>
 					<Routes>
-						<Route path="/" element={<div style={{cursor: "none"}}><Scoreboard /></div>} />
+						<Route
+							path="/"
+							element={
+								<div style={{ cursor: "none" }}>
+									<Scoreboard />
+								</div>
+							}
+						/>
 						<Route path="/controlpanel" element={<ControlPanel />} />
 						<Route path="/playerdisplay/:id" element={<PlayerDisplay />} />
 					</Routes>
