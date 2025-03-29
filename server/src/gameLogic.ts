@@ -158,7 +158,11 @@ export const startGameLogic = (io: any, app: any) => {
 			});
 		} catch (e) {
 			currentState.usbReceiverConnectedStatus = false;
-			console.log("Unable to find USB; trying again");
+			const debugUSBError = false;
+			if (debugUSBError) {
+				console.log("Unable to find USB; trying again");
+			}
+
 			setTimeout(initiateIRReceiver, 1000);
 		}
 		if (device) {
@@ -270,13 +274,31 @@ export const startGameLogic = (io: any, app: any) => {
 				const ID = parseInt(whichController);
 				if (!isNaN(ID) && ID >= 0 && ID <= 2) {
 					currentState.currentPlayerBuzzedIn = ID;
-					currentState.controllerStatuses[ID].battery = parseFloat(batteryLevel);
-					currentState.controllerStatuses[ID].temperature = parseFloat(temperature);
+					currentState.controllerStatuses[ID].battery =
+						parseFloat(batteryLevel);
+					currentState.controllerStatuses[ID].temperature =
+						parseFloat(temperature);
 					/*if (req.params.powerPercentage) {
 							currentState.controllerStatuses[ID].powerPercentage = parseFloat(
 								req.params.powerPercentage
 							);
 						}*/
+					io.emit("state", currentState);
+				}
+			}
+		}
+
+		res.send(`Request sent to buzz ${req.params.controllerId}`);
+	});
+
+	app.get("/buzz/:controllerId", (req: Request, res: Response) => {
+		console.log(`Request sent to buzz ${req.params.controllerId}`);
+		if (currentState.currentPlayerBuzzedIn === -1) {
+			const whichController = req.params.controllerId;
+			if (whichController) {
+				const ID = parseInt(whichController);
+				if (!isNaN(ID) && ID >= 0 && ID <= 2) {
+					currentState.currentPlayerBuzzedIn = ID;
 					io.emit("state", currentState);
 				}
 			}
