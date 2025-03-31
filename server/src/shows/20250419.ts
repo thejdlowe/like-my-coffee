@@ -19,7 +19,7 @@ export const show: ShowType = {
 					isWinner: false,
 				},
 				{
-					displayName: "Matt",
+					displayName: "Shore",
 					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 2,
