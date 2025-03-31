@@ -9,8 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@abandonware/noble": "^1.9.2-26",
-    "@types/noble": "^0.0.44",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "noble": "^1.9.1",
