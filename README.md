@@ -17,6 +17,10 @@ This is the software needed for the application that powers the Like My Coffee s
 
 ### Software
 
+* React with Typescript for the Scoreboard, Player, and Control Panel displays
+* node to handle the actual logic for the server (kept in `gameLogic.ts`)
+* Python 3 with Bleak running to handle the bluetooth connection (this will send POST requests to the `gameLogic` file to handle communication!)
+
 1. Do your normal Pi updates/upgrades/whatever.
 2. You will need to run `npm install` on the main folder, in `client` and in `server`.
 3. Your Pi will need to be set up to run the `like-my-coffee-fancy` npm start as sudo; and it also needs chromium to run shortly after those have started.
@@ -40,3 +44,5 @@ chromium = sleep 15;chromium-browser --incognito --disable-session-crashed-bubbl
 1. Major code cleanups are needed to remove the USB functionality
 2. I'd love for this to have some better style fixes, plus a debug mode so if a mouse is there, the user can use that to play, instead of requiring the controllers.
 3. If the player buzzes in successfully, return True to the controller and give a haptic response of some kind.
+4. Allow the control panel to remotely "disable" controllers.
+5. Redo the bluetooth firmware for the Pico so on a side characteristic, it updates what the temperature and battery life is, so that I can get data on all controllers at any given time.
