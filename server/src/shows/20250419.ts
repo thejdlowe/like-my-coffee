@@ -76,7 +76,7 @@ export const show: ShowType = {
 					isWinner: false,
 				},
 				{
-					displayName: "Bridjet",
+					displayName: "Chelsea",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 8,
@@ -119,7 +119,7 @@ export const show: ShowType = {
 	images: [
 		"Apply.png",
 		"Andy.png",
-		"Bridjet.png",
+		"Chelsea.png",
 		"Clayton.png",
 		"Def.png",
 		"Eli.png",
