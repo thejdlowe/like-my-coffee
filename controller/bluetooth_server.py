@@ -16,7 +16,8 @@ goodMacs = [
     "D8:3A:DD:76:3D:08",
     # Add more devices as needed
 ]
-NOTIFY_UUID = "00002A6F-0000-1000-8000-00805f9b34fb"
+BUTTON_UUID = "00002A6F-0000-1000-8000-00805f9b34fb"
+LIGHT_UUID = "00002A6E-0000-1000-8000-00805f9b34fb"
 
 def initialize_bluetooth(tries=0):
     try:
@@ -74,7 +75,7 @@ async def start_discovering():
                         headers = {"Content-Type": "application/json"}
                         response_json = requests.post(url, data=data_json, headers=headers)
 
-                    await client.start_notify(NOTIFY_UUID, callback)
+                    await client.start_notify(BUTTON_UUID, callback)
                 except ValueError as e:
                     logger.error("Error: %s", e)
                     update_bluetooth_status(d.address, "disconnected")
@@ -84,4 +85,10 @@ async def start_discovering():
                     continue
         await asyncio.sleep(2)
 
-asyncio.run(start_discovering())
+async def setup_bluetooth():
+    tasks = [
+        asyncio.create_task(start_discovering()),
+    ]
+    await asyncio.gather(*tasks)
+
+asyncio.run(setup_bluetooth())
