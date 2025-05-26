@@ -59,11 +59,11 @@ export const CurrentBluetoothStatusHolder = () => {
 								</div>
 							);
 						})}
-					</div>
-					<div>
-						<button onClick={changeControllerLights}>
-							Change Controller Light Status
-						</button>
+						<div>
+							<button onClick={changeControllerLights}>
+								Change Controller Light Status
+							</button>
+						</div>
 					</div>
 				</div>
 			)}
