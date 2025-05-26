@@ -93,7 +93,7 @@ async def start_discovering():
 async def hello(request):
     for client in connectedControllers:
         try:
-            client.write_gatt_char(LIGHT_UUID, b'true', response=True)
+            await client.write_gatt_char(LIGHT_UUID, b'true', response=True)
         except:
             continue
     return web.Response(text="Hello, world")
