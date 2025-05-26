@@ -278,6 +278,7 @@ export const startGameLogic = (io: any, app: any) => {
 		console.log(batteryLevel, temperature);
 		console.log(`Request sent to buzz ${req.params.controllerId}`);
 		if (currentState.currentPlayerBuzzedIn === -1) {
+			changeLightStatus(false);
 			const whichController = req.params.controllerId;
 			if (whichController) {
 				const ID = parseInt(whichController);
