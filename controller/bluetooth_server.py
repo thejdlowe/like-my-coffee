@@ -89,12 +89,13 @@ async def start_discovering():
                     update_bluetooth_status(d.address, "disconnected")
                     continue
         await asyncio.sleep(2)
+
 async def send_light_command(client):
     try:
         print("send light command sent")
         await client.write_gatt_char(LIGHT_UUID, status.encode('utf-8'), response=True)
-    except:
-        logger.info("Error sending command")
+    except Exception as e:
+            logger.error(f"Error while sending data: {e}")
 
 async def hello(request):
     status = "{}".format(request.match_info['status'])
