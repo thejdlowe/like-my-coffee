@@ -90,7 +90,7 @@ async def start_discovering():
                     continue
         await asyncio.sleep(2)
 
-async def send_light_command(client):
+async def send_light_command(client, status):
     try:
         print("send light command sent")
         await client.write_gatt_char(LIGHT_UUID, status.encode('utf-8'), response=True)
@@ -102,7 +102,7 @@ async def hello(request):
     tasks = []
     for client in connectedControllers:
         print("Adding client")
-        tasks.append(asyncio.create_task(send_light_command(client)))
+        tasks.append(asyncio.create_task(send_light_command(client, status)))
     await asyncio.gather(*tasks)
     return web.Response(text='{} broadcast to all controllers'.format(status))
 
