@@ -17,6 +17,8 @@ goodMacs = [
     "D8:3A:DD:76:3D:08",
     # Add more devices as needed
 ]
+
+connectedControllers = []
 BUTTON_UUID = "00002A6F-0000-1000-8000-00805f9b34fb"
 LIGHT_UUID = "00002A6E-0000-1000-8000-00805f9b34fb"
 
@@ -75,6 +77,8 @@ async def start_discovering():
                         data_json = json.dumps(data)
                         headers = {"Content-Type": "application/json"}
                         response_json = requests.post(url, data=data_json, headers=headers)
+                    
+                    connectedControllers.append(client)
 
                     await client.start_notify(BUTTON_UUID, callback)
                 except ValueError as e:
@@ -87,6 +91,11 @@ async def start_discovering():
         await asyncio.sleep(2)
 
 async def hello(request):
+    for client in connectedControllers:
+        try:
+            client.write_gatt_char(LIGHT_UUID, b'true', response=True)
+        except:
+            continue
     return web.Response(text="Hello, world")
 
 async def setup_server():
