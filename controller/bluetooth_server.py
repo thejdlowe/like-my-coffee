@@ -5,6 +5,7 @@ import time
 from bleak import BleakClient, BleakScanner
 import requests
 import json
+from aiohttp import web
 
 goodMacs = [
     "D8:3A:DD:76:3D:40",
@@ -84,6 +85,8 @@ async def start_discovering():
                     update_bluetooth_status(d.address, "disconnected")
                     continue
         await asyncio.sleep(2)
+async def hello(request):
+    return web.Response(text="Hello, world")
 
 async def setup_bluetooth():
     tasks = [
@@ -92,3 +95,8 @@ async def setup_bluetooth():
     await asyncio.gather(*tasks)
 
 asyncio.run(setup_bluetooth())
+
+app = web.Application()
+app.add_routes([web.get('/', hello)])
+
+web.run_app(app)
