@@ -91,6 +91,7 @@ async def start_discovering():
         await asyncio.sleep(2)
 async def send_light_command(client):
     try:
+        print("send light command sent")
         await client.write_gatt_char(LIGHT_UUID, status.encode('utf-8'), response=True)
     except:
         logger.info("Error sending command")
@@ -99,7 +100,7 @@ async def hello(request):
     status = "{}".format(request.match_info['status'])
     tasks = []
     for client in connectedControllers:
-        logger.info("Adding client")
+        print("Adding client")
         tasks.append(asyncio.create_task(send_light_command(client)))
     await asyncio.gather(*tasks)
     return web.Response(text='{} broadcast to all controllers'.format(status))
@@ -116,7 +117,6 @@ async def setup_server():
     await asyncio.Event().wait()
 
 async def setup_bluetooth():
-    logging.basicConfig(level=logging.INFO)
     tasks = [
         asyncio.create_task(start_discovering()),
         setup_server()
