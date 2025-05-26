@@ -96,7 +96,7 @@ async def setup_server():
     runner = web.AppRunner(app)
 
     await runner.setup()
-    site = aiohttp.web.TCPSite(runner)    
+    site = web.TCPSite(runner)    
     await site.start()
     await asyncio.Event().wait()
 
