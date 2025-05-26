@@ -10,6 +10,7 @@ const DEVICE_INFO = {
 	interfaceId: 0,
 	endpointId: 0,
 };
+
 const whichControllerIsWhich = {
 	PLAYER_ONE: 0,
 	PLAYER_TWO: 1,
@@ -34,6 +35,10 @@ const currentState: FullStateType = {
 	bluetoothControllers: {},
 };
 
+const changeLightStatus = (status: "true" | "false") => {
+	fetch(`http://localhost:8080/${status}`);
+};
+
 export const startGameLogic = (io: any, app: any) => {
 	//const maxTimeRemaining = 60 * 12; //10;	//Ten minutes
 	let currentMaxTimeRemaining = 0;
@@ -51,6 +56,9 @@ export const startGameLogic = (io: any, app: any) => {
 		socket.emit("state", currentState);
 		socket.on("sendSound", (sound: string) => {
 			io.emit("demoSound", sound);
+		});
+		socket.on("setAllLights", (lightStatus: "true" | "false") => {
+			changeLightStatus(lightStatus)
 		});
 		socket.on("resetActive", () => {
 			currentState.currentPlayerBuzzedIn = -1;

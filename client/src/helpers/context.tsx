@@ -18,6 +18,7 @@ interface AppContextInterface {
 	startTimer: () => void;
 	setRoundIndex: (newRound: number) => void;
 	setDemoSound: (sound: string) => void;
+	setControllerLight: (lightStatus: boolean) => void;
 	setCurrentShowState: (newState: string) => void;
 	scoreChange: (scoreChangeValue: number, index: number) => void;
 	winnerChange: (playerIndex: number) => void;
@@ -60,6 +61,7 @@ const AppContext = createContext<AppContextInterface>({
 	scoreChange: () => {},
 	winnerChange: () => {},
 	setDemoSound: () => {},
+	setControllerLight: () => {},
 	currentTimerValue: -1,
 	currentPlayerBuzzedIn: -1,
 	currentTimerPercentage: -1,
@@ -144,6 +146,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
 	const setDemoSound = useCallback((sound: string) => {
 		socket.emit("sendSound", sound);
+	}, []);
+
+	const setControllerLight = useCallback((lightStatus: boolean) => {
+		socket.emit("setAllLights", lightStatus + "");
 	}, []);
 
 	const newSetFullState = useCallback(
@@ -242,6 +248,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 				scoreChange,
 				winnerChange,
 				setDemoSound,
+				setControllerLight,
 				currentTimerValue,
 				currentPlayerBuzzedIn,
 				currentTimerPercentage,

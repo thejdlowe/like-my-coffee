@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useAppContext } from "../../../../../../helpers/context";
 export const CurrentBluetoothStatusHolder = () => {
-	const { bluetoothControllers } = useAppContext();
+	const { bluetoothControllers, setControllerLight } = useAppContext();
 
 	const [showModal, setShowModal] = useState<boolean>(false);
+	const [controllerLight, setControllerLightState] = useState<boolean>(false);
+
+	const changeControllerLights = useCallback(() => {
+		setControllerLight(controllerLight);
+		setControllerLightState(!controllerLight);
+	}, [controllerLight]);
 	return (
 		<>
 			{showModal && (
@@ -53,6 +59,11 @@ export const CurrentBluetoothStatusHolder = () => {
 								</div>
 							);
 						})}
+					</div>
+					<div>
+						<button onClick={changeControllerLights}>
+							Change Controller Light Status
+						</button>
 					</div>
 				</div>
 			)}
