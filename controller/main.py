@@ -7,9 +7,8 @@ import asyncio
 import random
 import json
 
-print(freq())
+# Let's save some power!
 freq(100_000_000)
-print(freq())
 
 with open("settings.json") as f:
     config = json.load(f)
@@ -19,10 +18,14 @@ controllernumber = config["CONTROLLER_NUMBER"]
 button_pin = 18
 button_pin_object = Pin(button_pin, Pin.IN, Pin.PULL_UP)
 
+light_pin = 13
+light_pin_object = Pin(light_pin, Pin.OUT)
+light_pin_object.low()
+
 # Define UUIDs for the service and characteristics
 _SERVICE_UUID = bluetooth.UUID(0x1848)
-_WRITE_CHARACTERISTIC_UUID = bluetooth.UUID(0x2A6E)  # Central writes here
-_READ_CHARACTERISTIC_UUID = bluetooth.UUID(0x2A6F)   # Peripheral responds here
+_LIGHT_CHARACTERISTIC_UUID = bluetooth.UUID(0x2A6E)  # Central writes here
+_BUTTON_CHARACTERISTIC_UUID = bluetooth.UUID(0x2A6F)   # Peripheral responds here
 _KEEPALIVE_CHARACTERISTIC_UUID = bluetooth.UUID(0x2A12)
 
 # ADC Channel 4 reads the temperature sensor
@@ -143,6 +146,10 @@ async def receive_data_task(read_characteristic):
             data = read_characteristic.read()
 
             if data:
+                if decode_message(data) == "true":
+                    light_pin_object.high()
+                else:
+                    light_pin_object.low()
                 print(f"Received: {decode_message(data)}")
                 await asyncio.sleep(1)
         except Exception as e:
@@ -163,9 +170,9 @@ async def run_peripheral_mode():
     ble_service = aioble.Service(BLE_SVC_UUID)
     
     # Characteristic for the central to write
-    write_characteristic = aioble.Characteristic(
-        ble_service, _WRITE_CHARACTERISTIC_UUID,
-        read=True, write=True, capture=False
+    light_characteristic = aioble.Characteristic(
+        ble_service, _LIGHT_CHARACTERISTIC_UUID,
+        read=True, write=True, capture=False, notify=True
     )
     
     keepalive_characteristic = aioble.Characteristic(
@@ -174,8 +181,8 @@ async def run_peripheral_mode():
     )
 
     # Characteristic for the peripheral to write
-    read_characteristic = aioble.Characteristic(
-        ble_service, _READ_CHARACTERISTIC_UUID,
+    button_characteristic = aioble.Characteristic(
+        ble_service, _BUTTON_CHARACTERISTIC_UUID,
         read=True, write=True, capture=False, notify=True
     )
 
@@ -196,7 +203,8 @@ async def run_peripheral_mode():
             # Create tasks for sending and receiving data
             tasks = [
                 #asyncio.create_task(send_data_task(connection, keepalive_characteristic)),
-                asyncio.create_task(check_button(connection, read_characteristic))
+                asyncio.create_task(check_button(connection, button_characteristic)),
+                asyncio.create_task(receive_data_task(light_characteristic)),
             ]
             await asyncio.gather(*tasks)
             print(f"{IAM} disconnected")
