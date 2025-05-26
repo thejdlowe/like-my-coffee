@@ -92,7 +92,7 @@ async def start_discovering():
 
 async def send_light_command(client, status):
     try:
-        print("send light command sent")
+        logger.info("Light Command sent")
         await client.write_gatt_char(LIGHT_UUID, status.encode('utf-8'), response=True)
     except Exception as e:
             logger.error(f"Error while sending data: {e}")
@@ -100,8 +100,10 @@ async def send_light_command(client, status):
 async def hello(request):
     status = "{}".format(request.match_info['status'])
     tasks = []
+    i = 0
     for client in connectedControllers:
-        print("Adding client")
+        logger.info("controller %s", i)
+        i = i + 1
         tasks.append(asyncio.create_task(send_light_command(client, status)))
     await asyncio.gather(*tasks)
     return web.Response(text='{} broadcast to all controllers'.format(status))
