@@ -93,7 +93,6 @@ async def send_light_command(client):
     try:
         await client.write_gatt_char(LIGHT_UUID, status.encode('utf-8'), response=True)
     except:
-        continue
 
 async def hello(request):
     status = "{}".format(request.match_info['status'])
