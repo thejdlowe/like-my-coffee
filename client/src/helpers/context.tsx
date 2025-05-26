@@ -149,7 +149,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	}, []);
 
 	const setControllerLight = useCallback((lightStatus: boolean) => {
-		socket.emit("setAllLights", lightStatus + "");
+		socket.emit("setAllLights", lightStatus);
 	}, []);
 
 	const newSetFullState = useCallback(

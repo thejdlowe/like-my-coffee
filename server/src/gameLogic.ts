@@ -35,7 +35,7 @@ const currentState: FullStateType = {
 	bluetoothControllers: {},
 };
 
-const changeLightStatus = (status: "true" | "false") => {
+const changeLightStatus = (status: boolean) => {
 	fetch(`http://localhost:8080/${status}`);
 };
 
@@ -48,6 +48,7 @@ export const startGameLogic = (io: any, app: any) => {
 		if (currentState.currentPlayerBuzzedIn === -1) {
 			currentState.currentPlayerBuzzedIn = buttonData.whichController;
 			io.emit("state", currentState);
+			changeLightStatus(false);
 		}
 	};
 
@@ -57,7 +58,7 @@ export const startGameLogic = (io: any, app: any) => {
 		socket.on("sendSound", (sound: string) => {
 			io.emit("demoSound", sound);
 		});
-		socket.on("setAllLights", (lightStatus: "true" | "false") => {
+		socket.on("setAllLights", (lightStatus: boolean) => {
 			changeLightStatus(lightStatus)
 		});
 		socket.on("resetActive", () => {
