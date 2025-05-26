@@ -91,16 +91,17 @@ async def start_discovering():
         await asyncio.sleep(2)
 
 async def hello(request):
+    status = "{}".format(request.match_info['status']))
     for client in connectedControllers:
         try:
-            await client.write_gatt_char(LIGHT_UUID, b'true', response=True)
+            await client.write_gatt_char(LIGHT_UUID, status.encode('utf-8'), response=True)
         except:
             continue
     return web.Response(text="Hello, world")
 
 async def setup_server():
     app = web.Application()
-    app.add_routes([web.get('/', hello)])
+    app.add_routes([web.get('/{status}', hello)])
 
     runner = web.AppRunner(app)
 
