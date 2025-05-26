@@ -93,7 +93,12 @@ async def setup_server():
     app = web.Application()
     app.add_routes([web.get('/', hello)])
 
-    web.run_app(app)
+    runner = web.AppRunner(app)
+
+    await runner.setup()
+    site = aiohttp.web.TCPSite(runner)    
+    await site.start()
+    await asyncio.Event().wait()
 
 async def setup_bluetooth():
     tasks = [
