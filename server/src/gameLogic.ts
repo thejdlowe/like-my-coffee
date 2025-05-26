@@ -59,7 +59,7 @@ export const startGameLogic = (io: any, app: any) => {
 			io.emit("demoSound", sound);
 		});
 		socket.on("setAllLights", (lightStatus: boolean) => {
-			changeLightStatus(lightStatus)
+			changeLightStatus(lightStatus);
 		});
 		socket.on("resetActive", () => {
 			currentState.currentPlayerBuzzedIn = -1;
@@ -99,6 +99,7 @@ export const startGameLogic = (io: any, app: any) => {
 					currentState.currentRoundIndex
 				].players[index].score += scoreChangeValue;
 				currentState.currentPlayerBuzzedIn = -1;
+				changeLightStatus(true);
 				io.emit("state", currentState);
 			}
 		);
@@ -141,6 +142,7 @@ export const startGameLogic = (io: any, app: any) => {
 			currentState.currentTimerValue = currentMaxTimeRemaining;
 			currentState.currentTimerPercentage = 100;
 			currentState.hasStarted = true;
+			changeLightStatus(true);
 			io.emit("state", currentState);
 			clearInterval(timerRef);
 			timerRef = setInterval(() => {
