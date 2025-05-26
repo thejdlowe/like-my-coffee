@@ -85,18 +85,21 @@ async def start_discovering():
                     update_bluetooth_status(d.address, "disconnected")
                     continue
         await asyncio.sleep(2)
+
 async def hello(request):
     return web.Response(text="Hello, world")
+
+async def setup_server():
+    app = web.Application()
+    app.add_routes([web.get('/', hello)])
+
+    web.run_app(app)
 
 async def setup_bluetooth():
     tasks = [
         asyncio.create_task(start_discovering()),
+        setup_server()
     ]
     await asyncio.gather(*tasks)
 
 asyncio.run(setup_bluetooth())
-
-app = web.Application()
-app.add_routes([web.get('/', hello)])
-
-web.run_app(app)
