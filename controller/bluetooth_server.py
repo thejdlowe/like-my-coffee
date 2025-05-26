@@ -99,6 +99,7 @@ async def hello(request):
     status = "{}".format(request.match_info['status'])
     tasks = []
     for client in connectedControllers:
+        logger.info("Adding client")
         tasks.append(asyncio.create_task(send_light_command(client)))
     await asyncio.gather(*tasks)
     return web.Response(text='{} broadcast to all controllers'.format(status))
@@ -115,6 +116,7 @@ async def setup_server():
     await asyncio.Event().wait()
 
 async def setup_bluetooth():
+    logging.basicConfig(filename='bluetooth.log', level=logging.INFO)
     tasks = [
         asyncio.create_task(start_discovering()),
         setup_server()
