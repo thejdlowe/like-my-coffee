@@ -121,7 +121,7 @@ async def setup_server():
     await asyncio.Event().wait()
 
 async def setup_bluetooth():
-    logging.basicConfig(filename="/home/LikeMyCoffee/bluetooth_server.log" level=logging.INFO)
+    logging.basicConfig(filename="/home/LikeMyCoffee/bluetooth_server.log", level=logging.INFO)
     tasks = [
         asyncio.create_task(start_discovering()),
         setup_server()
