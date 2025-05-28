@@ -53,16 +53,17 @@ def update_bluetooth_status(mac: str, status: str):
 
 async def start_discovering():
     initialize_bluetooth()
+    scanner = BleakScanner(adapter="hci1")
     while True:
         logger.info("Scanning")
-        devices = await BleakScanner.discover(timeout=5.0)
+        devices = await scanner.discover(timeout=5.0)
 
         for d in devices:
             if d.address in goodMacs:
                 logger.info("Device found %s", d.address)
                 update_bluetooth_status(d.address, "connecting")
                 try:
-                    client = BleakClient(d, timeout=5,)
+                    client = BleakClient(d, timeout=5,adapter="hci1",)
                     await client.connect()
                     update_bluetooth_status(d.address, "connected")
                     def callback(_, data):
