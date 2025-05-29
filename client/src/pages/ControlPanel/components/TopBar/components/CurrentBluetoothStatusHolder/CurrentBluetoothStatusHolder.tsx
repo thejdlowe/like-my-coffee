@@ -73,7 +73,7 @@ export const CurrentBluetoothStatusHolder = () => {
 			</div>
 			<div>
 				<button onClick={changeControllerLights}>
-					Change Controller Light Status to {!controllerLight + ""}
+					Change Controller Light Status to {controllerLight + ""}
 				</button>
 			</div>
 		</>
