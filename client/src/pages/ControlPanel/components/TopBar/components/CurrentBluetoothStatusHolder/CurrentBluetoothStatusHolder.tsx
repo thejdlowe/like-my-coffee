@@ -37,6 +37,7 @@ export const CurrentBluetoothStatusHolder = () => {
 						{Object.keys(bluetoothControllers).map((mac) => {
 							const status = bluetoothControllers[mac].status;
 							const battery = bluetoothControllers[mac].battery;
+							const temperature = bluetoothControllers[mac];
 							let color;
 							if (status === "disconnected") color = "red";
 							else if (status === "connecting") color = "yellow";
@@ -46,11 +47,12 @@ export const CurrentBluetoothStatusHolder = () => {
 									<span
 										style={{
 											margin: "auto 10px",
-											width: "10px",
-											height: "10px",
+											width: "20px",
+											height: "20px",
 											border: "1px solid black",
 											borderRadius: "99px",
 											backgroundColor: color,
+											display: "inline-block",
 										}}
 									>
 										&nbsp;
@@ -71,7 +73,7 @@ export const CurrentBluetoothStatusHolder = () => {
 			</div>
 			<div>
 				<button onClick={changeControllerLights}>
-					Change Controller Light Status
+					Change Controller Light Status to {!controllerLight}
 				</button>
 			</div>
 		</>
