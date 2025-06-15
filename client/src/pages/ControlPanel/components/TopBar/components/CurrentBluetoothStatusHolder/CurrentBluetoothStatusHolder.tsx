@@ -72,9 +72,25 @@ export const CurrentBluetoothStatusHolder = () => {
 				Show Bluetooth status
 			</div>
 			<div>
-				<button onClick={changeControllerLights}>
-					Change Controller Light Status to {controllerLight + ""}
+				<button
+					onClick={() => {
+						setControllerLight(false);
+					}}
+				>
+					Turn Lights Off
 				</button>
+				<br />
+				<button
+					onClick={() => {
+						setControllerLight(true);
+					}}
+				>
+					Turn Lights On
+				</button>
+				<br />
+				{/* <button onClick={changeControllerLights}>
+					Change Controller Light Status to {controllerLight + ""}
+				</button> */}
 			</div>
 		</>
 	);
