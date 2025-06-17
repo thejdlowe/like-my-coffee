@@ -28,7 +28,30 @@ export const useSounds = () => {
 			playSound("stardew-fishing_EimR00g.mp3", onend),
 		streetfighter = (onend?: () => void) => playSound("coin_1.mp3", onend),
 		bowser = (onend?: () => void) => playSound("bowser.mp3", onend),
-		ready = (onend?: () => void) => playSound("playersready.mp3", onend);
+		ready = (onend?: () => void) => playSound("playersready.mp3", onend),
+		ducks = (onend?: () => void) => {
+			const duck1 = () => {
+				console.log("duck1");
+				playSound("duck1.mp3", onend);
+			};
+
+			const duck2 = () => {
+				console.log("duck2");
+				playSound("duck2.mp3", onend);
+			};
+			const duck3 = () => {
+				console.log("duck3");
+				playSound("duck3.mp3", onend);
+			};
+			const allDucks = [duck1, duck2, duck3];
+
+			console.log("Choosing");
+
+			const whichDuck = allDucks[Math.floor(Math.random() * allDucks.length)];
+			console.log("Chose");
+			whichDuck();
+			//playSound("playersready.mp3", onend);
+		};
 
 	const allSoundsObject = {
 		intro,
@@ -47,12 +70,14 @@ export const useSounds = () => {
 		streetfighter,
 		bowser,
 		ready,
+		ducks,
 	};
 
 	const gameSoundsArr = [
 		donkeykong,
 		pacman,
 		bowser,
+		ducks,
 		link,
 		candycrush,
 		aol,
@@ -62,6 +87,7 @@ export const useSounds = () => {
 		metalgearsolid,
 		stardewvalley,
 		streetfighter,
+		ducks,
 	];
 
 	return { allSoundsObject, gameSoundsArr };

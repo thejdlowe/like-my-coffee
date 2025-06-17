@@ -35,8 +35,10 @@ const currentState: FullStateType = {
 	bluetoothControllers: {},
 };
 
-const changeLightStatus = (status: boolean) => {
-	fetch(`http://localhost:8080/${status}`);
+const changeLightStatus = async (status: boolean) => {
+	try {
+		await fetch(`http://localhost:8080/${status}`);
+	} catch (e) {}
 };
 
 export const startGameLogic = (io: any, app: any) => {
@@ -91,10 +93,10 @@ export const startGameLogic = (io: any, app: any) => {
 				scoreChangeValue: number;
 				index: number;
 			}) => {
-				console.log(
-					currentState.fullShowData.rounds[currentState.currentRoundIndex],
-					index
-				);
+				// console.log(
+				// 	currentState.fullShowData.rounds[currentState.currentRoundIndex],
+				// 	index
+				// );
 				currentState.fullShowData.rounds[
 					currentState.currentRoundIndex
 				].players[index].score += scoreChangeValue;
@@ -104,10 +106,10 @@ export const startGameLogic = (io: any, app: any) => {
 			}
 		);
 		socket.on("winnerChange", ({ playerIndex }: { playerIndex: number }) => {
-			console.log(
-				currentState.fullShowData.rounds[currentState.currentRoundIndex],
-				playerIndex
-			);
+			// console.log(
+			// 	currentState.fullShowData.rounds[currentState.currentRoundIndex],
+			// 	playerIndex
+			// );
 			const state =
 				!currentState.fullShowData.rounds[currentState.currentRoundIndex]
 					.players[playerIndex].isWinner;
