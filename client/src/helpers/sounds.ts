@@ -70,14 +70,14 @@ export const useSounds = () => {
 		streetfighter,
 		bowser,
 		ready,
-		ducks,
+		//ducks,
 	};
 
 	const gameSoundsArr = [
 		donkeykong,
 		pacman,
 		bowser,
-		ducks,
+		//ducks,
 		link,
 		candycrush,
 		aol,
@@ -87,7 +87,7 @@ export const useSounds = () => {
 		metalgearsolid,
 		stardewvalley,
 		streetfighter,
-		ducks,
+		//ducks,
 	];
 
 	return { allSoundsObject, gameSoundsArr };
