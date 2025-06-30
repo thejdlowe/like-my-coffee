@@ -33,7 +33,7 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Eli",
+					displayName: "Stephen",
 					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 3,
@@ -61,7 +61,7 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Stephen",
+					displayName: "Eli",
 					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 6,
