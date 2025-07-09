@@ -13,11 +13,11 @@ goodMacs = [
     "D8:3A:DD:76:3D:08",
     "28:CD:C1:10:AF:5E",
     "28:CD:C1:10:AD:E6",
-    "28:CD:C1:10:00:F0",
+    # "28:CD:C1:10:00:F0",
     "D8:3A:DD:76:3D:08",
     "D8:3A:DD:76:3C:FC",
-    "2C:CF:67:D7:F0:92",
-    "2C:CF:67:D7:FD:CB",
+    # "2C:CF:67:D7:F0:92",
+    # "2C:CF:67:D7:FD:CB",
     # Add more devices as needed
 ]
 
