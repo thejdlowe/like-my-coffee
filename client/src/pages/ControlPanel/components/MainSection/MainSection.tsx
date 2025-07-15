@@ -8,9 +8,9 @@ export const MainSection = () => {
 		currentPlayerBuzzedIn,
 		currentRoundIndex,
 		currentTimerPercentage,
-		currentScreenState
+		currentScreenState,
 	} = useAppContext();
-	
+
 	let highlightDescriptorIndex = 0;
 	if (currentTimerPercentage <= 33) {
 		highlightDescriptorIndex = 2;
@@ -25,7 +25,6 @@ export const MainSection = () => {
 		playerColors.PLAYER_THREE,
 	];
 
-	
 	const descriptors = [
 		["Living Room", "Profession you want", "Something you want"],
 		["Kitchen", "Profession you work now", "Something you need"],
@@ -66,8 +65,8 @@ export const MainSection = () => {
 						})}
 				</Stack>
 				<Stack sx={{ width: "33%" }}>
-					<b>Descriptors:</b>
-					{currentDescriptors.map((desc, index) => {
+					<b>Prompts:</b>
+					{currentRound.prompts.map((desc, index) => {
 						return (
 							<Box>
 								{index === highlightDescriptorIndex && "*"}

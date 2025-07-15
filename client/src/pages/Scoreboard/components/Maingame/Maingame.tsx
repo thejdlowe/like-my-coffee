@@ -6,6 +6,7 @@ import { playerColors } from "../../../../sharedCopy";
 export const Maingame = () => {
 	let progressBarColor = "green";
 	let progressText = "Like My *Blank*";
+	let promptIndex = 0;
 	const {
 		serverState: gameState,
 		currentPlayerBuzzedIn,
@@ -16,15 +17,19 @@ export const Maingame = () => {
 	if (currentTimerPercentage <= 33) {
 		progressText = "Threesomes Are Like *Blank*";
 		progressBarColor = "red";
+		promptIndex = 2;
 	} else if (currentTimerPercentage <= 66) {
 		progressText = "Sex With Me Is Like *Blank*";
 		progressBarColor = "yellow";
+		promptIndex = 1;
 	} else {
 		progressText = "Like My *Blank*";
 		progressBarColor = "green";
+		promptIndex = 0;
 	}
 	const currentRound = fullShowData.rounds[currentRoundIndex] || [];
 	const players = currentRound && currentRound.players;
+	const currentPrompt = currentRound.prompts[promptIndex];
 	return (
 		<Stack>
 			<Stack direction="row" sx={{ height: "80vh" }}>
@@ -76,7 +81,7 @@ export const Maingame = () => {
 									lineHeight: "1.4",
 								}}
 							>
-								{progressText}
+								{currentPrompt}
 							</Typography>
 						</>
 					)}
