@@ -8,7 +8,6 @@ export const MainSection = () => {
 		currentPlayerBuzzedIn,
 		currentRoundIndex,
 		currentTimerPercentage,
-		currentScreenState,
 	} = useAppContext();
 
 	let highlightDescriptorIndex = 0;
@@ -25,23 +24,13 @@ export const MainSection = () => {
 		playerColors.PLAYER_THREE,
 	];
 
-	const descriptors = [
-		["Living Room", "Profession you want", "Something you want"],
-		["Kitchen", "Profession you work now", "Something you need"],
-		["Bathroom", "Profession you hate", "Something you hate"],
-		[
-			"Attic/Basement",
-			"Profession you're unqualified for",
-			"Something someone gave you",
-		],
-	];
 	const { fullShowData, controllerStatuses } = gameState;
 	let header;
 	if (currentRoundIndex < 0) header = "Pre-Round";
 	else if (currentRoundIndex > 3) header = "Final Round";
 	else header = `Round ${currentRoundIndex + 1}`;
 	const currentRound = fullShowData.rounds[currentRoundIndex] || [];
-	const currentDescriptors = descriptors[currentRoundIndex] || [];
+
 	return (
 		<Stack>
 			<Typography variant="h2">{header}</Typography>
