@@ -4,7 +4,6 @@ import {
 	CurrentTimer,
 	SetScoreboardStatusButton,
 	SoundTestDropdown,
-	CurrentUsbReceiverConnectedStatusIndicator,
 	CurrentBluetoothStatusHolder,
 	PowerFunctionsHolder,
 } from "./components";
@@ -18,7 +17,6 @@ export const TopBar = () => {
 			<CurrentTimer />
 			<SetScoreboardStatusButton />
 			<SoundTestDropdown />
-			<CurrentUsbReceiverConnectedStatusIndicator />
 			<CurrentBluetoothStatusHolder />
 			<PowerFunctionsHolder />
 		</Stack>
