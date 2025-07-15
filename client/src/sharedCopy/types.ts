@@ -19,6 +19,7 @@ export type RoundType = {
 	minigame: string;
 	example: string;
 	timelength: number;
+	prompts: [string, string, string];
 };
 
 export type ShowType = {

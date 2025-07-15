@@ -29,6 +29,11 @@ export const show: ShowType = {
 			minigame: "Name That Position",
 			example: "USB Drive: You flip it over twice before it goes in right",
 			timelength: 12,
+			prompts: [
+				"Something in your living room",
+				"Profession you want",
+				"Something you want",
+			],
 		},
 		{
 			players: [
@@ -57,6 +62,11 @@ export const show: ShowType = {
 			minigame: "Sexy Slogans",
 			example: "Nintendo: Looking for a new Switch",
 			timelength: 12,
+			prompts: [
+				"Something in your kitchen",
+				"Profession you work now",
+				"Something you need",
+			],
 		},
 		{
 			players: [
@@ -86,6 +96,11 @@ export const show: ShowType = {
 			example:
 				"Doing the laundry - Yeah I'm OK to put another load in before going to bed.",
 			timelength: 12,
+			prompts: [
+				"Something in your bathroom",
+				"Profession you hate",
+				"Something you hate",
+			],
 		},
 		{
 			players: [
@@ -114,6 +129,11 @@ export const show: ShowType = {
 			minigame: "",
 			example: "",
 			timelength: 10,
+			prompts: [
+				"Something in your Attic/Basement",
+				"Profession you're unqualified for",
+				"Something someone gave you",
+			],
 		},
 	],
 	images: [
