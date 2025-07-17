@@ -55,7 +55,7 @@ export const MainSection = () => {
 				</Stack>
 				<Stack sx={{ width: "33%" }}>
 					<b>Prompts:</b>
-					{currentRound.prompts.map((desc, index) => {
+					{currentRound?.prompts?.map((desc, index) => {
 						return (
 							<Box>
 								{index === highlightDescriptorIndex && "*"}
