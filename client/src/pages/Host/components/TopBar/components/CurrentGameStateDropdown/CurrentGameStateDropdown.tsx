@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { scoreboardStates } from "../../../../../../sharedCopy";
 import { useAppContext } from "../../../../../../helpers/context";
+import { ChangeEvent } from "react";
 
 export const CurrentGameStateDropdown = () => {
 	const { setCurrentShowState, currentScreenState, currentRoundIndex } =
@@ -22,9 +23,9 @@ export const CurrentGameStateDropdown = () => {
 		let els: any = [];
 		if (currentRoundIndex === -1) {
 			els.push(
-				<MenuItem key={-1} value={"screensaver"}>
+				<option key={-1} value={"screensaver"}>
 					{"screensaver"}
-				</MenuItem>
+				</option>
 			);
 		} else if (currentRoundIndex < 99) {
 			els = Object.values(scoreboardStates).map((el, index) => {
@@ -36,9 +37,9 @@ export const CurrentGameStateDropdown = () => {
 				)
 					return null;
 				return (
-					<MenuItem key={index} value={el}>
+					<option key={index} value={el}>
 						{value}
-					</MenuItem>
+					</option>
 				);
 			});
 		} else {
@@ -52,9 +53,9 @@ export const CurrentGameStateDropdown = () => {
 					el === scoreboardStates.FINAL_ROUND
 				) {
 					return (
-						<MenuItem key={index} value={el}>
+						<option key={index} value={el}>
 							{value}
-						</MenuItem>
+						</option>
 					);
 				}
 			});
@@ -66,9 +67,16 @@ export const CurrentGameStateDropdown = () => {
 	return (
 		<Box>
 			<FormControl sx={{ m: 1, minWidth: 150 }}>
-				<Select onChange={changeDropdown} value={currentScreenState}>
+				<select
+					onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+						console.log(event.target.value);
+						setCurrentShowState(event.target.value);
+					}}
+					value={currentScreenState}
+				>
 					{buildDropDown()}
-				</Select>
+				</select>
+				
 				<FormHelperText>Set Status</FormHelperText>
 			</FormControl>
 		</Box>

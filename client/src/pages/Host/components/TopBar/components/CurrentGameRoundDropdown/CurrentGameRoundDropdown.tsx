@@ -7,6 +7,7 @@ import {
 	FormHelperText,
 } from "@mui/material";
 import { useAppContext } from "../../../../../../helpers/context";
+import { ChangeEvent } from "react";
 
 export const CurrentGameRoundDropdown = () => {
 	const {
@@ -21,17 +22,26 @@ export const CurrentGameRoundDropdown = () => {
 		setRoundIndex(parseInt(value));
 	};
 
-	const {fullShowData} = gameState;
-	const {rounds} = fullShowData
+	const { fullShowData } = gameState;
+	const { rounds } = fullShowData;
 	return (
 		<Box>
 			<FormControl sx={{ m: 1, minWidth: 150 }}>
-				<Select onChange={changeDropdown} value={currentRoundIndex + ""}>
-					<MenuItem value={-1}>Pre Game</MenuItem>
-					{rounds.map((el, index) => {return (<MenuItem value={index}>Round {index + 1}</MenuItem>)}) }
-					<MenuItem value={99}>Secret Video</MenuItem>
-					<MenuItem value={100}>Credits Video</MenuItem>
-				</Select>
+				<select
+					onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+						const value = event.target.value;
+						//if (parseInt(value) < 0) return;
+						setRoundIndex(parseInt(value));
+					}}
+					value={currentRoundIndex + ""}
+				>
+					<option value={-1}>Pre Game</option>
+					{rounds.map((el, index) => {
+						return <option value={index}>Round {index + 1}</option>;
+					})}
+					<option value={99}>Secret Video</option>
+					<option value={100}>Credits Video</option>
+				</select>
 				<FormHelperText>Select Round</FormHelperText>
 			</FormControl>
 		</Box>
