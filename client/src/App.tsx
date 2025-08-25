@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { AppContextProvider } from "./helpers/context";
 import { ControlPanel } from "./pages/ControlPanel";
 import { Scoreboard } from "./pages/Scoreboard";
+import { Host } from "./pages/Host";
 import { PlayerDisplay } from "./pages/PlayerDisplay";
 import { CssBaseline } from "@mui/material";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
@@ -43,6 +44,7 @@ function App() {
 								</div>
 							}
 						/>
+						<Route path="/host" element={<Host />} />
 						<Route path="/controlpanel" element={<ControlPanel />} />
 						<Route path="/playerdisplay/:id" element={<PlayerDisplay />} />
 					</Routes>
