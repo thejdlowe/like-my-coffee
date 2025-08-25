@@ -6,7 +6,7 @@ import { Host } from "./pages/Host";
 import { PlayerDisplay } from "./pages/PlayerDisplay";
 import { CssBaseline } from "@mui/material";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import "./App.css";
 
@@ -14,6 +14,12 @@ function App() {
 	const handle = useFullScreenHandle();
 	const location = useLocation();
 	const { pathname } = location;
+	const setFullScreen = useCallback(() => {
+		handle.enter();
+	}, [handle]);
+	const exitFullScreen = useCallback(() => {
+		handle.exit();
+	}, [handle]);
 	useEffect(() => {
 		console.log(pathname);
 		const startFullScreen = () => {
@@ -21,9 +27,20 @@ function App() {
 			document.removeEventListener("keypress", startFullScreen);
 			document.removeEventListener("click", startFullScreen);
 		};
+
 		if (pathname === "/" || pathname.includes("playerdisplay")) {
 			document.addEventListener("keypress", startFullScreen);
 			document.addEventListener("click", startFullScreen);
+		}
+		if (pathname === "/host") {
+			const setFullScreenButton = document.querySelector("#setFullScreen");
+			setFullScreenButton?.removeEventListener("click", setFullScreen);
+			setFullScreenButton?.addEventListener("click", setFullScreen);
+
+			const removeFullScreenButton =
+				document.querySelector("#removeFullScreen");
+			removeFullScreenButton?.removeEventListener("click", exitFullScreen);
+			removeFullScreenButton?.addEventListener("click", exitFullScreen);
 		}
 		return () => {
 			document.removeEventListener("keypress", startFullScreen);

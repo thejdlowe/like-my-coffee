@@ -8,7 +8,7 @@ export const Host = () => {
 	return (
 		<Stack display="flex" justifyContent="space-between">
 			<MainSection />
-			<div style={{position: "fixed", bottom: 0}}>
+			<div style={{position: "fixed", bottom: 0,right: 0}}>
                 <TopBar />
             </div>
 		</Stack>
