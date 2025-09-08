@@ -77,7 +77,7 @@ async def start_discovering():
                         temperature = values[2]
                         logger.info("%s received %r %r %r", d.address, controllernumber, batteryLevel, temperature)
                         url = f"http://localhost:3001/buzz/{controllernumber}"
-                        data = {"batteryLevel": batteryLevel, "temperature": temperature}
+                        data = {"batteryLevel": batteryLevel, "temperature": temperature, "mac": d.address}
                         data_json = json.dumps(data)
                         headers = {"Content-Type": "application/json"}
                         response_json = requests.post(url, data=data_json, headers=headers)
