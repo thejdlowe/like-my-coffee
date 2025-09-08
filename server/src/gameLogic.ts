@@ -257,6 +257,7 @@ export const startGameLogic = (io: any, app: any) => {
 			currentState.bluetoothControllers[mac] = {
 				status: "disconnected",
 				battery: "",
+				temperature: "",
 			};
 		});
 		//console.log(jsonData);
@@ -281,6 +282,10 @@ export const startGameLogic = (io: any, app: any) => {
 		const { batteryLevel, temperature, mac } = jsonData;
 		console.log(batteryLevel, temperature, mac);
 		console.log(`Request sent to buzz ${req.params.controllerId}`);
+		if (currentState.bluetoothControllers[mac]) {
+			currentState.bluetoothControllers[mac].battery = batteryLevel;
+			currentState.bluetoothControllers[mac].temperature = temperature;
+		}
 		if (currentState.currentPlayerBuzzedIn === -1) {
 			changeLightStatus(false);
 			const whichController = req.params.controllerId;

@@ -29,7 +29,7 @@ interface AppContextInterface {
 	currentRoundIndex: number;
 	currentScreenState: scoreboardStates;
 	currentUsbReceiverConnectedStatus: boolean;
-	bluetoothControllers: { [key: string]: { status: string; battery: string } };
+	bluetoothControllers: { [key: string]: { status: string; battery: string; temperature: string; } };
 }
 
 const AppContext = createContext<AppContextInterface>({
