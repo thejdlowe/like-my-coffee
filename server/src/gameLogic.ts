@@ -278,8 +278,8 @@ export const startGameLogic = (io: any, app: any) => {
 
 	app.post("/buzz/:controllerId", (req: Request, res: Response) => {
 		const jsonData: any = req.body;
-		const { batteryLevel, temperature } = jsonData;
-		console.log(batteryLevel, temperature);
+		const { batteryLevel, temperature, mac } = jsonData;
+		console.log(batteryLevel, temperature, mac);
 		console.log(`Request sent to buzz ${req.params.controllerId}`);
 		if (currentState.currentPlayerBuzzedIn === -1) {
 			changeLightStatus(false);
