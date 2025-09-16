@@ -14,15 +14,19 @@
 	display: flex;
 	justify-content: center; /* Center items horizontally along the main axis */
 	align-items: center; /* Center items vertically along the cross axis */
-    margin: 10px;
+	margin: 10px;
+}
+
+.column {
+	flex-direction: column;
 }
 
 .nametag-lmc-logo {
 	background-image: url("LMC logo.png");
 	background-size: contain;
 	background-repeat: no-repeat;
-	width: 0.5in;
-	height: 0.5in;
+	width: 0.8in;
+	height: 0.8in;
 	position: absolute;
 	top: 3px;
 	left: 3px;
@@ -32,8 +36,8 @@
 	background-image: url("MFP logo.png");
 	background-size: contain;
 	background-repeat: no-repeat;
-	width: 0.5in;
-	height: 0.5in;
+	width: 0.7in;
+	height: 0.7in;
 	position: absolute;
 	bottom: 3px;
 	left: 3px;
@@ -42,10 +46,18 @@
 .nametag-name {
 	color: #c2212b;
 	text-shadow: #fabd15 2px 2px;
+	font-size: 1.3em;
 }
 
 .nametag-pronouns {
 	position: absolute;
 	bottom: 3px;
 	right: 3px;
+}
+
+@media print {
+	.page,
+	.page-break {
+		break-after: page;
+	}
 }
