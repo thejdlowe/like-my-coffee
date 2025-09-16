@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { AppContextProvider } from "./helpers/context";
 import { ControlPanel } from "./pages/ControlPanel";
 import { Scoreboard } from "./pages/Scoreboard";
+import { Nametags } from "./pages/Nametags";
 import { Host } from "./pages/Host";
 import { PlayerDisplay } from "./pages/PlayerDisplay";
 import { CssBaseline } from "@mui/material";
@@ -63,6 +64,7 @@ function App() {
 						/>
 						<Route path="/host" element={<Host />} />
 						<Route path="/controlpanel" element={<ControlPanel />} />
+						<Route path="/nametags" element={<Nametags />} />
 						<Route path="/playerdisplay/:id" element={<PlayerDisplay />} />
 					</Routes>
 				</AppContextProvider>
