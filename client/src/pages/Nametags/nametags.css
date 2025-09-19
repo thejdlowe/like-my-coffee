@@ -55,9 +55,19 @@
 	right: 3px;
 }
 
+.page, .right-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-page {
+    align-items: end;    
+}
+
 @media print {
 	.page,
-	.page-break {
+	.page-break,
+    .right-page {
 		break-after: page;
 	}
 }

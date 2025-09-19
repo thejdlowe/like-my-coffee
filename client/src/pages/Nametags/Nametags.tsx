@@ -27,7 +27,7 @@ export const Nametags = () => {
 									);
 								})}
 							</div>
-							<div className="page">
+							<div className="right-page">
 								{round.players.map((player: any, playerIndex: number) => {
 									const playerNumber = playerIndex + 1;
 									let color = "";
@@ -50,7 +50,7 @@ export const Nametags = () => {
 				})}
 			{[0, 1].map((el) => {
 				return (
-					<div className="page">
+					<div className={el === 0 ? "page" : "right-page"}>
 						<div className="nametag" contentEditable="true">
 							<div className="nametag-lmc-logo"> </div>
 							<div className="nametag-name">Indy</div>
