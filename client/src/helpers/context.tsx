@@ -208,7 +208,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	}, [gameState]);
 
 	useEffect(() => {
-		if (pathname === "/controlpanel") {
+		if (pathname === "/host") {
 			if (currentTimerPercentage === 100) {
 				if (hasRoundStarted === true) {
 					allSoundsObject.intro();
@@ -222,7 +222,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 	}, [currentTimerPercentage, pathname, hasRoundStarted]);
 
 	useEffect(() => {
-		if (pathname === "/controlpanel") {
+		if (pathname === "/host") {
 			if (currentScreenState === scoreboardStates.IN_ROUND) {
 				if (currentRoundIndex !== -1) {
 					if (currentPlayerBuzzedIn !== -1) {
