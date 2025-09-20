@@ -43,10 +43,19 @@
 	left: 3px;
 }
 
-.nametag-name {
+.nametag-name,
+.back-nametag-name {
 	color: #c2212b;
 	text-shadow: #fabd15 2px 2px;
 	font-size: 1.3em;
+}
+
+.back-nametag-name {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	font-size: 1em !important;
+    overflow-wrap: break-word;
 }
 
 .nametag-pronouns {
@@ -55,19 +64,25 @@
 	right: 3px;
 }
 
-.page, .right-page {
-    display: flex;
-    flex-direction: column;
+.page,
+.right-page {
+	display: flex;
+	flex-direction: column;
 }
 
 .right-page {
-    align-items: end;    
+	align-items: end;
+}
+
+.right-page .back-nametag-name {
+    
+    padding: 6px;
 }
 
 @media print {
 	.page,
 	.page-break,
-    .right-page {
+	.right-page {
 		break-after: page;
 	}
 }

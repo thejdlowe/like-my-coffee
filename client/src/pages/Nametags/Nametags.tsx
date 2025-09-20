@@ -36,10 +36,17 @@ export const Nametags = () => {
 									if (playerNumber === 3) color = "yellow";
 									return (
 										<div className="nametag column" contentEditable="true">
-											<div className="nametag-name">Round: {index + 1}</div>
-											<div className="nametag-name">Mug Color: {color}</div>
-											<div className="nametag-name">
-												Mini Game:<br />{round.minigame}
+											<div className="back-nametag-name">
+												<div>Round</div>
+												<div>{index + 1}</div>
+											</div>
+											<div className="back-nametag-name">
+												<div>Mug Color</div>
+												<div>{color}</div>
+											</div>
+											<div className="back-nametag-name">
+												<div>Minigame</div>
+												<div>{round.minigame}</div>
 											</div>
 										</div>
 									);
