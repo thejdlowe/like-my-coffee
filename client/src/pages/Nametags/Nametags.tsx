@@ -60,8 +60,8 @@ export const Nametags = () => {
 					<div className={el === 0 ? "page" : "right-page"}>
 						<div className="nametag" contentEditable="true">
 							<div className="nametag-lmc-logo"> </div>
-							<div className="nametag-name">Indy</div>
-							<div className="nametag-pronouns">They/Them</div>
+							<div className="nametag-name">J.D.</div>
+							<div className="nametag-pronouns">He/Him</div>
 							<div className="nametag-mfp-logo"> </div>
 						</div>
 					</div>
