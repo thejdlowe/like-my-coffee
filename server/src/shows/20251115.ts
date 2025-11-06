@@ -1,33 +1,34 @@
 import { ShowType } from "../../sharedCopy";
+import { minigames } from "./games";
 
 export const show: ShowType = {
 	rounds: [
 		{
 			players: [
 				{
-					displayName: "Justin",
-					pronouns: "He/Him",
+					displayName: "Andrea",
+					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 0,
 					isWinner: false,
 				},
 				{
-					displayName: "Len",
-					pronouns: "He/Him",
+					displayName: "Elijah",
+					pronouns: "He/Him/They/Them",
 					score: 0,
 					soundIndex: 1,
 					isWinner: false,
 				},
 				{
-					displayName: "Kitty",
+					displayName: "Rachel",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 2,
 					isWinner: false,
 				},
 			],
-			minigame: "Time Lines",
-			example: "Sex with me is like the beginning of the universe: a big bang",
+			minigame: minigames.sponsored.name,
+			example: minigames.sponsored.example,
 			timelength: 12,
 			prompts: [
 				"Something in your living room",
@@ -38,29 +39,29 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Lisa",
-					pronouns: "She/Her",
+					displayName: "Benito",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 3,
 					isWinner: false,
 				},
 				{
-					displayName: "Mike",
-					pronouns: "He/Him",
+					displayName: "Tiffany",
+					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 4,
 					isWinner: false,
 				},
 				{
-					displayName: "Tony",
+					displayName: "Ryan",
 					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 5,
 					isWinner: false,
 				},
 			],
-			minigame: "Not Sponsored By",
-			example: "I like my lovers like I like Nintendo: A Switch, too",
+			minigame: minigames.scare.name,
+			example: minigames.scare.example,
 			timelength: 12,
 			prompts: [
 				"Something in your kitchen",
@@ -71,30 +72,29 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Lord Anthony",
+					displayName: "Josh",
 					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 6,
 					isWinner: false,
 				},
 				{
-					displayName: "Audrey",
-					pronouns: "She/Her",
+					displayName: "Kris",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 7,
 					isWinner: false,
 				},
 				{
-					displayName: "Jules",
-					pronouns: "She/Her",
+					displayName: "Matt",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 8,
 					isWinner: false,
 				},
 			],
-			minigame: "Bad Communication",
-			example:
-				"Doing the laundry - Yeah I'm OK to put another load in before going to bed.",
+			minigame: minigames.communication.name,
+			example: minigames.communication.example,
 			timelength: 12,
 			prompts: [
 				"Something in your bathroom",
@@ -138,17 +138,16 @@ export const show: ShowType = {
 	],
 	images: [
 		"Apply.png",
-		"Anthony.png",
-		"Audrey.png",
-		"Jules.png",
-		"Justin.png",
+		"Andrea.png",
+		"Benito.png",
+		"Elijah.png",
+		"Josh.png",
 		"JD.png",
-		"Kitty.png",
-		"Len.png",
-		"Lisa.png",
-		"Mike.png",
-		"Tony.png",
-		"Adam.png",
+		"Kris.png",
+		"Matt.png",
+		"Rachel.png",
+		"Ryan.png",
+		"Tiffany.png",
 		"Social.png",
 	],
 	logo: "logo.png",
