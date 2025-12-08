@@ -15,7 +15,6 @@
 	justify-content: center; /* Center items horizontally along the main axis */
 	align-items: center; /* Center items vertically along the cross axis */
 	margin: 10px;
-	border: 1px solid black;
 }
 
 .column {
@@ -26,8 +25,8 @@
 	background-image: url("LMC logo.png");
 	background-size: contain;
 	background-repeat: no-repeat;
-	width: 0.85in;
-	height: 0.85in;
+	width: 0.8in;
+	height: 0.8in;
 	position: absolute;
 	top: 3px;
 	left: 3px;
@@ -37,8 +36,8 @@
 	background-image: url("MFP logo.png");
 	background-size: contain;
 	background-repeat: no-repeat;
-	width: 0.75in;
-	height: 0.75in;
+	width: 0.7in;
+	height: 0.7in;
 	position: absolute;
 	bottom: 3px;
 	left: 3px;
