@@ -1,9 +1,5 @@
-<<<<<<<< HEAD:server/src/shows/archived/20251115.ts
 import { ShowType } from "../../../sharedCopy";
 import { minigames } from "../games";
-========
-import { ShowType } from "../../sharedCopy";
->>>>>>>> parent of 9424cb6 (Preparing for November show, plus small optimizations):server/src/shows/20251018.ts
 
 export const show: ShowType = {
 	rounds: [
