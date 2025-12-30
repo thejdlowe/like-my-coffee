@@ -30,7 +30,7 @@ export const CurrentGameStateDropdown = () => {
 			els = Object.values(scoreboardStates).map((el, index) => {
 				const value = el;
 				if (
-					el === scoreboardStates.SECRET_VIDEO ||
+					//el === scoreboardStates.SECRET_VIDEO ||
 					el === scoreboardStates.CREDITS ||
 					el === scoreboardStates.SCREEN_SAVER
 				)
