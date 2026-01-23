@@ -79,8 +79,8 @@ export const show: ShowType = {
 					isWinner: false,
 				},
 				{
-					displayName: "Tiffany",
-					pronouns: "She/Her",
+					displayName: "J.D.",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 7,
 					isWinner: false,
@@ -144,7 +144,6 @@ export const show: ShowType = {
 		"Kim.png",
 		"Kitty.png",
 		"JD.png",
-		"Tiffany.png",
 		"Lisa.png",
 		"Ross.png",
 		"Tristan.png",
