@@ -1,7 +1,7 @@
-import { webusb } from "usb";
 import { show } from "./shows";
 import { FullStateType, scoreboardStates } from "../sharedCopy";
 import express, { Request, Response } from "express";
+import { WebSocketServer } from "ws";
 const { exec } = require("child_process");
 
 const DEVICE_INFO = {
@@ -41,7 +41,7 @@ const changeLightStatus = async (status: boolean) => {
 	} catch (e) {}
 };
 
-export const startGameLogic = (io: any, app: any) => {
+export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 	//const maxTimeRemaining = 60 * 12; //10;	//Ten minutes
 	let currentMaxTimeRemaining = 0;
 	let timerRef: any = undefined;
@@ -161,69 +161,69 @@ export const startGameLogic = (io: any, app: any) => {
 		});
 	});
 
-	const initiateIRReceiver = async () => {
-		let device;
-		try {
-			device = await webusb.requestDevice({
-				filters: [
-					{ vendorId: DEVICE_INFO.vendorId, productId: DEVICE_INFO.productId },
-				],
-			});
-		} catch (e) {
-			currentState.usbReceiverConnectedStatus = false;
-			const debugUSBError = false;
-			if (debugUSBError) {
-				console.log("Unable to find USB; trying again");
-			}
+	// const initiateIRReceiver = async () => {
+	// 	let device;
+	// 	try {
+	// 		device = await webusb.requestDevice({
+	// 			filters: [
+	// 				{ vendorId: DEVICE_INFO.vendorId, productId: DEVICE_INFO.productId },
+	// 			],
+	// 		});
+	// 	} catch (e) {
+	// 		currentState.usbReceiverConnectedStatus = false;
+	// 		const debugUSBError = false;
+	// 		if (debugUSBError) {
+	// 			console.log("Unable to find USB; trying again");
+	// 		}
 
-			setTimeout(initiateIRReceiver, 1000);
-		}
-		if (device) {
-			await device.open();
-			await device.selectConfiguration(1);
-			await device.claimInterface(DEVICE_INFO.interfaceId);
-			currentState.usbReceiverConnectedStatus = true;
+	// 		setTimeout(initiateIRReceiver, 1000);
+	// 	}
+	// 	if (device) {
+	// 		await device.open();
+	// 		await device.selectConfiguration(1);
+	// 		await device.claimInterface(DEVICE_INFO.interfaceId);
+	// 		currentState.usbReceiverConnectedStatus = true;
 
-			while (true) {
-				let result = await device.transferIn(1, 5);
-				if (result.data && result.data.byteLength === 5) {
-					const dataView = new Uint8Array(result.data.buffer);
-					const whichControllerReal = dataView[2];
-					let whichController = -1;
-					if (whichControllerReal === whichControllerIsWhich.PLAYER_ONE) {
-						whichController = 0;
-					}
-					if (whichControllerReal === whichControllerIsWhich.PLAYER_TWO) {
-						whichController = 1;
-					}
-					if (whichControllerReal === whichControllerIsWhich.PLAYER_THREE) {
-						whichController = 2;
-					}
-					const buttonsPressed = dataView[4];
-					const altButtonsPressed = dataView[3];
-					const startButton = !!(altButtonsPressed & 0x10);
-					const backButton = !!(altButtonsPressed & 0x20);
-					const XboxButton = !!(buttonsPressed & 0x04);
-					const bigButton = !!(buttonsPressed & 0x08);
-					const AButton = !!(buttonsPressed & 0x10);
-					const BButton = !!(buttonsPressed & 0x20);
-					const XButton = !!(buttonsPressed & 0x40);
-					const YButton = !!(buttonsPressed & 0x80);
-					handleBuzzer({
-						whichController,
-						startButton,
-						backButton,
-						XboxButton,
-						bigButton,
-						AButton,
-						BButton,
-						XButton,
-						YButton,
-					});
-				}
-			}
-		}
-	};
+	// 		while (true) {
+	// 			let result = await device.transferIn(1, 5);
+	// 			if (result.data && result.data.byteLength === 5) {
+	// 				const dataView = new Uint8Array(result.data.buffer);
+	// 				const whichControllerReal = dataView[2];
+	// 				let whichController = -1;
+	// 				if (whichControllerReal === whichControllerIsWhich.PLAYER_ONE) {
+	// 					whichController = 0;
+	// 				}
+	// 				if (whichControllerReal === whichControllerIsWhich.PLAYER_TWO) {
+	// 					whichController = 1;
+	// 				}
+	// 				if (whichControllerReal === whichControllerIsWhich.PLAYER_THREE) {
+	// 					whichController = 2;
+	// 				}
+	// 				const buttonsPressed = dataView[4];
+	// 				const altButtonsPressed = dataView[3];
+	// 				const startButton = !!(altButtonsPressed & 0x10);
+	// 				const backButton = !!(altButtonsPressed & 0x20);
+	// 				const XboxButton = !!(buttonsPressed & 0x04);
+	// 				const bigButton = !!(buttonsPressed & 0x08);
+	// 				const AButton = !!(buttonsPressed & 0x10);
+	// 				const BButton = !!(buttonsPressed & 0x20);
+	// 				const XButton = !!(buttonsPressed & 0x40);
+	// 				const YButton = !!(buttonsPressed & 0x80);
+	// 				handleBuzzer({
+	// 					whichController,
+	// 					startButton,
+	// 					backButton,
+	// 					XboxButton,
+	// 					bigButton,
+	// 					AButton,
+	// 					BButton,
+	// 					XButton,
+	// 					YButton,
+	// 				});
+	// 			}
+	// 		}
+	// 	}
+	// };
 
 	app.get("/forcerebootnowdangit", (req: Request, res: Response) => {
 		exec("sudo reboot", (error: any, stdout: any, stderr: any) => {
@@ -331,5 +331,5 @@ export const startGameLogic = (io: any, app: any) => {
 		res.json(currentState);
 	});
 
-	initiateIRReceiver();
+	//initiateIRReceiver();
 };
