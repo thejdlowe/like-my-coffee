@@ -54,6 +54,23 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 		}
 	};
 
+	wss.on("connection", (ws) => {
+		console.log("Controller connected via WebSocket");
+
+		ws.on("message", (rawMessage: string) => {
+			const message = rawMessage.toString();
+			console.log("Received message from controller:", message);
+		});
+
+		ws.on("close", () => {
+			console.log("Controller disconnected from WebSocket");
+		});
+
+		ws.on("error", (error) => {
+			console.error("WebSocket error:", error);
+		});
+	});
+
 	io.on("connection", (socket: any) => {
 		console.log("Connected");
 		socket.emit("state", currentState);
