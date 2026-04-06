@@ -4,13 +4,6 @@ import express, { Request, Response } from "express";
 import { WebSocketServer } from "ws";
 const { exec } = require("child_process");
 
-const DEVICE_INFO = {
-	vendorId: 1118,
-	productId: 672,
-	interfaceId: 0,
-	endpointId: 0,
-};
-
 const whichControllerIsWhich = {
 	PLAYER_ONE: 0,
 	PLAYER_TWO: 1,
@@ -35,6 +28,29 @@ const currentState: FullStateType = {
 	bluetoothControllers: {},
 };
 
+interface ExtendedWebSocket extends WebSocket {
+	isAlive: boolean;
+	mac: string;
+}
+
+const picoList = new Map<string, ExtendedWebSocket>();
+
+const sendToPico = (ws: ExtendedWebSocket, payload: any) => {
+	if (ws.readyState === WebSocket.OPEN) {
+		ws.send(JSON.stringify(payload));
+	}
+};
+
+const broadcastToPicos = (payload: any) => {
+	for (const ws of picoList.values()) {
+		sendToPico(ws, payload);
+	}
+};
+
+const setLights = (status: boolean) => {
+	broadcastToPicos({ type: "setLights", status });
+};
+
 const changeLightStatus = async (status: boolean) => {
 	try {
 		await fetch(`http://localhost:8080/${status}`);
@@ -50,16 +66,73 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 		if (currentState.currentPlayerBuzzedIn === -1) {
 			currentState.currentPlayerBuzzedIn = buttonData.whichController;
 			io.emit("state", currentState);
-			changeLightStatus(false);
+			//changeLightStatus(false);
+			setLights(false);
 		}
 	};
 
 	wss.on("connection", (ws) => {
 		console.log("Controller connected via WebSocket");
+		const ews = ws as ExtendedWebSocket;
+		ews.isAlive = true;
+		ews.mac = "";
 
-		ws.on("message", (rawMessage: string) => {
-			const message = rawMessage.toString();
-			console.log("Received message from controller:", message);
+		// Give the Pico 5 seconds to send its identify message
+		const identifyTimeout = setTimeout(() => {
+			if (!ews.mac) {
+				console.warn("[Pico] Connection never identified — closing");
+				ews.close();
+			}
+		}, 5000);
+
+		ws.on("message", (rawMessage: any) => {
+			//const message = rawMessage.toString();
+			//console.log("Received message from controller:", message);
+			let msg: any = "";
+			try {
+				msg = JSON.parse(rawMessage.toString());
+			} catch (e) {
+				console.error("Invalid JSON from controller:", rawMessage);
+				return;
+			}
+
+			// Handle identification first
+			if (msg.event === "identify") {
+				console.log("Received identify message from controller:", msg);
+				clearTimeout(identifyTimeout);
+				const id = msg.mac; // e.g. "D8:3A:DD:76:3D:40"
+
+				// Clean up any existing socket for this MAC
+				picoList.get(id)?.close();
+				picoList.set(id, ews);
+				ews.mac = id;
+
+				// Sync lock state now that we know who this is
+				const isCurrentlyLocked =
+					currentState.currentPlayerBuzzedIn !== -1 || !currentState.hasStarted;
+				sendToPico(ews, { type: "setLights", status: true });
+				//setLights(true);
+				return;
+			} else if (msg.event === "buzz") {
+				console.log(msg);
+				if (currentState.currentPlayerBuzzedIn === -1) {
+					//changeLightStatus(false);
+					setLights(false);
+					enum buzzerButtons {
+						GREEN = 0,
+						RED = 1,
+						YELLOW = 2,
+					}
+					const { mac, event, temperature, battery, controller } = msg;
+					const whichControllerNumber = buzzerButtons[controller];
+					currentState.currentPlayerBuzzedIn = parseInt(whichControllerNumber);
+					// currentState.controllerStatuses[mac].battery = parseFloat(battery);
+					// currentState.controllerStatuses[mac].temperature =
+					// 	parseFloat(temperature);
+					io.emit("state", currentState);
+					//const buttonPressed = msg.button;
+				}
+			}
 		});
 
 		ws.on("close", () => {
@@ -78,7 +151,8 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 			io.emit("demoSound", sound);
 		});
 		socket.on("setAllLights", (lightStatus: boolean) => {
-			changeLightStatus(lightStatus);
+			//changeLightStatus(lightStatus);
+			setLights(lightStatus);
 		});
 		socket.on("resetActive", () => {
 			currentState.currentPlayerBuzzedIn = -1;
@@ -118,9 +192,10 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 					currentState.currentRoundIndex
 				].players[index].score += scoreChangeValue;
 				currentState.currentPlayerBuzzedIn = -1;
-				changeLightStatus(true);
+				//changeLightStatus(true);
+				setLights(true);
 				io.emit("state", currentState);
-			}
+			},
 		);
 		socket.on("winnerChange", ({ playerIndex }: { playerIndex: number }) => {
 			// console.log(
@@ -161,7 +236,8 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 			currentState.currentTimerValue = currentMaxTimeRemaining;
 			currentState.currentTimerPercentage = 100;
 			currentState.hasStarted = true;
-			changeLightStatus(true);
+			//changeLightStatus(true);
+			setLights(true);
 			io.emit("state", currentState);
 			clearInterval(timerRef);
 			timerRef = setInterval(() => {
@@ -304,7 +380,8 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 			currentState.bluetoothControllers[mac].temperature = temperature;
 		}
 		if (currentState.currentPlayerBuzzedIn === -1) {
-			changeLightStatus(false);
+			//changeLightStatus(false);
+			setLights(false);
 			const whichController = req.params.controllerId;
 			if (whichController) {
 				const ID = parseInt(whichController);

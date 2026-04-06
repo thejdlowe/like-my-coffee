@@ -60,12 +60,36 @@ async def run_socket_connection(socket):
     socket.sock.setblocking(False)
     last_button_value = 1
     wlan = network.WLAN(network.STA_IF)
-
+    
+    mac = ':'.join('{:02X}'.format(b) for b in wlan.config('mac'))
+    identify = ujson.dumps({
+        "event":       "identify",
+        "mac":        mac,
+        "controller": CONTROLLER_COLOR,
+    })
+    socket.send(identify)
+    del identify
+    print("Identified as {}".format(mac))
+    
     while True:
         try:
             data = socket.recv()
             if data:
                 print(f"Data received ({data})")
+                
+                try:
+                    msg = ujson.loads(data)
+                    type = msg.get("type")
+                    status = msg.get("status")
+                    if type == "setLights":
+                        if status == True:
+                            light_pin_object.high()
+                        else:
+                            light_pin_object.low()
+                except Exception as e:
+                    print(f"Bad message: {e}")
+                finally:
+                    del data
         except OSError:
             pass
         
@@ -76,7 +100,8 @@ async def run_socket_connection(socket):
                 "controller": CONTROLLER_COLOR,
                 "event": "buzz",
                 "battery": last_battery,
-                "mac": wlan.config('mac').hex()
+                "mac": ':'.join('{:02X}'.format(b) for b in wlan.config('mac')),
+                "temperature": -1,
             })
             socket.send(payload)
             print(f"Payload sent: {payload}")
