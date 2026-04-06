@@ -51,6 +51,10 @@ const setLights = (status: boolean) => {
 	broadcastToPicos({ type: "setLights", status });
 };
 
+const getStatusFromPicos = () => {
+	broadcastToPicos({ type: "status" });
+};
+
 const changeLightStatus = async (status: boolean) => {
 	try {
 		await fetch(`http://localhost:8080/${status}`);
@@ -86,8 +90,6 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 		}, 5000);
 
 		ws.on("message", (rawMessage: any) => {
-			//const message = rawMessage.toString();
-			//console.log("Received message from controller:", message);
 			let msg: any = "";
 			try {
 				msg = JSON.parse(rawMessage.toString());
@@ -95,7 +97,7 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 				console.error("Invalid JSON from controller:", rawMessage);
 				return;
 			}
-
+			console.log(msg);
 			// Handle identification first
 			if (msg.event === "identify") {
 				console.log("Received identify message from controller:", msg);
@@ -113,11 +115,20 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 				sendToPico(ews, { type: "setLights", status: true });
 				//setLights(true);
 				return;
+			} else if (msg.event === "status") {
+				// This is a status update from the Pico, which may include buzzes or connection status changes
+				console.log("Received status update from Pico:", msg);
+				const { mac, battery, temperature } = msg;
+				if (currentState.bluetoothControllers[mac]) {
+					currentState.bluetoothControllers[mac].battery = battery;
+					currentState.bluetoothControllers[mac].temperature = temperature;
+				}
+				io.emit("state", currentState);
 			} else if (msg.event === "buzz") {
-				console.log(msg);
 				if (currentState.currentPlayerBuzzedIn === -1) {
 					//changeLightStatus(false);
 					setLights(false);
+					sendToPico(ews, { type: "status" });
 					enum buzzerButtons {
 						GREEN = 0,
 						RED = 1,
@@ -126,6 +137,11 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 					const { mac, event, temperature, battery, controller } = msg;
 					const whichControllerNumber = buzzerButtons[controller];
 					currentState.currentPlayerBuzzedIn = parseInt(whichControllerNumber);
+					currentState.bluetoothControllers[mac] = {
+						status: "disconnected",
+						battery: "",
+						temperature: "",
+					};
 					// currentState.controllerStatuses[mac].battery = parseFloat(battery);
 					// currentState.controllerStatuses[mac].temperature =
 					// 	parseFloat(temperature);
@@ -137,6 +153,12 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 
 		ws.on("close", () => {
 			console.log("Controller disconnected from WebSocket");
+			const mac = ews.mac;
+			if (currentState.bluetoothControllers[mac]) {
+				//currentState.bluetoothControllers[mac].status = "disconnected";
+				delete currentState.bluetoothControllers[mac];
+				io.emit("state", currentState);
+			}
 		});
 
 		ws.on("error", (error) => {
