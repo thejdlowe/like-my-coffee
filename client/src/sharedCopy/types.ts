@@ -41,6 +41,11 @@ export type FullStateType = {
 	usbReceiverConnectedStatus: boolean;
 	controllerStatuses: ControllerStatusType[];
 	bluetoothControllers: {
-		[key: string]: { status: string; battery: string; temperature: string };
+		[key: string]: {
+			status: string;
+			battery: string;
+			temperature: string;
+			color: string;
+		};
 	};
 };

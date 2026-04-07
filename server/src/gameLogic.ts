@@ -114,6 +114,14 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 					currentState.currentPlayerBuzzedIn !== -1 || !currentState.hasStarted;
 				sendToPico(ews, { type: "setLights", status: true });
 				//setLights(true);
+				currentState.bluetoothControllers[id] = {
+					battery: "-1",
+					temperature: "-1",
+					status: "connected",
+					color: msg.controller,
+				};
+
+				io.emit("state", currentState);
 				return;
 			} else if (msg.event === "status") {
 				// This is a status update from the Pico, which may include buzzes or connection status changes
@@ -128,7 +136,7 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 				if (currentState.currentPlayerBuzzedIn === -1) {
 					//changeLightStatus(false);
 					setLights(false);
-					sendToPico(ews, { type: "status" });
+
 					enum buzzerButtons {
 						GREEN = 0,
 						RED = 1,
@@ -137,11 +145,7 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 					const { mac, event, temperature, battery, controller } = msg;
 					const whichControllerNumber = buzzerButtons[controller];
 					currentState.currentPlayerBuzzedIn = parseInt(whichControllerNumber);
-					currentState.bluetoothControllers[mac] = {
-						status: "disconnected",
-						battery: "",
-						temperature: "",
-					};
+
 					// currentState.controllerStatuses[mac].battery = parseFloat(battery);
 					// currentState.controllerStatuses[mac].temperature =
 					// 	parseFloat(temperature);
@@ -364,6 +368,11 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 		//console.log(jsonData);
 	});
 
+	app.get("/updateBluetoothStatuses", (req: Request, res: Response) => {
+		getStatusFromPicos();
+		res.json({ message: "Updated" });
+	});
+
 	app.post("/setupbluetooth", (req: Request, res: Response) => {
 		const jsonData: any = req.body;
 
@@ -373,6 +382,7 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 				status: "disconnected",
 				battery: "",
 				temperature: "",
+				color: "unknown",
 			};
 		});
 		//console.log(jsonData);

@@ -4,6 +4,7 @@ import {
 	CurrentTimer,
 	SetScoreboardStatusButton,
 	SetFullScreen,
+	CurrentControllerStatus,
 } from "./components";
 import { Stack } from "@mui/material";
 
@@ -14,6 +15,7 @@ export const TopBar = () => {
 			<CurrentGameStateDropdown />
 			<CurrentTimer />
 			<SetScoreboardStatusButton />
+			<CurrentControllerStatus />
 			<SetFullScreen />
 		</Stack>
 	);
