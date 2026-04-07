@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useAppContext } from "../../../../../../helpers/context";
+import { URL } from "../../../../../../helpers/socket";
 import Button from "@mui/material/Button/Button";
 
 export const CurrentControllerStatus = () => {
@@ -30,7 +31,7 @@ export const CurrentControllerStatus = () => {
 				<div>
 					<Button
 						onClick={() => {
-							fetch(`http://likemycoffee.local:3001/updateBluetoothStatuses/`, {
+							fetch(`${URL}/updateBluetoothStatuses/`, {
 								method: "GET",
 							});
 						}}
