@@ -304,93 +304,92 @@ export const startGameLogic = (io: any, app: any, wss: WebSocketServer) => {
 		//console.log(jsonData);
 	});
 
-	app.get("/updateBluetoothStatuses", (req: Request, res: Response) => {
+	app.get("/updateControllerStatuses", (req: Request, res: Response) => {
 		getStatusFromPicos();
 		res.json({ message: "Updated" });
 	});
 
-	app.post("/setupbluetooth", (req: Request, res: Response) => {
-		const jsonData: any = req.body;
+	// app.post("/setupbluetooth", (req: Request, res: Response) => {
+	// 	const jsonData: any = req.body;
 
-		const { macs } = jsonData;
-		macs.forEach((mac: string) => {
-			currentState.bluetoothControllers[mac] = {
-				status: "disconnected",
-				battery: "",
-				temperature: "",
-				color: "unknown",
-				lastUpdated: "N/A",
-			};
-		});
-		//console.log(jsonData);
-		res.json({ message: "Updated" });
-	});
+	// 	const { macs } = jsonData;
+	// 	macs.forEach((mac: string) => {
+	// 		currentState.bluetoothControllers[mac] = {
+	// 			status: "disconnected",
+	// 			battery: "",
+	// 			temperature: "",
+	// 			color: "unknown",
+	// 			lastUpdated: "N/A",
+	// 		};
+	// 	});
+	// 	//console.log(jsonData);
+	// 	res.json({ message: "Updated" });
+	// });
 
-	app.post("/bluetooth", (req: Request, res: Response) => {
-		const jsonData: any = req.body;
+	// app.post("/bluetooth", (req: Request, res: Response) => {
+	// 	const jsonData: any = req.body;
 
-		const { mac, status, battery } = jsonData;
-		console.log(mac, status, battery);
-		if (currentState.bluetoothControllers[mac]) {
-			currentState.bluetoothControllers[mac].status = status;
-			currentState.bluetoothControllers[mac].battery = battery;
-		}
-		//console.log(jsonData);
-		res.json({ message: "Updated" });
-	});
+	// 	const { mac, status, battery } = jsonData;
+	// 	console.log(mac, status, battery);
+	// 	if (currentState.bluetoothControllers[mac]) {
+	// 		currentState.bluetoothControllers[mac].status = status;
+	// 		currentState.bluetoothControllers[mac].battery = battery;
+	// 	}
+	// 	//console.log(jsonData);
+	// 	res.json({ message: "Updated" });
+	// });
 
-	app.post("/buzz/:controllerId", (req: Request, res: Response) => {
-		const jsonData: any = req.body;
-		const { batteryLevel, temperature, mac } = jsonData;
-		console.log(batteryLevel, temperature, mac);
-		console.log(`Request sent to buzz ${req.params.controllerId}`);
-		if (currentState.bluetoothControllers[mac]) {
-			currentState.bluetoothControllers[mac].battery = batteryLevel;
-			currentState.bluetoothControllers[mac].temperature = temperature;
-		}
-		if (currentState.currentPlayerBuzzedIn === -1) {
-			//changeLightStatus(false);
-			setLights(false);
-			const whichController = req.params.controllerId;
-			if (whichController) {
-				const ID = parseInt(whichController);
-				if (!isNaN(ID) && ID >= 0 && ID <= 2) {
-					currentState.currentPlayerBuzzedIn = ID;
-					currentState.controllerStatuses[ID].battery =
-						parseFloat(batteryLevel);
-					currentState.controllerStatuses[ID].temperature =
-						parseFloat(temperature);
-					/*if (req.params.powerPercentage) {
-							currentState.controllerStatuses[ID].powerPercentage = parseFloat(
-								req.params.powerPercentage
-							);
-						}*/
-					io.emit("state", currentState);
-				}
-			}
-		}
+	// app.post("/buzz/:controllerId", (req: Request, res: Response) => {
+	// 	const jsonData: any = req.body;
+	// 	const { batteryLevel, temperature, mac } = jsonData;
+	// 	console.log(batteryLevel, temperature, mac);
+	// 	console.log(`Request sent to buzz ${req.params.controllerId}`);
+	// 	if (currentState.bluetoothControllers[mac]) {
+	// 		currentState.bluetoothControllers[mac].battery = batteryLevel;
+	// 		currentState.bluetoothControllers[mac].temperature = temperature;
+	// 	}
+	// 	if (currentState.currentPlayerBuzzedIn === -1) {
+	// 		//changeLightStatus(false);
+	// 		setLights(false);
+	// 		const whichController = req.params.controllerId;
+	// 		if (whichController) {
+	// 			const ID = parseInt(whichController);
+	// 			if (!isNaN(ID) && ID >= 0 && ID <= 2) {
+	// 				currentState.currentPlayerBuzzedIn = ID;
+	// 				currentState.controllerStatuses[ID].battery =
+	// 					parseFloat(batteryLevel);
+	// 				currentState.controllerStatuses[ID].temperature =
+	// 					parseFloat(temperature);
+	// 				/*if (req.params.powerPercentage) {
+	// 						currentState.controllerStatuses[ID].powerPercentage = parseFloat(
+	// 							req.params.powerPercentage
+	// 						);
+	// 					}*/
+	// 				io.emit("state", currentState);
+	// 			}
+	// 		}
+	// 	}
 
-		res.send(`Request sent to buzz ${req.params.controllerId}`);
-	});
+	// 	res.send(`Request sent to buzz ${req.params.controllerId}`);
+	// });
 
-	app.get("/buzz/:controllerId", (req: Request, res: Response) => {
-		console.log(`Request sent to buzz ${req.params.controllerId}`);
-		if (currentState.currentPlayerBuzzedIn === -1) {
-			const whichController = req.params.controllerId;
-			if (whichController) {
-				const ID = parseInt(whichController);
-				if (!isNaN(ID) && ID >= 0 && ID <= 2) {
-					currentState.currentPlayerBuzzedIn = ID;
-					io.emit("state", currentState);
-				}
-			}
-		}
+	// app.get("/buzz/:controllerId", (req: Request, res: Response) => {
+	// 	console.log(`Request sent to buzz ${req.params.controllerId}`);
+	// 	if (currentState.currentPlayerBuzzedIn === -1) {
+	// 		const whichController = req.params.controllerId;
+	// 		if (whichController) {
+	// 			const ID = parseInt(whichController);
+	// 			if (!isNaN(ID) && ID >= 0 && ID <= 2) {
+	// 				currentState.currentPlayerBuzzedIn = ID;
+	// 				io.emit("state", currentState);
+	// 			}
+	// 		}
+	// 	}
 
-		res.send(`Request sent to buzz ${req.params.controllerId}`);
-	});
+	// 	res.send(`Request sent to buzz ${req.params.controllerId}`);
+	// });
 
 	app.get("/status", (req: Request, res: Response) => {
-		//console.log("Update requested");
 		res.json(currentState);
 	});
 

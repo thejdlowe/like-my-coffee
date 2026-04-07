@@ -40,7 +40,7 @@ export const CurrentControllerStatus = () => {
 				<div>
 					<Button
 						onClick={() => {
-							fetch(`${URL}/updateBluetoothStatuses/`, {
+							fetch(`${URL}/updateControllerStatuses/`, {
 								method: "GET",
 							});
 						}}
