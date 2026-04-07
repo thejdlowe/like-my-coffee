@@ -1,8 +1,7 @@
 import { useAppContext } from "../../../../helpers/context";
 import { useSounds } from "../../../../helpers/sounds";
 import { scoreboardStates } from "../../../../sharedCopy";
-import { useState, useEffect } from "react";
-import Carousel from "react-material-ui-carousel";
+import { useEffect } from "react";
 
 export const PreMainGame = () => {
 	const { allSoundsObject } = useSounds();

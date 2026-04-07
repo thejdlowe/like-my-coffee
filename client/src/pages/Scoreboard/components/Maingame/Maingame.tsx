@@ -5,7 +5,7 @@ import { playerColors } from "../../../../sharedCopy";
 
 export const Maingame = () => {
 	let progressBarColor = "green";
-	let progressText = "Like My *Blank*";
+
 	let promptIndex = 0;
 	const {
 		serverState: gameState,
@@ -15,15 +15,12 @@ export const Maingame = () => {
 	} = useAppContext();
 	const { fullShowData, hasStarted } = gameState;
 	if (currentTimerPercentage <= 33) {
-		progressText = "Threesomes Are Like *Blank*";
 		progressBarColor = "red";
 		promptIndex = 2;
 	} else if (currentTimerPercentage <= 66) {
-		progressText = "Sex With Me Is Like *Blank*";
 		progressBarColor = "yellow";
 		promptIndex = 1;
 	} else {
-		progressText = "Like My *Blank*";
 		progressBarColor = "green";
 		promptIndex = 0;
 	}
