@@ -21,13 +21,22 @@ export const CurrentControllerStatus = () => {
 					Controller Status:
 					<button onClick={() => dialogRef.current?.close()}>Close</button>
 				</p>
-				{Object.keys(bluetoothControllers).map((mac) => {
-					return (
-						<>
-							{mac}: {JSON.stringify(bluetoothControllers[mac])}
-						</>
-					);
-				})}
+				<div style={{ display: "flex", flexWrap: "wrap" }}>
+					{Object.keys(bluetoothControllers).map((mac) => {
+						return (
+							<div style={{ flex: "1 0 30%", margin: "5px" }}>
+								<div>{mac}</div>
+								<div>Status: {bluetoothControllers[mac].status}</div>
+								<div>Battery: {bluetoothControllers[mac].battery}</div>
+								<div>Temperature: {bluetoothControllers[mac].temperature}</div>
+								<div>
+									Last Received Data: {bluetoothControllers[mac].lastUpdated}
+								</div>
+							</div>
+						);
+					})}
+				</div>
+
 				<div>
 					<Button
 						onClick={() => {

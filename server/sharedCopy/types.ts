@@ -68,6 +68,7 @@ export type FullStateType = {
 			battery: string;
 			temperature: string;
 			color: string;
+			lastUpdated: string;
 		};
 	};
 };
