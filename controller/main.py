@@ -32,6 +32,16 @@ light_pin_object.low()
 
 onboard_led = Pin("LED", Pin.OUT)
 
+# ADC Channel 4 reads the temperature sensor
+sensor_temp = ADC(4)
+
+# Function to read the internal temperature
+def read_temperature():
+    raw_value = sensor_temp.read_u16()
+    voltage = raw_value * conversion_factor
+    temperature = 27 - (voltage - 0.706) / 0.001721
+    return temperature
+
 def get_vsys() -> float:
     conversion = 3 * 3.3 / 65535
     Pin(25, mode=Pin.OUT, pull=Pin.PULL_DOWN).high()
@@ -111,7 +121,7 @@ async def run_socket_connection(socket):
                             "event": "status",
                             "battery": last_battery,
                             "mac": ':'.join('{:02X}'.format(b) for b in wlan.config('mac')),
-                            "temperature": -1,
+                            "temperature": read_temperature()
                         })
                         socket.send(payload)
                         print(f"Payload sent: {payload}")
