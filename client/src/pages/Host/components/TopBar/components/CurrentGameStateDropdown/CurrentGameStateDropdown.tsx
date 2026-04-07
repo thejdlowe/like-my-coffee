@@ -1,7 +1,5 @@
 import {
 	FormControl,
-	MenuItem,
-	Select,
 	SelectChangeEvent,
 	Box,
 	FormHelperText,
@@ -14,18 +12,13 @@ export const CurrentGameStateDropdown = () => {
 	const { setCurrentShowState, currentScreenState, currentRoundIndex } =
 		useAppContext();
 
-	const changeDropdown = (event: SelectChangeEvent) => {
-		console.log(event.target.value);
-		setCurrentShowState(event.target.value);
-	};
-
 	const buildDropDown = () => {
 		let els: any = [];
 		if (currentRoundIndex === -1) {
 			els.push(
 				<option key={-1} value={"screensaver"}>
 					{"screensaver"}
-				</option>
+				</option>,
 			);
 		} else if (currentRoundIndex < 99) {
 			els = Object.values(scoreboardStates).map((el, index) => {
@@ -76,7 +69,7 @@ export const CurrentGameStateDropdown = () => {
 				>
 					{buildDropDown()}
 				</select>
-				
+
 				<FormHelperText>Set Status</FormHelperText>
 			</FormControl>
 		</Box>

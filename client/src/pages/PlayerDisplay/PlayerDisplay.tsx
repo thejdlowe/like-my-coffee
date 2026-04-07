@@ -17,8 +17,8 @@ export const PlayerDisplay = () => {
 	if (!id || isNaN(parseInt(id)) || !players) return <DefaultPlayerDisplay />;
 	const index = parseInt(id);
 	const player = players[index];
-    if(!player) return <DefaultPlayerDisplay />;
-	const { displayName, score, pronouns, soundIndex } = player;
+	if (!player) return <DefaultPlayerDisplay />;
+	const { displayName, score, pronouns } = player;
 	const buzzedIn = index === currentPlayerBuzzedIn;
 	const colors = [
 		playerColors.PLAYER_ONE,
