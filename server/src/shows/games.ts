@@ -12,7 +12,7 @@ export const minigames = {
 	},
 
 	scare: {
-		name: "Scare Package",
+		name: "Flirting with Phobias",
 		example: "I like my lovers like I like my heights: I fall for them.",
 	},
 	timeline: {

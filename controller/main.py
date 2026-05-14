@@ -99,8 +99,8 @@ async def run_socket_connection(socket):
                 try:
                     msg = ujson.loads(data)
                     type = msg.get("type")
-                    status = msg.get("status")
                     if type == "setLights":
+                        status = msg.get("status")
                         if status == True:
                             light_pin_object.high()
                         else:
