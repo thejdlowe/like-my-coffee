@@ -38,8 +38,6 @@ export type ShowType = {
 	rounds: RoundType[];
 	images: string[];
 	logo: string;
-	apply: string;
-	social: string;
 };
 
 export type ControllerStatusType = {

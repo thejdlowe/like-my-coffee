@@ -49,8 +49,6 @@ const AppContext = createContext<AppContextInterface>({
 		fullShowData: {
 			images: [],
 			logo: "",
-			apply: "",
-			social: "",
 			rounds: [],
 		},
 		currentTimerPercentage: -1,

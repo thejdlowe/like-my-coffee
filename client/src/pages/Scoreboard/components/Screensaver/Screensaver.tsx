@@ -4,7 +4,7 @@ import Carousel from "react-material-ui-carousel";
 
 export const Screensaver = () => {
 	const { serverState: gameState } = useAppContext();
-	const { logo, social, apply, images } = gameState.fullShowData;
+	const { logo, images } = gameState.fullShowData;
 	const [whatToRender, setWhatToRender] = useState<any>([]);
 
 	useEffect(() => {
@@ -18,12 +18,12 @@ export const Screensaver = () => {
 					marginRight: "auto",
 				}}
 				src={logo}
-			/>
+			/>,
 		);
 
 		const screensave = setTimeout(() => {
 			const allImages = images;
-			
+
 			setWhatToRender(
 				<Carousel
 					indicators={false}
@@ -47,12 +47,12 @@ export const Screensaver = () => {
 							src={el}
 						/>
 					))}
-				</Carousel>
+				</Carousel>,
 			);
 		}, 60000);
 		return () => {
 			clearTimeout(screensave);
 		};
-	}, [logo, apply, images, social]);
+	}, [logo, images]);
 	return <center>{whatToRender}</center>;
 };
