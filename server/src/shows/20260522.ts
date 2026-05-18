@@ -151,6 +151,4 @@ export const show: ShowType = {
 		"Apply.png",
 	],
 	logo: "logo.png",
-	apply: "Apply.png",
-	social: "Linktree.png",
 };
