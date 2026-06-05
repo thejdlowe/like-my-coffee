@@ -20,7 +20,7 @@ export const show: ShowType = {
 					isWinner: false,
 				},
 				{
-					displayName: "Chakra",
+					displayName: "Chakra Quan",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 2,
