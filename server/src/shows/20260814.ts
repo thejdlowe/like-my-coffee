@@ -20,8 +20,8 @@ export const show: ShowType = {
 					isWinner: false,
 				},
 				{
-					displayName: "Jen",
-					pronouns: "She/Her",
+					displayName: "Chris",
+					pronouns: "He/Him",
 					score: 0,
 					soundIndex: 2,
 					isWinner: false,
