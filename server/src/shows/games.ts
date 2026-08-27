@@ -19,4 +19,8 @@ export const minigames = {
 		name: "Timeline Pickup Lines",
 		example: "Are you from the 1960s? Because you gave me wood stock.",
 	},
+	kids: {
+		name: "Kids Say Some Messed Up Things",
+		example: "Oreo, iPad, Elmo"
+	}
 };
