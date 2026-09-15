@@ -55,8 +55,8 @@
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
-	font-size: 1em !important;
-    overflow-wrap: break-word;
+	font-size: 0.85em !important;
+	overflow-wrap: break-word;
 }
 
 .nametag-pronouns {
@@ -76,8 +76,7 @@
 }
 
 .right-page .back-nametag-name {
-    
-    padding: 6px;
+	padding: 6px;
 }
 
 @media print {
