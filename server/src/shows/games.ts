@@ -21,6 +21,6 @@ export const minigames = {
 	},
 	kids: {
 		name: "Kids Say Some Messed Up Things",
-		example: "Toot, juice box, a dark dark forest"
+		example: "Tree, Tickle, iPad"
 	}
 };
