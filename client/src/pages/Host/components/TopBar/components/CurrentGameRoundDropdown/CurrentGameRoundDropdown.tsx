@@ -39,8 +39,10 @@ export const CurrentGameRoundDropdown = () => {
 					{rounds.map((el, index) => {
 						return <option value={index}>Round {index + 1}</option>;
 					})}
-					<option value={99}>Secret Video</option>
+					{/**
+						 * <option value={99}>Secret Video</option>
 					<option value={100}>Credits Video</option>
+						 */}
 				</select>
 				<FormHelperText>Select Round</FormHelperText>
 			</FormControl>

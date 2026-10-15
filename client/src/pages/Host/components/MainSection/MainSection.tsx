@@ -69,6 +69,18 @@ export const MainSection = () => {
 					<Box sx={{ marginTop: "10px" }}>
 						<b>Description</b>: {currentRound.example}
 					</Box>
+					{currentRoundIndex === 2 && (
+						<Box sx={{ marginTop: "10px" }}>
+							<b>Promotions!</b>: Promote this stuff:
+							<ul>
+								<li><b>Greater Columbus Arts Council</b></li>
+								<li>Hashtag Comedy Club (they teach improv!)</li>
+								<li>All these players can be found around town, follow their socials!</li>
+								<li>Indy & Lindy's Indie Improv Shindigy on December 5th at Kafe Kerouac; raises money for the Mid Ohio Food Collective</li>
+								<li>Meat Fish Produce on social media</li>
+							</ul>
+						</Box>
+					)}
 				</Stack>
 			</Stack>
 		</Stack>
