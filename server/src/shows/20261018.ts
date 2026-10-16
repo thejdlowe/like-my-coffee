@@ -13,7 +13,7 @@ export const show: ShowType = {
 					isWinner: false,
 				},
 				{
-					displayName: "Lulu",
+					displayName: "Sista Lu",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 1,
