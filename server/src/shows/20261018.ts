@@ -72,7 +72,7 @@ export const show: ShowType = {
 		{
 			players: [
 				{
-					displayName: "Chakra Quan",
+					displayName: "Q",
 					pronouns: "She/Her",
 					score: 0,
 					soundIndex: 6,
