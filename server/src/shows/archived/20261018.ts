@@ -1,5 +1,5 @@
-import { ShowType } from "../../sharedCopy";
-import { minigames } from "./games";
+import { ShowType } from "../../../sharedCopy";
+import { minigames } from "../games";
 
 export const show: ShowType = {
 	rounds: [
