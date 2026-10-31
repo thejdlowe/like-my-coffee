@@ -73,10 +73,24 @@ export const MainSection = () => {
 						<Box sx={{ marginTop: "10px" }}>
 							<b>Promotions!</b>: Promote this stuff:
 							<ul>
-								<li><b>Greater Columbus Arts Council</b></li>
+								<li>
+									<b>Greater Columbus Arts Council</b>
+								</li>
 								<li>Hashtag Comedy Club (they teach improv!)</li>
-								<li>All these players can be found around town, follow their socials!</li>
-								<li>Indy & Lindy's Indie Improv Shindigy on December 5th at Kafe Kerouac; raises money for the Mid Ohio Food Collective</li>
+								<li>
+									Indy & Lindy's Indie Improv Shindigy on December 5th 4PM to
+									8PM at Kafe Kerouac; raises money for the Mid Ohio Food
+									Collective. Every donation made that day will be doubled
+									during Mid Ohio Food Collective's matching campaign.
+								</li>
+								<li>
+									Whoever wins this show is invited to the Champion of Champions
+									Like My Coffee show on January 22nd at the Shedd Stage
+								</li>
+								<li>
+									All these players can be found around town, follow their
+									socials!
+								</li>
 								<li>Meat Fish Produce on social media</li>
 							</ul>
 						</Box>
