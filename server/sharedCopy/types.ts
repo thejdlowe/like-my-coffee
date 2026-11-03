@@ -30,6 +30,7 @@ export type RoundType = {
 	players: [PlayerType, PlayerType, PlayerType];
 	minigame: string;
 	example: string;
+	description: string;
 	timelength: number;
 	prompts: [string, string, string];
 };

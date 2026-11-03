@@ -17,6 +17,7 @@ export type ControllerStatusType = {
 export type RoundType = {
 	players: [PlayerType, PlayerType, PlayerType];
 	minigame: string;
+	description: string;
 	example: string;
 	timelength: number;
 	prompts: [string, string, string];

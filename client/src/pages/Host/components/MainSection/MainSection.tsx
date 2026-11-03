@@ -67,7 +67,10 @@ export const MainSection = () => {
 						<b>Minigame</b>: {currentRound.minigame}
 					</Box>
 					<Box sx={{ marginTop: "10px" }}>
-						<b>Description</b>: {currentRound.example}
+						<b>Description</b>: {currentRound.description}
+					</Box>
+					<Box sx={{ marginTop: "10px" }}>
+						<b>Example</b>: {currentRound.example}
 					</Box>
 					{currentRoundIndex === 2 && (
 						<Box sx={{ marginTop: "10px" }}>

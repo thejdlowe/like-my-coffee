@@ -29,6 +29,7 @@ export const show: ShowType = {
 			],
 			minigame: minigames.scare.name,
 			example: minigames.scare.example,
+			description: minigames.scare.description,
 			timelength: 12,
 			prompts: [
 				"Something in your living room",
@@ -62,6 +63,7 @@ export const show: ShowType = {
 			],
 			minigame: minigames.sponsored.name,
 			example: minigames.sponsored.example,
+			description: minigames.sponsored.description,
 			timelength: 12,
 			prompts: [
 				"Something in your kitchen",
@@ -95,6 +97,7 @@ export const show: ShowType = {
 			],
 			minigame: minigames.communication.name,
 			example: minigames.communication.example,
+			description: minigames.communication.description,
 			timelength: 12,
 			prompts: [
 				"Something in your bathroom",
@@ -128,6 +131,7 @@ export const show: ShowType = {
 			],
 			minigame: "",
 			example: "",
+			description: "",
 			timelength: 10,
 			prompts: [
 				"Something in your Attic/Basement",
