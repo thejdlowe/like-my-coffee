@@ -26,8 +26,7 @@ export const CurrentGameStateDropdown = () => {
 				if (
 					el === scoreboardStates.SECRET_VIDEO ||
 					el === scoreboardStates.CREDITS ||
-					el === scoreboardStates.SCREEN_SAVER ||
-					el === scoreboardStates.FINAL_ROUND
+					el === scoreboardStates.SCREEN_SAVER 
 				)
 					return null;
 				return (
@@ -43,10 +42,9 @@ export const CurrentGameStateDropdown = () => {
 				if (
 					el === scoreboardStates.CREDITS ||
 					el === scoreboardStates.SECRET_VIDEO ||
-					el === scoreboardStates.SCREEN_SAVER /*||
-					el === scoreboardStates.FINAL_ROUND*/
+					el === scoreboardStates.SCREEN_SAVER ||
+					el === scoreboardStates.FINAL_ROUND
 				) {
-					console.log("Fart");
 					return (
 						<option key={index} value={el}>
 							{value}
